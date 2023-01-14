@@ -18,3 +18,6 @@
 1. Open Terminal
 2. cd client
 2. npm start (app starts in localhost:3000) - no need to run node server as it runs automatically
+
+## Desgin
+- https://www.canva.com/design/DAFXqjBPQqU/rpmra1k-tyOIhCj0dOA7sw/edit?utm_content=DAFXqjBPQqU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
