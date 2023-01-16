@@ -1,0 +1,47 @@
+Database Design:
+
+https://mongoosejs.com/docs/api.html#model_Model-find
+
+student={
+	"studentID": [mongoDB];
+	"name": string, required;
+	"email": email, unique, required;
+	"password": password, required;
+	"category": engineering | business | .... // required categories?
+	"resme": file, required,
+	"coverLetter": file,
+	"transcript": file,
+	"applications":["[applicationID]","[applicationID]"]; // applied to
+}
+controllers: createStudent() "POST" ; getStudent() "GET"; updateStudent() "PUT"; 
+
+jobPosting={
+	"jobPostingID":[mongoID];
+	"description": string, required;
+	"title": string, required;
+	"expirationDate": date (year-mm-dd), required;
+	"location": remote|string, required;
+}
+controllers: createPosting() "POST"; getPosting() "GET"; deletePosting() "DELTE";
+
+application={
+	"applicationID": [mongoDB];
+	"postingID": jobPostingID;
+	"applicantionInfo": {name, email};
+	"organizationName": string;
+	"status": underReview | interview | selected | rejected;
+	"applicationPackage": {resume, coverLetter, Transcript}
+}
+controllers: createApplication() "POST"; getApplication() "GET"; deleteApplication() "DELTE";
+
+employer={
+	"employerID": [mongoDB];
+	"name": string, required;
+	"email": email, unique, required;
+	"password": password, required;
+	"organizationName": string, required
+	"category": engineering | business | .... // required categories?
+	"postings": [...jobPostings]
+	"applications": [...applications] filtered by applicantionInfo.company -> getByEmployer(exmployerID)
+}
+controllers: createEmployer() "POST"; getEmployer() "GET"; updateEmployer() "PUT";
