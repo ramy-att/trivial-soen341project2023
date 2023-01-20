@@ -1,5 +1,11 @@
 # Getting Started with The Project
 
+# Assigning Role
+- Khaled will be doing Log in and Sign up
+- Mario will Design pages in the frontend 
+
+
+
 ## Editor and styles
 - Used text-editor is preferably VsCode to ensure consistency 
 - Prettier should be run across all files https://www.alphr.com/use-prettier-vs-code/
