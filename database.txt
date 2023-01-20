@@ -14,6 +14,7 @@ student={
 	"applications":["[applicationID]","[applicationID]"]; // applied to
 }
 controllers: createStudent() "POST" ; getStudent() "GET"; updateStudent() "PUT"; 
+client pages: profile page, applied to page (and indv), job postings page
 
 jobPosting={
 	"jobPostingID":[mongoID];
@@ -45,3 +46,4 @@ employer={
 	"applications": [...applications] filtered by applicantionInfo.company -> getByEmployer(exmployerID)
 }
 controllers: createEmployer() "POST"; getEmployer() "GET"; updateEmployer() "PUT";
+client pages: profile page, postingPage(edit/add), job postings page- applications
