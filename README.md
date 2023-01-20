@@ -3,6 +3,7 @@
 # Assigning Role
 - Khaled will be doing Log in and Sign up
 - Mario will Design pages in the frontend 
+- Tarek will work on the database
 
 
 
