@@ -1,3 +1,4 @@
+import React from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { BoxArrowUpRight } from "react-bootstrap-icons";
@@ -26,7 +27,7 @@ const Footer = () => {
               <div className="footerSection">
                 <a
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   href="https://online.hbs.edu/blog/post/how-to-land-your-dream-job"
                 >
                   Get Your Dream Job
@@ -38,7 +39,7 @@ const Footer = () => {
                 <br />
                 <a
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   href="https://www.concordia.ca/students/success/career-planning/career-counselling.html"
                 >
                   ConcU Career Couselling

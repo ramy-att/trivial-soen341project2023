@@ -4,12 +4,10 @@ import Button from "react-bootstrap/Button";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
 import "./OurNav.css";
 
 const OurNav = (props) => {
   const { type = "student" | "employer" | "admin" | "nonAuth" } = props;
-  const [toggled, setToggled] = useState(false);
 
   const signOut = () => {
     // TODO: Implement Later
@@ -17,7 +15,6 @@ const OurNav = (props) => {
 
   return (
     <Navbar
-      onToggle={() => setToggled(!toggled)}
       collapseOnSelect
       expand="md"
       className="ourNav"
