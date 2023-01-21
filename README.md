@@ -1,10 +1,19 @@
 # Getting Started with The Project
 
-# Assigning Role
-- Khaled will be doing Log in and Sign up
-- Mario will Design pages in the frontend 
-- Tarek will work on the database ssfsad
+# Assigning Roles
+# Github user names is in bracket
+- Mario El Shaer (Mario-Elshaer): Front end,
+- Khaled Saleh (Khaled106): Front end 
+- Tarek  Elalfi (TarekElalfi): Back end and communicate with front end,
+- Mazen Mohamed (MazennW): Back end,
+- Ziad-Tarik Taufeek (Ziad-Tari): Front end,
+- Ramy Attalla (Ramy-att): Front end and communicate with the back end.
 
+# Tech Stacks
+- React Js (Front end/Client Side),
+- Node.Js (Back end/Server Side),
+- MongoDB as our database.
+- ExpressJs (Back end/Server Side).
 
 
 ## Editor and styles
