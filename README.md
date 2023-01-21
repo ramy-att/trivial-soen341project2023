@@ -1,5 +1,21 @@
 # Getting Started with The Project
 
+# Assigning Roles
+# Github user names is in bracket
+- Mario El Shaer (Mario-Elshaer): Front end,
+- Khaled Saleh (Khaled106): Front end 
+- Tarek  Elalfi (TarekElalfi): Back end and communicate with front end,
+- Mazen Mohamed (MazennW): Back end,
+- Ziad-Tarik Taufeek (Ziad-Tari): Front end,
+- Ramy Attalla (Ramy-att): Front end and communicate with the back end.
+
+# Tech Stacks
+- React Js (Front end/Client Side),
+- Node.Js (Back end/Server Side),
+- MongoDB as our database.
+- ExpressJs (Back end/Server Side).
+
+
 ## Editor and styles
 - Used text-editor is preferably VsCode to ensure consistency 
 - Prettier should be run across all files https://www.alphr.com/use-prettier-vs-code/
