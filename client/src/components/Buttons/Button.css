@@ -1,0 +1,24 @@
+
+.btn{
+    width: 6rem;
+    border: none !important;
+}
+.cancel{
+    background-color: red !important;
+}
+.cancel:hover{
+    background-color: rgb(244, 74, 74) !important;
+}
+.submit{
+    background-color: green !important;
+}
+.submit:hover{
+    background-color: rgb(29, 169, 29) !important;
+}
+.authen{
+    background-color: #0a1640 !important;
+}
+.authen:hover{
+    background-color: #5f9ac6 !important;
+    color: black !important;
+}
