@@ -1,0 +1,12 @@
+Minutes:
+
+Meeting 1: ()
+- Deciding the tech stack (decided to use react, node.js, express and mongoDB).
+- Setting up the project and installing NPM
+- Created GitHub repo, pushed the code for everyone to be able to pull the code.
+
+Meeting 2:
+- Assigning tasks 
+
+Meeting 3:
+-

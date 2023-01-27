@@ -1,0 +1,2 @@
+User Story 1: 
+As a student I want to be able to sign up, sign in and edit my information.
