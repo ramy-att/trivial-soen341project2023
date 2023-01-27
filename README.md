@@ -1,15 +1,16 @@
 # Getting Started with The Project
+# Description
+This project is to create a simplified version of a Career service platform with core features such as (Browsing for available postings, Adding and manage postings to the System by the Employers, Candidates can apply to Employers job postings and get informed by the Employer if candidate gets selected, Creating and Managing Student Profile) which will allow students and employers to create an account to apply/create job postings and managing their accounts. Also, the admin will have the control over the accounts, postings and eployers accounts (Add, delete, update).
 
-# Assigning Roles
-# Github user names is in bracket
-- Mario El Shaer (Mario-Elshaer): Front end,
-- Khaled Saleh (Khaled106): Front end 
-- Tarek  Elalfi (TarekElalfi): Back end and communicate with front end,
-- Mazen Mohamed (MazennW): Back end,
-- Ziad-Tarik Taufeek (Ziad-Tari): Front end,
-- Ramy Attalla (Ramy-att): Front end and communicate with the back end.
+## Names and Assigned tasks to each member *Github user names is in bracket*
+- Mario El Shaer (Mario-Elshaer): Front end, (react and designing)
+- Khaled Saleh (Khaled106): Front end (react and designing)
+- Tarek  Elalfi (TarekElalfi): Back end and communicate with front end,(node.js, express, Mongo)
+- Mazen Mohamed (MazennW): Back end,(node.js, express, Mongo)
+- Ziad-Tarik Taufeek (Ziad-Tari): Front end,(react and designing)
+- Ramy Attalla (Ramy-att): Front end and communicate with the back end.(react, API, designing,node.js, express, Mongo)
 
-# Tech Stacks
+## Tech Stacks
 - React Js (Front end/Client Side),
 - Node.Js (Back end/Server Side),
 - MongoDB as our database.
