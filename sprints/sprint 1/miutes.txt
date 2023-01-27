@@ -6,7 +6,17 @@ Meeting 1: ()
 - Created GitHub repo, pushed the code for everyone to be able to pull the code.
 
 Meeting 2:
-- Assigning tasks 
+- Assigning the tasks and who will be doing what part.
+    -Mario El Shaer (Mario-Elshaer): Front end, (react and designing)
+    -Khaled Saleh (Khaled106): Front end (react and designing)
+    -Tarek Elalfi (TarekElalfi): Back end and communicate with front end,(node.js, express, Mongo)
+    -Mazen Mohamed (MazennW): Back end,(node.js, express, Mongo)
+    -Ziad-Tarik Taufeek (Ziad-Tari): Front end,(react and designing)
+    -Ramy Attalla (Ramy-att): Front end and communicate with the back end.(react, API, designing,node.js, express, Mongo)
+- Designing the database and we created a rough design in database.txt
+- Designing the Front End using Canva.
+
+ 
 
 Meeting 3:
 -
