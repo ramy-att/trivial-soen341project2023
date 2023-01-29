@@ -11,9 +11,9 @@ const Landing = () => {
         <button>Hello</button>
         <button>Hello</button>
         <button>Hello</button>
-        <div className="copyright">
-            @ Copyright 2023 Ramy - Tarek - Mario - Khaled - Ziad- Mazen
-        </div>
+        <p className="copyright">
+            @ Copyright 2023 Ramy Attalla - Tarek Elalfi - Mario Elshaer - Khaled Saleh - Ziad Taufeek - Mazen Mohamed 
+        </p>
       </div>
     </Container>
   );
