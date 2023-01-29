@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignIn from "./pages/SignIn";
 import OurNav from "./components/NavBar/OurNav";
@@ -12,18 +12,17 @@ import Footer from "./components/Footer/Footer";
  * 3- Pass correct Navbar type
  * 4- Include Routes for all pages
  * */
-
 const App = () => {
   return (
     <div className="App">
-      <OurNav type="student" />
-      <Route path="/welcome">
+      {window.location.pathname != "/" && <OurNav type="student" />}
+      <Route exact path="/">
         <HomePage />
       </Route>
-      <Route path="/signin">
+      <Route exact path="/signin">
         <SignIn />
       </Route>
-      <Footer />
+      {window.location.pathname != "/" && <Footer />}
     </div>
   );
 };

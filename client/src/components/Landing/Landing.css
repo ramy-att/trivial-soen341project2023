@@ -1,0 +1,25 @@
+.container-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.home{
+    background-color: #0a1640;
+    min-height: 100vh;
+    padding: 10% 3rem 3rem 10% !important;
+}
+h1,h2{
+    color: white;
+}
+h1{
+    font-size: 100px !important;
+    text-transform: uppercase;
+}
+h2{
+    text-transform: uppercase;
+}
+.copyright{
+    text-align: right;
+    position: absolute;
+    bottom:10px;
+    color: white;
+}
