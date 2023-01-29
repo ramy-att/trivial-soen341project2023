@@ -3,9 +3,7 @@ import Button from "../components/Buttons/Button";
 
 const HomePage = () => {
   return (<>
-  <Button type="cancel">Cancel</Button>
-  <Button type="submit">Submit</Button>
-  <Button type="authen">Authen</Button>
+  <Button type="authen">Sign in</Button>
   </>);
 };
 

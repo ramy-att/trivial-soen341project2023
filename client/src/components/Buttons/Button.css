@@ -16,9 +16,19 @@
     background-color: rgb(29, 169, 29) !important;
 }
 .authen{
-    background-color: #0a1640 !important;
+    display: flex  !important;
+    justify-content: space-between !important;
+   background-color: transparent !important;
+   border:2px solid #9fd3c7 !important;
+   border-radius: 0 !important;
+   color:#9fd3c7 !important;
+   width: 10rem !important;
+   text-transform: uppercase;
 }
+.authen::after{
+    content:">" !important;
+ }
 .authen:hover{
-    background-color: #5f9ac6 !important;
-    color: black !important;
-}
+    background-color: #9fd3c7 !important;
+    color: #0a1640 !important;
+ }
