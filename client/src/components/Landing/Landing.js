@@ -1,18 +1,35 @@
 import React from "react";
 import Container from "react-bootstrap/esm/Container";
+import Button from "../Buttons/Button";
+import { useState } from "react";
 import "./Landing.css";
+
 const Landing = () => {
+  const [showSignUpButtons, setShowSignUpButtons] = useState(false);
+
   return (
     <Container fluid>
       <div className="home">
         <h1>Jobify</h1>
         <h2>Career Opportunities</h2>
-        <button>Hello</button>
-        <button>Hello</button>
-        <button>Hello</button>
-        <button>Hello</button>
+        <div className="buttons">
+          <Button type="authen">Sign In</Button>
+          <Button
+            type="authen"
+            onClick={() => setShowSignUpButtons(!showSignUpButtons)}
+          >
+            Sign Up
+          </Button>
+        </div>
+        {showSignUpButtons && (
+          <div className="buttons">
+            <Button type="authen">Hello</Button>
+            <Button type="authen">Hello</Button>
+          </div>
+        )}
         <p className="copyright">
-            @ Copyright 2023 Ramy Attalla - Tarek Elalfi - Mario Elshaer - Khaled Saleh - Ziad Taufeek - Mazen Mohamed 
+          @ Copyright 2023 Ramy Attalla - Tarek Elalfi - Mario Elshaer - Khaled
+          Saleh - Ziad Taufeek - Mazen Mohamed
         </p>
       </div>
     </Container>
