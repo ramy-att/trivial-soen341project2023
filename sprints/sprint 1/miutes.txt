@@ -22,3 +22,6 @@ Meeting 3:
 - Identified some tasks for sprint 2.
 - Discussed current goals and schematics.
 - Discussed future implementations.
+- Discover API (Post Man)
+- Decide the Structure of the Data Base 
+
