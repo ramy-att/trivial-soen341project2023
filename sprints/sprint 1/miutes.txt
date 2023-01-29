@@ -19,4 +19,8 @@ Meeting 2:
  
 
 Meeting 3:
--
+- Goal of the meeting is to finalize sprint 1 requirements.
+- Assigned the remanining taks for sprint 1.
+- Identified some tasks for sprint 2.
+- Discussed current goals and schematics.
+- Discussed future implementations.
