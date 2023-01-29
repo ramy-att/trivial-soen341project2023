@@ -1,6 +1,6 @@
 Minutes:
 
-Meeting 1: ()
+Meeting 1:
 - Deciding the tech stack (decided to use react, node.js, express and mongoDB).
 - Setting up the project and installing NPM
 - Created GitHub repo, pushed the code for everyone to be able to pull the code.
@@ -15,8 +15,6 @@ Meeting 2:
     -Ramy Attalla (Ramy-att): Front end and communicate with the back end.(react, API, designing,node.js, express, Mongo)
 - Designing the database and we created a rough design in database.txt
 - Designing the Front End using Canva.
-
- 
 
 Meeting 3:
 - Goal of the meeting is to finalize sprint 1 requirements.
