@@ -1,10 +1,7 @@
 import React from "react";
-import Button from "../components/Buttons/Button";
 
 const HomePage = () => {
-  return (<>
-  <Button type="authen">Sign in</Button>
-  </>);
+  return <h1>Home Page</h1>;
 };
 
 export default HomePage;
