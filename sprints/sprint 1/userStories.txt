@@ -6,3 +6,5 @@ User Story 3:
 As a student I would like to be ablle to browse postings and apply to any of the ones available to me.
 User story 4:
 As an Admin, I would like to be able to delete users (Employer, student) accounts and manage the applications.
+User story 5: 
+As a student, I would like to able to manage my accounts information and update it. 
