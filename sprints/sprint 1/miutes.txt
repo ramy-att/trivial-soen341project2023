@@ -1,11 +1,13 @@
 Minutes:
 
-Meeting 1:
+Meeting 1: 
+- 60 minutes (1h)
 - Deciding the tech stack (decided to use react, node.js, express and mongoDB).
 - Setting up the project and installing NPM
 - Created GitHub repo, pushed the code for everyone to be able to pull the code.
 
 Meeting 2:
+- 45 minutes
 - Assigning the tasks and who will be doing what part.
     -Mario El Shaer (Mario-Elshaer): Front end, (react and designing)
     -Khaled Saleh (Khaled106): Front end (react and designing)
@@ -17,6 +19,7 @@ Meeting 2:
 - Designing the Front End using Canva.
 
 Meeting 3:
+- 75 minutes (1h15m)
 - Goal of the meeting is to finalize sprint 1 requirements.
 - Assigned the remanining taks for sprint 1.
 - Identified some tasks for sprint 2.
