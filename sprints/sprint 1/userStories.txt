@@ -1,0 +1,10 @@
+User Story 1: 
+As a student I want to be able to sign up, sign in and edit my information.
+User Story 2:
+As a Employer I would like to be able to create ,edit, or delet postings. Also to be able to see the applicants to every specfic posting. 
+User Story 3:
+As a student I would like to be ablle to browse postings and apply to any of the ones available to me.
+User story 4:
+As an Admin, I would like to be able to delete users (Employer, student) accounts and manage the applications.
+User story 5: 
+As a student, I would like to able to manage my accounts information and update it. 
