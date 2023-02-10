@@ -7,7 +7,7 @@ const Button = (props) => {
 
   return (
     <ReactButton onClick={onClick} className={type}>
-      {children}
+      {/* {children} */}
     </ReactButton>
   );
 };
