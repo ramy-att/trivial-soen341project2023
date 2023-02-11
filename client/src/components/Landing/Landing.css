@@ -27,6 +27,6 @@ h2{
 }
 .buttons{
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     margin-bottom: 1rem;
 }

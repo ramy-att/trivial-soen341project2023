@@ -23,8 +23,8 @@ const Landing = () => {
         </div>
         {showSignUpButtons && (
           <div className="buttons">
-            <Button type="authen">Hello</Button>
-            <Button type="authen">Hello</Button>
+            <Button type="authen">Employer</Button>
+            <Button type="authen">Student</Button>
           </div>
         )}
         <p className="copyright">
