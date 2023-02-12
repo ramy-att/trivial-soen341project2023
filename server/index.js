@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const studentRouter = require("./routes/student-routes");
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+app.use("/students",studentRouter); // connected to the local host
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
