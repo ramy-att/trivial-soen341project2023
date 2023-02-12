@@ -8,7 +8,7 @@ const getAllStudents = async (req, res, next) => {
   let students;
   try {
     //find function to find all the records from the doc from a query
-    students = await student.find();
+    students = await Student.find();
   } catch (err) {
     return next(err);
   }
