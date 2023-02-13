@@ -10,8 +10,8 @@ const Landing = () => {
   return (
     <Container fluid>
       <div className="home">
-        <h1>Jobify</h1>
-        <h2>Career Opportunities</h2>
+        <h1 className="title">Jobify</h1>
+        <h2 className="subTitle">Career Opportunities</h2>
         <div className="buttons">
           <Button type="authen">Sign In</Button>
           <Button
