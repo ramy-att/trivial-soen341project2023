@@ -76,17 +76,60 @@ const DataTable = (props) => {
           <span className="pageIden">
             Page: {currentPage + 1}/{numberPages}
           </span>
-          {currentPage < numberPages - 1 && (
-            <ArrowRight
-              size={30}
-              onClick={() => {
-                setCurrentPage(currentPage + 1);
-              }}
-            />
-          )}
+          <div className="arrowCont">
+            {currentPage < numberPages - 1 && (
+              <ArrowRight
+                size={30}
+                onClick={() => {
+                  setCurrentPage(currentPage + 1);
+                }}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 export default DataTable;
+
+{
+  /* Sample Usage */
+}
+{
+  /* <DataTable
+header={["Header0", "Header1", "Header2", "Header3", "Header4"]}
+footer={["Footer0", "Footer1", "Footer2", "Footer3", "Footer4"]}
+data={[
+  {
+    Item0: "Item0",
+    Item1: "Item1",
+    Item2: "Item2",
+    Item3: "Item3",
+    Item4: "Item4",
+  },
+  {
+    Item0: "Item0",
+    Item1: "Item1",
+    Item2: "Item2",
+    Item3: "Item3",
+    Item4: "Item4",
+  },
+  {
+    Item0: "Item0",
+    Item1: "Item1",
+    Item2: "Item2",
+    Item3: "Item3",
+    Item4: "Item4",
+  },
+  {
+    Item0: "Item0",
+    Item1: "Item1",
+    Item2: "Item2",
+    Item3: "Item3",
+    Item4: "Item4",
+  },
+]}
+maxRows={2}
+/> */
+}

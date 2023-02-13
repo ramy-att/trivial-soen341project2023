@@ -12,6 +12,8 @@ tr:hover{
 .navigator svg:hover{
     cursor: pointer;
 }
-.pageIden{
-    margin-right: 1rem;
+.arrowCont{
+    display: inline-block;
+    width: 3rem;
+    text-align: right;
 }

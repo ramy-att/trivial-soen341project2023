@@ -11,7 +11,7 @@ const Button = (props) => {
   } = props;
 
   const getChildren = () => {
-    return type == "apply" ? (
+    return type === "apply" ? (
       <span className="applyButtonCont">
         {children} <BoxArrowUpRight size={15} />
       </span>
