@@ -21,7 +21,7 @@
   border: 2px solid #9fd3c7 !important;
   border-radius: 0 !important;
   color: #9fd3c7 !important;
-  width: 10rem !important;
+  width: 15rem !important;
   text-transform: uppercase;
 }
 .authen::after {
@@ -30,15 +30,4 @@
 .authen:hover {
   background-color: #9fd3c7 !important;
   color: #0a1640 !important;
-}
-.apply {
-  background-color: #0a1640 !important;
-}
-.apply:hover {
-  background-color: rgb(29, 169, 29) !important;
-}
-.applyButtonCont {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }

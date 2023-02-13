@@ -1,9 +1,7 @@
 import React from "react";
-
+import Landing from "../components/Landing/Landing";
 const HomePage = () => {
-  return (
-    <p>Hello</p>
-  );
+  return <Landing />;
 };
 
 export default HomePage;
