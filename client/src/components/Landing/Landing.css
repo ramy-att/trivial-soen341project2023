@@ -7,10 +7,10 @@
     min-height: 100vh;
     padding: 10% 3rem 3rem 10% !important;
 }
-h1,h2{
+.title,.subTitle{
     color: white;
 }
-h1{
+.title{
     font-size: 100px !important;
     text-transform: uppercase;
 }
