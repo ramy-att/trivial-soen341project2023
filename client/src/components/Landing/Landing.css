@@ -1,0 +1,32 @@
+.container-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.home{
+    background-color: #0a1640;
+    min-height: 100vh;
+    padding: 10% 3rem 3rem 10% !important;
+}
+.title,.subTitle{
+    color: white;
+}
+.title{
+    font-size: 100px !important;
+    text-transform: uppercase;
+}
+h2{
+    text-transform: uppercase;
+    margin-bottom: 10% !important;
+}
+.copyright{
+    text-align: right;
+    position: absolute;
+    bottom:10px;
+    margin: 0 3rem 0 0;
+    color: white;
+}
+.buttons{
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}

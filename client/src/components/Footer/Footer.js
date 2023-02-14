@@ -42,7 +42,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   href="https://www.concordia.ca/students/success/career-planning/career-counselling.html"
                 >
-                  ConcU Career Couselling
+                  Career Couselling
                   <BoxArrowUpRight
                     style={{ marginBottom: "5px", marginLeft: "5px" }}
                     size={15}
