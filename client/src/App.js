@@ -2,6 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignIn from "./pages/SignIn";
+import PostingsPage from "./pages/PostingsPage";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
 
@@ -21,6 +22,9 @@ const App = () => {
       </Route>
       <Route exact path="/signin">
         <SignIn />
+      </Route>
+      <Route exact path="/job-postings">
+        <PostingsPage />
       </Route>
       {window.location.pathname !== "/" && <Footer />}
     </div>
