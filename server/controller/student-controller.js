@@ -1,5 +1,6 @@
 //contain functions that controls the api calls
 
+const student = require("../model/student");
 const Student = require("../model/student");
 
 //get all the users from the database
@@ -50,7 +51,7 @@ const addStudent = async (req, res, next) => {
   }
   return res.status(201).json({ student }); // 201 is everything goes well return a student Objs
 }; // POST ENDS
-//PUT STARTS
+//PUT STARTS (update user)
 const updateStudent = async (req, res, next) => {
   const id = req.params.id;
   const { studentName, studentEmail, studentPassword } = req.body;
@@ -69,7 +70,7 @@ const updateStudent = async (req, res, next) => {
     stu = await Student.findByIdAndUpdate(id, {
       studentName,
       studentEmail,
-      studentPassword
+      studentPassword,
     });
   } catch (err) {
     return next(err);
@@ -77,11 +78,43 @@ const updateStudent = async (req, res, next) => {
   if (!stu) {
     return res.status(500).json({ err: "unable to save the student info" });
   }
-  return res.status(200).json({message:"updated Successfully"});
+  return res.status(200).json({ message: "updated Successfully" });
+};
+//PUT ENDS
+//DELETE STARTS ****ONLY ADMIN CAN DELETE****
+const deleteStudent = async (req, res, next) => {
+  const id = req.params.id;
+  let stu;
+  try {
+    stu = await Student.findByIdAndRemove(id);
+  } catch (err) {
+    return next(err);
+  }
+  if (!stu) {
+    return res.status(500).json({ err: "Unable to delete student" });
+  }
+  return res.status(200).json({ message: "Student deleted successfully" });
+}; //DELETE END ****ONLY ADMIN CAN DELETE****
+//GET STUDENT BY ID START
+const getStudentById = async (req,res,next) => {
+  let id = req.params.id;
+  let stu;
+  try {
+    stu = await Student.findById(id);
+  } catch (err) {
+    return next(err);
+  }
+  if (!stu) {
+    return res.status(404).json({ err: "could NOT get student by ID" });
+  }
+  return res.status(200).json({stu});
 };
 
 exports.getAllStudents = getAllStudents;
 exports.addStudent = addStudent;
 exports.updateStudent = updateStudent;
+exports.deleteStudent = deleteStudent;
+exports.getStudentById = getStudentById;
+
 //student is the model
 //students is the controller
