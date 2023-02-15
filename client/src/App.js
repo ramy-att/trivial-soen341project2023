@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import SignIn from "./pages/SignIn";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
+import Employer from "./components/Employer/Employer";
 
 /**
  * TODO:
@@ -16,12 +17,7 @@ const App = () => {
   return (
     <div className="App">
       {window.location.pathname !== "/" && <OurNav type="student" />}
-      <Route exact path="/">
-        <HomePage />
-      </Route>
-      <Route exact path="/signin">
-        <SignIn />
-      </Route>
+      <Employer/>
       {window.location.pathname !== "/" && <Footer />}
     </div>
   );
