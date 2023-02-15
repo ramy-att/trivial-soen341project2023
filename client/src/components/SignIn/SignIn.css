@@ -7,22 +7,26 @@
 /* } */
 
 .form-login {
-  display: inline-block;
-  justify-content: center;
-  background-color: #e5e6ef;
-  border-radius: 20px;
-  box-sizing: border-box;
-  height: 400px;
+  background-color: white;
+  height: 70%;
   padding: 20px;
-  width: 320px;
+  width: 60%;
+  height: 30rem;
 }
-
+.form-signUp {
+  background-color: white;
+  height: 70%;
+  padding: 20px;
+  width: 60%;
+}
+.sign-up-instead {
+  margin-top: 2rem;
+}
 .title {
   color: #eee;
   font-family: sans-serif;
   font-size: 36px;
   font-weight: 600;
-  margin-top: 30px;
 }
 
 .subtitle {
@@ -35,8 +39,8 @@
 
 .input-container {
   height: 75px;
-  position: relative;
   width: 100%;
+  display: grid;
 }
 
 .ic1 {
@@ -47,19 +51,43 @@
   margin-top: 20px;
 }
 
-.input {
-  background-color: #303245;
-  border-radius: 12px;
-  border: 0;
-  box-sizing: border-box;
-  color: #eee;
-  font-size: 18px;
-  height: 100%;
-  outline: 0;
-  padding: 4px 20px 0;
-  width: 100%;
+/* .input { */
+/* background-color: #303245; */
+/* border-radius: 12px; */
+/* border: 0; */
+/* box-sizing: border-box; */
+/* color: #eee; */
+/* font-size: 18px; */
+/* height: 100%; */
+/* outline: 0; */
+/* padding: 4px 20px 0; */
+/* width: 100%; */
+/* } */
+.label {
+  position: relative;
+  animation: btn-anim2 0.7s linear;
+  animation-fill-mode: forwards;
 }
-
+@keyframes btn-anim2 {
+  0% {
+    top: 100%;
+  }
+  50%,
+  100% {
+    top: -10%;
+    /* animation-fill-mode: forwards; */
+  }
+}
+input {
+  border: none;
+  border-bottom: 2px solid rgb(211, 211, 211);
+  height: 3rem;
+}
+input:focus,
+input:active {
+  border-bottom: 2px solid rgb(211, 211, 211);
+  outline: none;
+}
 .cut {
   background-color: #15172b;
   border-radius: 10px;
@@ -107,20 +135,13 @@
 }
 
 .submit-login {
-  background-color: #08d;
-  border-radius: 12px;
-  border: 0;
+  background-color: #0a1640;
   box-sizing: border-box;
   color: #eee;
   cursor: pointer;
   font-size: 18px;
   height: 50px;
-  margin-top: 38px;
-  outline: 0;
+  margin-top: 3rem;
   text-align: center;
-  width: 100%;
-}
-
-.submit-login {
-  background-color: #06b;
+  width: 40%;
 }

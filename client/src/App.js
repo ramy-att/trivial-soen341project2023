@@ -16,7 +16,8 @@ import Footer from "./components/Footer/Footer";
 const App = () => {
   return (
     <div className="App">
-      {window.location.pathname !== "/" && <OurNav type="student" />}
+      {window.location.pathname !== "/" &&
+        window.location.pathname !== "/signin" && <OurNav type="student" />}
       <Route exact path="/">
         <HomePage />
       </Route>
@@ -27,7 +28,8 @@ const App = () => {
         <SignUpPage />
       </Route>
 
-      {window.location.pathname !== "/" && <Footer />}
+      {window.location.pathname !== "/" &&
+        window.location.pathname !== "/signin" && <Footer />}
     </div>
   );
 };

@@ -1,6 +1,14 @@
 import React from "react";
- import SignIn from "../components/SignIn/SignIn";
+import SignIn from "../components/SignIn/SignIn";
+import { Container } from "react-bootstrap";
+import "./pages.css";
 const SignInPage = () => {
-  return <SignIn />;
+  return (
+    <Container fluid className="">
+      <div className="signIn">
+        <SignIn />
+      </div>
+    </Container>
+  );
 };
 export default SignInPage;
