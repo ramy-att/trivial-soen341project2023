@@ -1,6 +1,6 @@
 import React from "react";
 
 const SignIn = () => {
-  return <h1>Hellow</h1>;
+  return <h1> Sign In Page</h1>;
 };
 export default SignIn;
