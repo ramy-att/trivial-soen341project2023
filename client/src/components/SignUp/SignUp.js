@@ -45,16 +45,6 @@ export const SignUp = (props) => {
                 name="name"
               />
             </div>
-            {/* <div className="user-box"> */}
-            {/* <label htmlFor="name">Company name</label> */}
-            {/* <input */}
-            {/* //   value={companyName} */}
-            {/* //   name="companyname" */}
-            {/* //   onChange={(e) => setCompName(e.target.value)} */}
-            {/* //   id="name" */}
-            {/* //   placeholder="Company Name" */}
-            {/* // /> */}
-            {/* </div> */}
             <div className="input-container ic1">
               <div>
                 {hoverEmail && (
@@ -157,16 +147,6 @@ export const SignUp = (props) => {
                 name="companyName"
               />
             </div>
-            {/* <div className="user-box"> */}
-            {/* <label htmlFor="name">Company name</label> */}
-            {/* <input */}
-            {/* //   value={companyName} */}
-            {/* //   name="companyname" */}
-            {/* //   onChange={(e) => setCompName(e.target.value)} */}
-            {/* //   id="name" */}
-            {/* //   placeholder="Company Name" */}
-            {/* // /> */}
-            {/* </div> */}
 
             <div className="input-container ic1">
               <div>
