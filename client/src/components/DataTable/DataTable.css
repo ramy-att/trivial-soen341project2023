@@ -1,0 +1,19 @@
+th{
+    color:#0a1640;
+    background-color: aliceblue !important;
+}
+tr:hover{
+    background-color:rgb(245, 243, 243);
+}
+.navigator{
+    display: flex;
+    justify-content: space-between;
+}
+.navigator svg:hover{
+    cursor: pointer;
+}
+.arrowCont{
+    display: inline-block;
+    width: 3rem;
+    text-align: right;
+}
