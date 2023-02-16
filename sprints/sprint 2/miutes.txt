@@ -1,0 +1,19 @@
+Minutes
+
+Meeting 1: 
+-60 minutes
+-Decided who is doing what for this sprint,
+-Talked about the division of issues and tasks:
+    Mario and Khaled will be working on signin and signup
+    Ziad worked on the profile page,
+    Ramy worked on the posting page,
+    Tarek and Mazen worked on the student and posting's backend.
+
+Meeting 2: 
+-75 minutes
+-Discussions were made about the sign in and sign up page,
+-Analyzed the design and chose from multiple options,
+-Decided about which css and which animations to make.
+
+Meeting 3:
+-Finalizing how everyone is doing and if anyone has blockers.
