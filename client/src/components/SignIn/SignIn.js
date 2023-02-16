@@ -60,7 +60,8 @@ const SignIn = () => {
           />
         </div>
         <div className="sign-up-instead">
-          <p>Sign Up Instead</p>
+          <a href="SignUp">Don't have an account ? Sign Up</a>
+          {/*Need to be changed and redirected to the landing page where they specify if epmloyer or student*/}
         </div>
         <div className="text-center">
           <button className="submit-login" type="submit">

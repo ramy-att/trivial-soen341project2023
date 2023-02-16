@@ -22,167 +22,211 @@ export const SignUp = (props) => {
 
   return (
     <div className="form-signUp">
+      {/* Need to get the value of "type" by clicking on either student or employer from landing page*/}
       {type === "student" ? (
         <>
+          {/* <div className="form-signUp"> */}
           <h1 className="text-center">Jobify</h1>
-          <form className="register-form" onSubmit={handleSubmit}>
-            <div className="user-box">
-              <label htmlFor="name">Full name</label>
+          <form onSubmit={handleSubmit}>
+            <div className="input-container ic1">
+              <div>{hoverName && <label htmlFor="name">Full name</label>}</div>
               <input
                 value={name}
-                name="name"
                 onChange={(e) => setName(e.target.value)}
+                type="text"
+                placeholder={!hoverName && "Full Name"}
                 id="name"
-                placeholder="full Name"
+                onFocus={() => {
+                  setHoverName(true);
+                }}
+                onBlur={() => {
+                  setHoverName(false);
+                }}
+                name="name"
               />
             </div>
-            <div className="user-box">
-              <label htmlFor="email">Email</label>
+            {/* <div className="user-box"> */}
+            {/* <label htmlFor="name">Company name</label> */}
+            {/* <input */}
+            {/* //   value={companyName} */}
+            {/* //   name="companyname" */}
+            {/* //   onChange={(e) => setCompName(e.target.value)} */}
+            {/* //   id="name" */}
+            {/* //   placeholder="Company Name" */}
+            {/* // /> */}
+            {/* </div> */}
+            <div className="input-container ic1">
+              <div>
+                {hoverEmail && (
+                  <label htmlFor="email" className="label">
+                    Email Address
+                  </label>
+                )}
+              </div>
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                placeholder="youremail@gmail.com"
+                placeholder={!hoverEmail && "Email Address"}
                 id="email"
+                onFocus={() => {
+                  setHoverEmail(true);
+                }}
+                onBlur={() => {
+                  setHoverEmail(false);
+                }}
                 name="email"
               />
             </div>
-            <div className="user-box">
-              <label htmlFor="password">Password</label>
+            <div className="input-container ic2">
+              <div>
+                {hoverPass && <label htmlFor="password"> Password </label>}
+              </div>
               <input
                 value={pass}
                 onChange={(e) => setPass(e.target.value)}
                 type="password"
-                placeholder="********"
+                placeholder={!hoverPass && "Password"}
                 id="password"
+                onFocus={() => {
+                  setHoverPass(true);
+                }}
+                onBlur={() => {
+                  setHoverPass(false);
+                }}
                 name="password"
               />
             </div>
-            <div className="submit_form">
-              <button type="submit">Log In</button>
+            <div className="text-center">
+              <div className="submit_form">
+                <button className="submit-login" type="submit">
+                  Sign Up
+                </button>
+              </div>
             </div>
           </form>
-          <button
+          <a
+            href="SignIn"
             className="link-btn"
             onClick={() => props.onFormSwitch("login")}
           >
             Already have an account? Login here.
-          </button>
+          </a>
+          {/* </div> */}
         </>
       ) : type === "employer" ? (
         <>
-          <div className="form-signUp">
-            <h1 className="text-center">Jobify</h1>
-            <form onSubmit={handleSubmit}>
-              <div className="input-container ic1">
-                <div>
-                  {hoverName && <label htmlFor="name">Full name</label>}
-                </div>
-                <input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  type="text"
-                  placeholder={!hoverName && "Full Name"}
-                  id="name"
-                  onFocus={() => {
-                    setHoverName(true);
-                  }}
-                  onBlur={() => {
-                    setHoverName(false);
-                  }}
-                  name="name"
-                />
+          {/* <div className="form-signUp"> */}
+          <h1 className="text-center">Jobify</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="input-container ic1">
+              <div>{hoverName && <label htmlFor="name">Full name</label>}</div>
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+                placeholder={!hoverName && "Full Name"}
+                id="name"
+                onFocus={() => {
+                  setHoverName(true);
+                }}
+                onBlur={() => {
+                  setHoverName(false);
+                }}
+                name="name"
+              />
+            </div>
+            <div className="input-container ic1">
+              <div>
+                {hoverCompany && (
+                  <label htmlFor="companyName">Company Name</label>
+                )}
               </div>
-              <div className="input-container ic1">
-                <div>
-                  {hoverCompany && (
-                    <label htmlFor="companyName">Company Name</label>
-                  )}
-                </div>
-                <input
-                  value={companyName}
-                  onChange={(e) => setCompName(e.target.value)}
-                  type="text"
-                  placeholder={!hoverCompany && "Company Name"}
-                  id="compnayName"
-                  onFocus={() => {
-                    setHoverCompany(true);
-                  }}
-                  onBlur={() => {
-                    setHoverCompany(false);
-                  }}
-                  name="companyName"
-                />
-              </div>
-              {/* <div className="user-box"> */}
-              {/* <label htmlFor="name">Company name</label> */}
-              {/* <input */}
-              {/* //   value={companyName} */}
-              {/* //   name="companyname" */}
-              {/* //   onChange={(e) => setCompName(e.target.value)} */}
-              {/* //   id="name" */}
-              {/* //   placeholder="Company Name" */}
-              {/* // /> */}
-              {/* </div> */}
+              <input
+                value={companyName}
+                onChange={(e) => setCompName(e.target.value)}
+                type="text"
+                placeholder={!hoverCompany && "Company Name"}
+                id="compnayName"
+                onFocus={() => {
+                  setHoverCompany(true);
+                }}
+                onBlur={() => {
+                  setHoverCompany(false);
+                }}
+                name="companyName"
+              />
+            </div>
+            {/* <div className="user-box"> */}
+            {/* <label htmlFor="name">Company name</label> */}
+            {/* <input */}
+            {/* //   value={companyName} */}
+            {/* //   name="companyname" */}
+            {/* //   onChange={(e) => setCompName(e.target.value)} */}
+            {/* //   id="name" */}
+            {/* //   placeholder="Company Name" */}
+            {/* // /> */}
+            {/* </div> */}
 
-              <div className="input-container ic1">
-                <div>
-                  {hoverEmail && (
-                    <label htmlFor="email" className="label">
-                      Email Address
-                    </label>
-                  )}
-                </div>
-                <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
-                  placeholder={!hoverEmail && "Email Address"}
-                  id="email"
-                  onFocus={() => {
-                    setHoverEmail(true);
-                  }}
-                  onBlur={() => {
-                    setHoverEmail(false);
-                  }}
-                  name="email"
-                />
+            <div className="input-container ic1">
+              <div>
+                {hoverEmail && (
+                  <label htmlFor="email" className="label">
+                    Email Address
+                  </label>
+                )}
               </div>
-              <div className="input-container ic2">
-                <div>
-                  {hoverPass && <label htmlFor="password"> Password </label>}
-                </div>
-                <input
-                  value={pass}
-                  onChange={(e) => setPass(e.target.value)}
-                  type="password"
-                  placeholder={!hoverPass && "Password"}
-                  id="password"
-                  onFocus={() => {
-                    setHoverPass(true);
-                  }}
-                  onBlur={() => {
-                    setHoverPass(false);
-                  }}
-                  name="password"
-                />
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder={!hoverEmail && "Email Address"}
+                id="email"
+                onFocus={() => {
+                  setHoverEmail(true);
+                }}
+                onBlur={() => {
+                  setHoverEmail(false);
+                }}
+                name="email"
+              />
+            </div>
+            <div className="input-container ic2">
+              <div>
+                {hoverPass && <label htmlFor="password"> Password </label>}
               </div>
+              <input
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+                type="password"
+                placeholder={!hoverPass && "Password"}
+                id="password"
+                onFocus={() => {
+                  setHoverPass(true);
+                }}
+                onBlur={() => {
+                  setHoverPass(false);
+                }}
+                name="password"
+              />
+            </div>
 
-              <div className="text-center">
-                <div className="submit_form">
-                  <button className="submit-login" type="submit">
-                    Sign Up
-                  </button>
-                </div>
+            <div className="text-center">
+              <div className="submit_form">
+                <button className="submit-login" type="submit">
+                  Sign Up
+                </button>
               </div>
-            </form>
-            <button
-              className="link-btn"
-              onClick={() => props.onFormSwitch("login")}
-            >
-              Already have an account? Login here.
-            </button>
-          </div>
+            </div>
+          </form>
+          <a
+            href="SignIn"
+            className="link-btn"
+            onClick={() => props.onFormSwitch("login")}
+          >
+            Already have an account? Login here.
+          </a>
+          {/* </div> */}
         </>
       ) : null}
     </div>
