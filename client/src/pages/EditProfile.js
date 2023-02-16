@@ -1,8 +1,14 @@
 import React from "react";
 import Employer from "../components/Employer/Employer";
+import Footer from "../components/Footer/Footer"
 
-const Editprofile = ()=>{
+function Editprofile (){
     return(
-        Employer
+        <div>
+            
+                    <Employer/>
+                    <Footer/>
+
+        </div>
     )
 }

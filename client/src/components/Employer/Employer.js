@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import  "./Employer.css"
 
 export default function Employer() {
   // [FORM STATES]
@@ -40,13 +41,17 @@ export default function Employer() {
     event.preventDefault();
     if (checks.capitalLetter && checks.numbers && checks.lengthPassword) {
       setSubmitted("success");
+
     } else {
       setSubmitted("error");
     }
   }
+  
+  
 
   return (
-    <>
+    
+    <div>
       {submitted === "success" ? (
         <Alert key="sucess" variant="success">
           Successfully Updated Profile!
@@ -103,10 +108,10 @@ export default function Employer() {
             onChange={Validation}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button className="submitButton" variant="primary" type="submit" >
           Submit
         </Button>
       </Form>
-    </>
-  );
-}
+    </div>
+  )}
+

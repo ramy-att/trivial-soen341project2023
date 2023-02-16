@@ -1,9 +1,7 @@
 import React from "react";
-import { Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import SignIn from "./pages/SignIn";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
+import Student from "./components/Students/Student";
 import Employer from "./components/Employer/Employer";
 
 /**
@@ -17,7 +15,9 @@ const App = () => {
   return (
     <div className="App">
       {window.location.pathname !== "/" && <OurNav type="student" />}
-      <Employer/>
+       <OurNav/>
+        <Student/>
+        <Footer/>
       {window.location.pathname !== "/" && <Footer />}
     </div>
   );
