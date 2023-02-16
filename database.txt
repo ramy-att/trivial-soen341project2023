@@ -9,8 +9,7 @@ Admin={
 	"password": password, required;
 }
 controllers: createAdmin() "POST" ; getAdmin() "GET"; updateAdmin() "PUT"; 
-client pages: profile page, 
-
+client pages: profile page, view all students, employers, postings and applications
 
 student={
 	"studentID": [mongoDB];
@@ -23,7 +22,7 @@ student={
 	"transcript": file,
 	"applications":["[applicationID]","[applicationID]"]; // applied to
 }
-controllers: createStudent() "POST" ; getStudent() "GET"; updateStudent() "PUT"; 
+controllers: createStudent() "POST" ; getStudent() "GET"; updateStudent() "PUT"; getAllStudents() "GET"
 client pages: profile page, applied to page (and indv), job postings page
 
 jobPosting={
@@ -33,7 +32,7 @@ jobPosting={
 	"expirationDate": date (year-mm-dd), required;
 	"location": remote|string, required;
 }
-controllers: createPosting() "POST"; getPosting() "GET"; deletePosting() "DELTE";
+controllers: createPosting() "POST"; getPosting() "GET"; deletePosting() "DELTE"; getAllPostings() "GET"
 
 application={
 	"applicationID": [mongoDB];
@@ -43,7 +42,7 @@ application={
 	"status": underReview | interview | selected | rejected;
 	"applicationPackage": {resume, coverLetter, Transcript}
 }
-controllers: createApplication() "POST"; getApplication() "GET"; deleteApplication() "DELTE";
+controllers: createApplication() "POST"; getApplication() "GET"; deleteApplication() "DELTE"; getAllApplications() "GET"
 
 employer={
 	"employerID": [mongoDB];
@@ -55,5 +54,5 @@ employer={
 	"postings": [...jobPostings]
 	"applications": [...applications] filtered by applicantionInfo.company -> getByEmployer(exmployerID)
 }
-controllers: createEmployer() "POST"; getEmployer() "GET"; updateEmployer() "PUT";
+controllers: createEmployer() "POST"; getEmployer() "GET"; updateEmployer() "PUT"; getAllEmployers() "GET"
 client pages: profile page, postingPage(edit/add), job postings page- applications
