@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const postingRouter = require("./routes/jobPosting-routes");
+const employerRouter = require("./routes/employer-routes");
 
 const PORT = process.env.PORT || 3001;
 
@@ -8,6 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use("/postings", postingRouter);
+app.use("/employers", employerRouter);
 
 
 app.get("/api", (req, res) => {
