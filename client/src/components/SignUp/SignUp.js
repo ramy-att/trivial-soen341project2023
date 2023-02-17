@@ -29,7 +29,7 @@ export const SignUp = (props) => {
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
-              <div>{hoverName && <label htmlFor="name">Full name</label>}</div>
+              <div>{hoverName && <label htmlFor="name" className="label">Full name</label>}</div>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -70,7 +70,7 @@ export const SignUp = (props) => {
             </div>
             <div className="input-container ic2">
               <div>
-                {hoverPass && <label htmlFor="password"> Password </label>}
+                {hoverPass && <label htmlFor="password" className="label"> Password </label>}
               </div>
               <input
                 value={pass}
@@ -110,7 +110,7 @@ export const SignUp = (props) => {
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
-              <div>{hoverName && <label htmlFor="name">Full name</label>}</div>
+              <div>{hoverName && <label htmlFor="name" className="label">Full name</label>}</div>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -129,7 +129,7 @@ export const SignUp = (props) => {
             <div className="input-container ic1">
               <div>
                 {hoverCompany && (
-                  <label htmlFor="companyName">Company Name</label>
+                  <label htmlFor="companyName" className="label">Company Name</label>
                 )}
               </div>
               <input
@@ -173,7 +173,7 @@ export const SignUp = (props) => {
             </div>
             <div className="input-container ic2">
               <div>
-                {hoverPass && <label htmlFor="password"> Password </label>}
+                {hoverPass && <label htmlFor="password" className="label"> Password </label>}
               </div>
               <input
                 value={pass}

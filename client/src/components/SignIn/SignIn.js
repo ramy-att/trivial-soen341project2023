@@ -43,7 +43,7 @@ const SignIn = () => {
           />
         </div>
         <div className="input-container ic2">
-          <div>{hoverPass && <label htmlFor="password"> Password </label>}</div>
+          <div>{hoverPass && <label htmlFor="password" className="label"> Password </label>}</div>
           <input
             value={pass}
             onChange={(e) => setPass(e.target.value)}
