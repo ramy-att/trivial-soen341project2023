@@ -6,7 +6,7 @@ Story Points Explanation:
     |
     |
     5: Hardest task,
--Each user story must have assigned story points
+-Each user story must have assigned story points.
 
 User Story N: Story Points;
 
@@ -22,7 +22,7 @@ As a student I would like to be ablle to browse postings and apply to any of the
 User story 4: 4
 As an Admin, I would like to be able to delete users (Employer, student) accounts.
 
-User story 5: 3
+User story 5 (Might be pushed on to next sprint): 3
 As an Admin, I would like to be able manage the applications.
 
 User story 6: 2
