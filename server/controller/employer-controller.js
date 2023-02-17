@@ -3,10 +3,9 @@ const Employer = require("../model/employer");
 //GET START
 
 const getAllEmployers = async (req, res, next) => {
-
   let employer;
   try {
-    employer= await Employer.find();
+    employer = await Employer.find();
   } catch (err) {
     return next(err);
   }
@@ -16,26 +15,30 @@ const getAllEmployers = async (req, res, next) => {
   return res.status(200).json({ employer });
 };
 
-
-
 const addEmployer = async (req, res, next) => {
-
-  const { name, password, email, organizationName, category, postings, applications } = req.body; // we post in the body of the API
+  const {
+    name,
+    password,
+    email,
+    organizationName,
+    category,
+    postings,
+    applications,
+  } = req.body; // we post in the body of the API
   if (
     !name &&
     name.trim() === "" &&
     !password &&
     password.trim() === "" &&
     !email &&
-    email.trim()==""&&
+    email.trim() == "" &&
     !organizationName &&
-    organizationName.trim()=="" &&
+    organizationName.trim() == "" &&
     !category &&
-    category.trim()==""
+    category.trim() == ""
   ) {
     return res.status(422).json({ err: "Invaild data for employer" });
   } // return error message if data is wrong or missing
-
 
   let employer;
   try {
@@ -47,39 +50,46 @@ const addEmployer = async (req, res, next) => {
       organizationName,
       category,
       postings,
-      applications
+      applications,
     });
     employer = await employer.save(); // save function from mongo
   } catch (err) {
     return next(err);
   }
 
-
-
   if (!employer) {
-    return res.status(500).json({ err: "Cannot save the employer due to error" });
+    return res
+      .status(500)
+      .json({ err: "Cannot save the employer due to error" });
   }
   return res.status(201).json({ employer }); // 201 is everything goes well return a student Objs
-}; 
-
+};
 
 // POST ENDS
 //PUT STARTS (update user)
 
 const updateEmployer = async (req, res, next) => {
   const id = req.params.id;
-  const { name, password, email, organizationName, category, postings, applications } = req.body; // we post in the body of the API
+  const {
+    name,
+    password,
+    email,
+    organizationName,
+    category,
+    postings,
+    applications,
+  } = req.body; // we post in the body of the API
   if (
     !name &&
     name.trim() === "" &&
     !password &&
     password.trim() === "" &&
     !email &&
-    email.trim()==""&&
+    email.trim() == "" &&
     !organizationName &&
-    organizationName.trim()=="" &&
+    organizationName.trim() == "" &&
     !category &&
-    category.trim()==""
+    category.trim() == ""
   ) {
     return res.status(422).json({ err: "Invaild data for job employer" });
   } // return error message if data is wrong or missing
@@ -92,7 +102,7 @@ const updateEmployer = async (req, res, next) => {
       organizationName,
       category,
       postings,
-      applications
+      applications,
     });
   } catch (err) {
     return next(err);
@@ -118,7 +128,7 @@ const deleteEmployer = async (req, res, next) => {
   return res.status(200).json({ message: "employer deleted successfully" });
 }; //DELETE END ****ONLY ADMIN AND employer OWNER CAN DELETE****
 //GET employer BY ID START
-const getEmployerById = async (req,res,next) => {
+const getEmployerById = async (req, res, next) => {
   let id = req.params.id;
   let employer;
   try {
@@ -129,7 +139,7 @@ const getEmployerById = async (req,res,next) => {
   if (!employer) {
     return res.status(404).json({ err: "could NOT get employer by ID" });
   }
-  return res.status(200).json({stu});
+  return res.status(200).json({ employer });
 };
 
 exports.getAllEmployers = getAllEmployers;
@@ -137,5 +147,3 @@ exports.addEmployer = addEmployer;
 exports.updateEmployer = updateEmployer;
 exports.deleteEmployer = deleteEmployer;
 exports.getEmployerById = getEmployerById;
-
-

@@ -12,7 +12,7 @@ const getAllPostings = async (req, res, next) => {
   if (!posting) {
     return res.status(500).json({ err: "Internal Server Error" }); //checking if we dont have Posting (false/some error) return the respons to the server as 500
   }
-  return res.status(200).json({ posting });//if everything works return the postings
+  return res.status(200).json({ posting }); //if everything works return the postings
 };
 
 const addPosting = async (req, res, next) => {
