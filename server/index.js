@@ -3,6 +3,7 @@ const express = require("express");
 const postingRouter = require("./routes/jobPosting-routes");
 const employerRouter = require("./routes/employer-routes");
 const studentRouter = require("./routes/student-routes");
+const applicationRouter = require("./routes/application-routes");
 
 const PORT = process.env.PORT || 3001;
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use("/students", studentRouter); // connected to the local host
 app.use("/postings", postingRouter);
 app.use("/employers", employerRouter);
+app.use("/applications",applicationRouter)
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
