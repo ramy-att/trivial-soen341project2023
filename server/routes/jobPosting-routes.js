@@ -1,6 +1,6 @@
 //contain all the route structure of the server where the api will be called
 const express = require("express");
-const {
+const {// all the functions we need for postings
   getAllPostings,
   addPosting,
   updatePosting,

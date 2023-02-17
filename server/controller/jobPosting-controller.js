@@ -3,23 +3,19 @@ const Posting = require("../model/posting");
 //GET START
 
 const getAllPostings = async (req, res, next) => {
-
   let posting;
   try {
-    posting= await Posting.find();
+    posting = await Posting.find();
   } catch (err) {
     return next(err);
   }
   if (!posting) {
-    return res.status(500).json({ err: "Internal Server Error" }); //checking if we dont have student (false/some error) return the respons to the server as 500
+    return res.status(500).json({ err: "Internal Server Error" }); //checking if we dont have Posting (false/some error) return the respons to the server as 500
   }
-  return res.status(200).json({ posting });
+  return res.status(200).json({ posting });//if everything works return the postings
 };
 
-
-
 const addPosting = async (req, res, next) => {
-
   const { description, title, expirationDate, location } = req.body; // we post in the body of the API
   if (
     !description &&
@@ -27,13 +23,12 @@ const addPosting = async (req, res, next) => {
     !title &&
     title.trim() === "" &&
     !location &&
-    location.trim()==""&&
+    location.trim() == "" &&
     !expirationDate &&
-    expirationDate.trim()==""
+    expirationDate.trim() == ""
   ) {
     return res.status(422).json({ err: "Invaild data for job posting" });
   } // return error message if data is wrong or missing
-
 
   let posting;
   try {
@@ -42,21 +37,20 @@ const addPosting = async (req, res, next) => {
       description,
       title,
       expirationDate,
-      location
+      location,
     });
     posting = await posting.save(); // save function from mongo
   } catch (err) {
-    return next(err);
+    return next(err); // check for errors when trying to save or server
   }
-
-
 
   if (!posting) {
-    return res.status(500).json({ err: "Cannot save the posting due to error" });
+    return res
+      .status(500)
+      .json({ err: "Cannot save the posting due to error" });
   }
   return res.status(201).json({ posting }); // 201 is everything goes well return a student Objs
-}; 
-
+};
 
 // POST ENDS
 //PUT STARTS (update user)
@@ -70,19 +64,19 @@ const updatePosting = async (req, res, next) => {
     !title &&
     title.trim() === "" &&
     !location &&
-    location.trim()==""&&
+    location.trim() == "" &&
     !expirationDate &&
-    expirationDate.trim()==""
+    expirationDate.trim() == ""
   ) {
     return res.status(422).json({ err: "Invaild data for job posting" });
   } // return error message if data is wrong or missing
   let posting;
   try {
     posting = await Posting.findByIdAndUpdate(id, {
-        description,
-        title,
-        expirationDate,
-        location
+      description,
+      title,
+      expirationDate,
+      location,
     });
   } catch (err) {
     return next(err);
@@ -90,7 +84,7 @@ const updatePosting = async (req, res, next) => {
   if (!posting) {
     return res.status(500).json({ err: "unable to save the posting info" });
   }
-  return res.status(200).json({ message: "updated Successfully" });
+  return res.status(200).json({ message: "Posting updated Successfully" });
 };
 //PUT ENDS
 //DELETE STARTS ****ONLY ADMIN AND EMPLOYER POSTING OWNER CAN DELETE****
@@ -108,7 +102,7 @@ const deletePosting = async (req, res, next) => {
   return res.status(200).json({ message: "Posting deleted successfully" });
 }; //DELETE END ****ONLY ADMIN AND POSTING OWNER CAN DELETE****
 //GET POSTING BY ID START
-const getPostingById = async (req,res,next) => {
+const getPostingById = async (req, res, next) => {
   let id = req.params.id;
   let posting;
   try {
@@ -119,7 +113,7 @@ const getPostingById = async (req,res,next) => {
   if (!posting) {
     return res.status(404).json({ err: "could NOT get posting by ID" });
   }
-  return res.status(200).json({stu});
+  return res.status(200).json({ posting });
 };
 
 exports.getAllPostings = getAllPostings;
