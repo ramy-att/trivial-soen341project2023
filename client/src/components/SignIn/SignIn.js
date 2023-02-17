@@ -31,7 +31,7 @@ const SignIn = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            placeholder={!hoverEmail && "Email Address"}
+            placeholder={!hoverEmail ? "Email Address" : ""}
             id="email"
             onFocus={() => {
               setHoverEmail(true);
@@ -41,14 +41,15 @@ const SignIn = () => {
             }}
             name="email"
           />
-        </div>
+        </div>{" "}
+        {/* For email address */}
         <div className="input-container ic2">
           <div>{hoverPass && <label htmlFor="password" className="label"> Password </label>}</div>
           <input
             value={pass}
             onChange={(e) => setPass(e.target.value)}
             type="password"
-            placeholder={!hoverPass && "Password"}
+            placeholder={!hoverPass ? "Password" : ""}
             id="password"
             onFocus={() => {
               setHoverPass(true);
@@ -59,14 +60,14 @@ const SignIn = () => {
             name="password"
           />
         </div>
-        <div className="sign-up-instead">
-          <a href="SignUp">Don't have an account ? Sign Up</a>
-          {/*Need to be changed and redirected to the landing page where they specify if epmloyer or student*/}
-        </div>
         <div className="text-center">
           <button className="submit-login" type="submit">
             Sign In
           </button>
+        </div>
+        <div className="sign-up-instead">
+          <a href="SignUp">Don't have an account ? Sign Up</a>
+          {/*Need to be changed and redirected to the landing page where they specify if epmloyer or student*/}
         </div>
       </form>
     </div>
