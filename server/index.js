@@ -2,10 +2,13 @@ const mongoose = require("mongoose");
 const express = require("express");
 const postingRouter = require("./routes/jobPosting-routes");
 const employerRouter = require("./routes/employer-routes");
+const studentRouter = require("./routes/student-routes");
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+app.use(express.json());
+app.use("/students", studentRouter); // connected to the local host
 
 app.use(express.json());
 app.use("/postings", postingRouter);

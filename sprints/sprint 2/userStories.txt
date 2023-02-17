@@ -1,0 +1,29 @@
+Story Points Explanation:
+-Our story point system will be on a scale from 1-5.
+-The points will be based on complexity.
+    1: trivial (easy) task
+    |
+    |
+    |
+    5: Hardest task,
+-Each user story must have assigned story points.
+
+User Story N: Story Points;
+
+User Story 1: 3
+As a user I want to be able to sign up, sign in.
+
+User Story 2: 4
+As a Employer I would like to be able to create ,edit, or delete postings. Also to be able to see the applicants to every specfic posting. 
+
+User Story 3: 4
+As a student I would like to be ablle to browse postings and apply to any of the ones available to me.
+
+User story 4: 4
+As an Admin, I would like to be able to delete users (Employer, student) accounts.
+
+User story 5 (Might be pushed on to next sprint): 3
+As an Admin, I would like to be able manage the applications.
+
+User story 6: 2
+As a user I want to be able to edit my information.
