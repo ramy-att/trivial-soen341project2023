@@ -34,7 +34,7 @@ export const SignUp = (props) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type="text"
-                placeholder={!hoverName && "Full Name"}
+                placeholder={!hoverName ? "Full Name" : ""}
                 id="name"
                 onFocus={() => {
                   setHoverName(true);
@@ -57,7 +57,7 @@ export const SignUp = (props) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                placeholder={!hoverEmail && "Email Address"}
+                placeholder={!hoverEmail ? "Email Address" : ""}
                 id="email"
                 onFocus={() => {
                   setHoverEmail(true);
@@ -76,7 +76,7 @@ export const SignUp = (props) => {
                 value={pass}
                 onChange={(e) => setPass(e.target.value)}
                 type="password"
-                placeholder={!hoverPass && "Password"}
+                placeholder={!hoverPass ? "Password" : ""}
                 id="password"
                 onFocus={() => {
                   setHoverPass(true);
@@ -115,7 +115,7 @@ export const SignUp = (props) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type="text"
-                placeholder={!hoverName && "Full Name"}
+                placeholder={!hoverName ? "Full Name" : ""}
                 id="name"
                 onFocus={() => {
                   setHoverName(true);
@@ -136,7 +136,7 @@ export const SignUp = (props) => {
                 value={companyName}
                 onChange={(e) => setCompName(e.target.value)}
                 type="text"
-                placeholder={!hoverCompany && "Company Name"}
+                placeholder={!hoverCompany ? "Company Name" : ""}
                 id="compnayName"
                 onFocus={() => {
                   setHoverCompany(true);
@@ -160,7 +160,7 @@ export const SignUp = (props) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                placeholder={!hoverEmail && "Email Address"}
+                placeholder={!hoverEmail ? "Email Address" : ""}
                 id="email"
                 onFocus={() => {
                   setHoverEmail(true);
@@ -179,7 +179,7 @@ export const SignUp = (props) => {
                 value={pass}
                 onChange={(e) => setPass(e.target.value)}
                 type="password"
-                placeholder={!hoverPass && "Password"}
+                placeholder={!hoverPass ? "Password" : ""}
                 id="password"
                 onFocus={() => {
                   setHoverPass(true);
@@ -199,6 +199,7 @@ export const SignUp = (props) => {
               </div>
             </div>
           </form>
+          <div className="sign-in-instead">
           <a
             href="SignIn"
             className="link-btn"
@@ -206,6 +207,7 @@ export const SignUp = (props) => {
           >
             Already have an account? Login here.
           </a>
+          </div>
           {/* </div> */}
         </>
       ) : null}
