@@ -2,7 +2,9 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import "./SignIn.css";
 import Button from "../Buttons/Button";
+import { useEffect } from "react";
 import { useState } from "react";
+
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +16,15 @@ const SignIn = () => {
     console.log(email, pass);
   };
   const [currentForm, setCurrentForm] = useState("login");
+
+  useEffect(() => {
+    if (email !== "") {
+      setHoverEmail(true);
+    }
+    if (pass !== "") {
+      setHoverPass(true);
+    }
+  }, []);
 
   return (
     <div className="form-login">
@@ -27,7 +38,8 @@ const SignIn = () => {
               </label>
             )}
           </div>
-          <input
+          
+          <input 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
