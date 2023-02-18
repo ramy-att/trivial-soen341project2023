@@ -3,9 +3,12 @@ import { Alert, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import  "./Employer.css"
 
-export default function Employer() {
+export default function EditPage(props) {
+
+  const { type = "student" | "employer"} = props
   // [FORM STATES]
   const [organization, setOrganiztation] = useState("");
+  const [file, setFile] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,21 +49,29 @@ export default function Employer() {
       setSubmitted("error");
     }
   }
+  function handlFileChange (event){
+    setFile(event.target.value)
+  }
   
   
 
   return (
     
+  
     <div>
-      {submitted === "success" ? (
-        <Alert key="sucess" variant="success">
-          Successfully Updated Profile!
-        </Alert>
-      ) : submitted === "error" ? (
-        <Alert key="sucess" variant="danger">
-          Errors!
-        </Alert>
-      ) : null}
+      
+     { submitted === "sucess" ? (
+      <Alert key= "success">Submission Sucess </Alert>)
+      : submitted === "error" ? (
+        <Alert key= "error"> Error </Alert>)
+        : null
+      }
+
+      
+
+
+      {type === "employer" ? (
+     
       <Form onSubmit={handleSubmission}>
         <Form.Group className="email">
           <Form.Label>Email address</Form.Label>
@@ -111,7 +122,86 @@ export default function Employer() {
         <Button className="submitButton" variant="primary" type="submit" >
           Submit
         </Button>
+        
       </Form>
-    </div>
-  )}
+      ) : type === "student" ? (
+
+      
+        <Form onSubmit={handleSubmission}>
+          <Form.Group className="email">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              required
+              placeholder="name@example.com"
+              value={email}
+              onChange={handlEmailChange}
+            />
+          </Form.Group>
+          <Form.Group
+            className="username"
+            // controlId="exampleForm.ControlTextarea1"
+          >
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              required
+              value={username}
+              onChange={handlUsernameChange}
+            />
+          </Form.Group>
+          <Form.Group
+            className="resume"
+            // controlId="exampleForm.ControlTextarea1"
+          >
+            <Form.Label>Resume</Form.Label>
+            <Form.Control
+              type="file"
+              required
+              value={file}
+              onChange={handlFileChange}
+              multiple
+            />
+          </Form.Group>
+          <Form.Group
+            className="password"
+            // controlId="exampleForm.ControlTextarea1"
+          >
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              required
+              value={password}
+              onChange={Validation}
+            />
+          </Form.Group>
+          <Button className="submitButton" variant="primary" type="submit" >
+            Submit
+          </Button>
+        </Form>) 
+        : null
+        
+        } 
+        
+        </div>
+        
+        
+        ) }
+        
+        
+        
+        
+        
+      
+        
+
+
+      
+      
+
+
+
+
+    
+  
 

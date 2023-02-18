@@ -2,7 +2,7 @@ import React from "react";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
 import Student from "./components/Students/Student";
-import Employer from "./components/Employer/Employer";
+import Employer from "./components/Employer/EditPage";
 
 /**
  * TODO:
