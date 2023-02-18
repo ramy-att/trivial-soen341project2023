@@ -20,7 +20,7 @@ const SignIn = () => {
       <h1 className="text-center">Jobify</h1>
       <form onSubmit={handleSubmit}>
         <div className="input-container ic1">
-          <div>
+        <div className="label-container">
             {hoverEmail && (
               <label htmlFor="email" className="label">
                 Email Address
@@ -36,15 +36,17 @@ const SignIn = () => {
             onFocus={() => {
               setHoverEmail(true);
             }}
-            onBlur={() => {
-              setHoverEmail(false);
+            onBlur={(e) => {
+              if(e.target.value===""){
+                setHoverEmail(false)
+              }
             }}
             name="email"
           />
         </div>{" "}
-        {/* For email address */}
         <div className="input-container ic2">
-          <div>{hoverPass && <label htmlFor="password"> Password </label>}</div>
+          <div className="label-container">
+            {hoverPass && <label htmlFor="password" className="label"> Password </label>}</div>
           <input
             value={pass}
             onChange={(e) => setPass(e.target.value)}
@@ -54,8 +56,10 @@ const SignIn = () => {
             onFocus={() => {
               setHoverPass(true);
             }}
-            onBlur={() => {
-              setHoverPass(false);
+            onBlur={(e) => {
+              if(e.target.value===""){
+                setHoverPass(false)
+              }
             }}
             name="password"
           />

@@ -29,24 +29,27 @@ export const SignUp = (props) => {
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
-              <div>{hoverName && <label htmlFor="name">Full name</label>}</div>
+              <div className="label-container">
+                {hoverName && <label htmlFor="name" className="label">Full name</label>}</div>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type="text"
                 placeholder={!hoverName ? "Full Name" : ""}
                 id="name"
-                onFocus={() => {
+                onFocus={(e) => {
                   setHoverName(true);
                 }}
-                onBlur={() => {
-                  setHoverName(false);
+                onBlur={(e) => {
+                  if(e.target.value===""){
+                    setHoverName(false)
+                  }
                 }}
                 name="name"
               />
             </div>
             <div className="input-container ic1">
-              <div>
+              <div className="label-container">
                 {hoverEmail && (
                   <label htmlFor="email" className="label">
                     Email Address
@@ -62,15 +65,17 @@ export const SignUp = (props) => {
                 onFocus={() => {
                   setHoverEmail(true);
                 }}
-                onBlur={() => {
-                  setHoverEmail(false);
+                onBlur={(e) => {
+                  if(e.target.value===""){
+                    setHoverEmail(false)
+                  }
                 }}
                 name="email"
               />
             </div>
             <div className="input-container ic2">
-              <div>
-                {hoverPass && <label htmlFor="password"> Password </label>}
+              <div className="label-container">
+                {hoverPass && <label htmlFor="password" className="label"> Password </label>}
               </div>
               <input
                 value={pass}
@@ -81,8 +86,10 @@ export const SignUp = (props) => {
                 onFocus={() => {
                   setHoverPass(true);
                 }}
-                onBlur={() => {
-                  setHoverPass(false);
+                onBlur={(e) => {
+                  if(e.target.value===""){
+                    setHoverPass(false)
+                  }
                 }}
                 name="password"
               />
@@ -110,7 +117,8 @@ export const SignUp = (props) => {
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
-              <div>{hoverName && <label htmlFor="name">Full name</label>}</div>
+              <div className="label-container">
+                {hoverName && <label htmlFor="name" className="label">Full name</label>}</div>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -120,16 +128,18 @@ export const SignUp = (props) => {
                 onFocus={() => {
                   setHoverName(true);
                 }}
-                onBlur={() => {
-                  setHoverName(false);
+                onBlur={(e) => {
+                  if(e.target.value===""){
+                    setHoverName(false)
+                  }
                 }}
                 name="name"
               />
             </div>
             <div className="input-container ic1">
-              <div>
+              <div className="label-container">
                 {hoverCompany && (
-                  <label htmlFor="companyName">Company Name</label>
+                  <label htmlFor="companyName" className="label">Company Name</label>
                 )}
               </div>
               <input
@@ -141,15 +151,17 @@ export const SignUp = (props) => {
                 onFocus={() => {
                   setHoverCompany(true);
                 }}
-                onBlur={() => {
-                  setHoverCompany(false);
+                onBlur={(e) => {
+                  if(e.target.value===""){
+                    setHoverCompany(false)
+                  }
                 }}
                 name="companyName"
               />
             </div>
 
             <div className="input-container ic1">
-              <div>
+              <div className="label-container">
                 {hoverEmail && (
                   <label htmlFor="email" className="label">
                     Email Address
@@ -165,15 +177,17 @@ export const SignUp = (props) => {
                 onFocus={() => {
                   setHoverEmail(true);
                 }}
-                onBlur={() => {
-                  setHoverEmail(false);
+                onBlur={(e) => {
+                  if(e.target.value===""){
+                    setHoverEmail(false)
+                  }
                 }}
                 name="email"
               />
             </div>
             <div className="input-container ic2">
-              <div>
-                {hoverPass && <label htmlFor="password"> Password </label>}
+              <div className="label-container">
+                {hoverPass && <label htmlFor="password" className="label"> Password </label>}
               </div>
               <input
                 value={pass}
@@ -184,8 +198,10 @@ export const SignUp = (props) => {
                 onFocus={() => {
                   setHoverPass(true);
                 }}
-                onBlur={() => {
-                  setHoverPass(false);
+                onBlur={(e) => {
+                  if(e.target.value===""){
+                    setHoverPass(false)
+                  }
                 }}
                 name="password"
               />
@@ -200,13 +216,13 @@ export const SignUp = (props) => {
             </div>
           </form>
           <div className="sign-in-instead">
-          <a
-            href="SignIn"
-            className="link-btn"
-            onClick={() => props.onFormSwitch("login")}
-          >
-            Already have an account? Login here.
-          </a>
+            <a
+              href="SignIn"
+              className="link-btn"
+              onClick={() => props.onFormSwitch("login")}
+            >
+              Already have an account? Login here.
+            </a>
           </div>
           {/* </div> */}
         </>
