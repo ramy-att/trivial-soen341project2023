@@ -34,6 +34,11 @@ export const SignUp = (props) => {
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                onInput={(e) => {
+                  if (e.target.value !== "") {
+                    setHoverName(true);
+                  }
+                }}
                 type="text"
                 placeholder={!hoverName ? "Full Name" : ""}
                 id="name"
@@ -59,6 +64,11 @@ export const SignUp = (props) => {
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onInput={(e) => {
+                  if (e.target.value !== "") {
+                    setHoverEmail(true);
+                  }
+                }}
                 type="email"
                 placeholder={!hoverEmail ? "Email Address" : ""}
                 id="email"
@@ -80,6 +90,11 @@ export const SignUp = (props) => {
               <input
                 value={pass}
                 onChange={(e) => setPass(e.target.value)}
+                onInput={(e) => {
+                  if (e.target.value !== "") {
+                    setHoverPass(true);
+                  }
+                }}
                 type="password"
                 placeholder={!hoverPass ? "Password" : ""}
                 id="password"
@@ -122,6 +137,11 @@ export const SignUp = (props) => {
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                onInput={(e) => {
+                  if (e.target.value !== "") {
+                    setHoverName(true);
+                  }
+                }}
                 type="text"
                 placeholder={!hoverName ? "Full Name" : ""}
                 id="name"
@@ -145,6 +165,11 @@ export const SignUp = (props) => {
               <input
                 value={companyName}
                 onChange={(e) => setCompName(e.target.value)}
+                onInput={(e) => {
+                  if (e.target.value !== "") {
+                    setHoverCompany(true);
+                  }
+                }}
                 type="text"
                 placeholder={!hoverCompany ? "Company Name" : ""}
                 id="compnayName"
@@ -171,6 +196,11 @@ export const SignUp = (props) => {
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onInput={(e) => {
+                  if (e.target.value !== "") {
+                    setHoverEmail(true);
+                  }
+                }}
                 type="email"
                 placeholder={!hoverEmail ? "Email Address" : ""}
                 id="email"
@@ -192,6 +222,11 @@ export const SignUp = (props) => {
               <input
                 value={pass}
                 onChange={(e) => setPass(e.target.value)}
+                onInput={(e) => {
+                  if (e.target.value !== "") {
+                    setHoverPass(true);
+                  }
+                }}
                 type="password"
                 placeholder={!hoverPass ? "Password" : ""}
                 id="password"
