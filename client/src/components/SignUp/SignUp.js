@@ -15,9 +15,44 @@ export const SignUp = (props) => {
   /* So here the one above we need to recive if the user clicked on student or employer when they are signning up
   by onClick take it and save it in the signUpClient. Then we will use this to detrmine which one we display*/
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, pass, name, companyName);
+    if (type == "student") {
+      const url = "/students/";
+      const response = await fetch(url, {
+        method: "POST",
+        header: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          studentEmail: email,
+          studentPassword: pass,
+          studentName: name,
+        }),
+      });
+      // const result = await response.json();
+      let result;
+      console.log(response);
+      try {
+        result = await response.json();
+      } catch {
+        // return result;
+        console.log("U have an error");
+
+        return;
+      }
+      console.log(result);
+      // return result;
+    }
+    if (type == "employer") {
+      const url = { url };
+      const response = await fetch(url, {
+        method: "POST",
+        header: { "Content-Type": "application/json" },
+      });
+      const result = await response.json();
+      return result;
+
+      console.log(email, pass, name, companyName);
+    }
   };
 
   return (
@@ -200,13 +235,13 @@ export const SignUp = (props) => {
             </div>
           </form>
           <div className="sign-in-instead">
-          <a
-            href="SignIn"
-            className="link-btn"
-            onClick={() => props.onFormSwitch("login")}
-          >
-            Already have an account? Login here.
-          </a>
+            <a
+              href="SignIn"
+              className="link-btn"
+              onClick={() => props.onFormSwitch("login")}
+            >
+              Already have an account? Login here.
+            </a>
           </div>
           {/* </div> */}
         </>
