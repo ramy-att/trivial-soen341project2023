@@ -42,6 +42,11 @@ const SignIn = () => {
           <input 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onInput={(e) => {
+              if (e.target.value !== "") {
+                setHoverEmail(true);
+              }
+            }}
             type="email"
             placeholder={!hoverEmail ? "Email Address" : ""}
             id="email"
@@ -62,6 +67,11 @@ const SignIn = () => {
           <input
             value={pass}
             onChange={(e) => setPass(e.target.value)}
+            onInput={(e) => {
+              if (e.target.value !== "") {
+                setHoverPass(true);
+              }
+            }}
             type="password"
             placeholder={!hoverPass ? "Password" : ""}
             id="password"
