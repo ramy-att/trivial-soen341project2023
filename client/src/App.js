@@ -1,9 +1,7 @@
 import React from "react";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
-import Student from "./components/Students/Student";
-import Employer from "./components/Employer/EditPage";
-
+import Editprofile from "./pages/EditProfile";
 /**
  * TODO:
  * 1- Include Navbar and Footer on all pages
@@ -16,7 +14,7 @@ const App = () => {
     <div className="App">
       {window.location.pathname !== "/" && <OurNav type="student" />}
        <OurNav/>
-        <Student/>
+        <Editprofile/>
         <Footer/>
       {window.location.pathname !== "/" && <Footer />}
     </div>
