@@ -41,6 +41,7 @@ const addApplication = async (req, res, next) => {
       extraDetailsForEmployerByStudent,
       applicationStatus,
     });
+    
     application = await application.save(); // save function from mongo
   } catch (err) {
     return next(err);
