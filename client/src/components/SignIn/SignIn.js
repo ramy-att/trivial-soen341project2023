@@ -1,7 +1,5 @@
 import React from "react";
-import Form from "react-bootstrap/Form";
 import "./SignIn.css";
-import Button from "../Buttons/Button";
 import { useState } from "react";
 
 const SignIn = () => {
@@ -13,7 +11,6 @@ const SignIn = () => {
     e.preventDefault(); //That so we don't lose our state
     console.log(email, pass);
   };
-  const [currentForm, setCurrentForm] = useState("login");
 
   return (
     <div className="form-login">

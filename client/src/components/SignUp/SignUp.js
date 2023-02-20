@@ -11,48 +11,38 @@ export const SignUp = (props) => {
   const [hoverPass, setHoverPass] = useState(false);
   const [hoverName, setHoverName] = useState(false);
   const [hoverCompany, setHoverCompany] = useState(false);
-  const [signUpClient, setSignUpClient] = useState("");
+
   /* So here the one above we need to recive if the user clicked on student or employer when they are signning up
   by onClick take it and save it in the signUpClient. Then we will use this to detrmine which one we display*/
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (type == "student") {
-      const url = "/students/";
+    if (type === "student") {
+      const url = "/students";
       const response = await fetch(url, {
         method: "POST",
-        header: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+        header: {
+          "Content-Type": "application/json",
+        },
+        body: {
           studentEmail: email,
           studentPassword: pass,
           studentName: name,
-        }),
-      });
-      // const result = await response.json();
-      let result;
-      console.log(response);
-      try {
-        result = await response.json();
-      } catch {
-        // return result;
-        console.log("U have an error");
-
-        return;
-      }
-      console.log(result);
-      // return result;
-    }
-    if (type == "employer") {
-      const url = { url };
-      const response = await fetch(url, {
-        method: "POST",
-        header: { "Content-Type": "application/json" },
+        },
       });
       const result = await response.json();
-      return result;
-
-      console.log(email, pass, name, companyName);
+      console.log(response);
     }
+    // if (type == "employer") {
+    //   const url = { url };
+    //   const response = await fetch(url, {
+    //     method: "POST",
+    //     header: { "Content-Type": "application/json" },
+    //   });
+    //   const result = await response.json();
+    //   return result;
+
+    // }
   };
 
   return (

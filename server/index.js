@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
+var cors = require("cors");
 const express = require("express");
 const studentRouter = require("./routes/student-routes");
 
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use("/students", studentRouter); // connected to the local host
 
 app.get("/api", (req, res) => {
