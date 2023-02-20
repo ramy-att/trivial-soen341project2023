@@ -151,7 +151,6 @@ export default function EditPage(props) {
               <Form.Label>Resume</Form.Label>
               <Form.Control
                 type="file"
-                // required
                 value={file}
                 onChange={handlFileChange}
               />
