@@ -18,20 +18,31 @@ export const SignUp = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (type === "student") {
-      const url = "/students";
-      const response = await fetch(url, {
+      const url = "http://localhost:3001/students";
+      const req = {
         method: "POST",
-        header: {
+        headers: {
           "Content-Type": "application/json",
         },
-        body: {
+        body: JSON.stringify({
+          studentName: name,
           studentEmail: email,
           studentPassword: pass,
-          studentName: name,
-        },
-      });
-      const result = await response.json();
-      console.log(response);
+        }),
+      };
+      /**
+       * Message from Ramy:
+       * Please keep the code in the try and catch to catch errors
+       * Errors should be handled and stored in state to be displayed
+       * If no errors we can store the user ID in the redux storage
+       */
+      try {
+        const response = await fetch(url, req);
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
     }
     // if (type == "employer") {
     //   const url = { url };
