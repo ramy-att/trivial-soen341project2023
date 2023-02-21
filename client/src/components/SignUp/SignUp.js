@@ -11,13 +11,49 @@ export const SignUp = (props) => {
   const [hoverPass, setHoverPass] = useState(false);
   const [hoverName, setHoverName] = useState(false);
   const [hoverCompany, setHoverCompany] = useState(false);
-  const [signUpClient, setSignUpClient] = useState("");
+
   /* So here the one above we need to recive if the user clicked on student or employer when they are signning up
   by onClick take it and save it in the signUpClient. Then we will use this to detrmine which one we display*/
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, pass, name, companyName);
+    if (type === "student") {
+      const url = "http://localhost:3001/students";
+      const req = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studentName: name,
+          studentEmail: email,
+          studentPassword: pass,
+        }),
+      };
+      /**
+       * Message from Ramy:
+       * Please keep the code in the try and catch to catch errors
+       * Errors should be handled and stored in state to be displayed
+       * If no errors we can store the user ID in the redux storage
+       */
+      try {
+        const response = await fetch(url, req);
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    // if (type == "employer") {
+    //   const url = { url };
+    //   const response = await fetch(url, {
+    //     method: "POST",
+    //     header: { "Content-Type": "application/json" },
+    //   });
+    //   const result = await response.json();
+    //   return result;
+
+    // }
   };
 
   return (

@@ -19,7 +19,7 @@ const studentSchema = new Schema({
     minLength: 6,
   },
   resume: { type: Buffer },
-  Coverletter: {type: Buffer},
+  Coverletter: { type: Buffer },
 });
 
 module.exports = mongoose.model("student", studentSchema);
