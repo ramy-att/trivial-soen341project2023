@@ -33,8 +33,9 @@ This project is to create a simplified version of a Career service platform with
 
 ## Regularly Running The Project 
 1. Open Terminal
+2. npm start (localhost:3001)- to start the server-side
 2. cd client
-2. npm start (app starts in localhost:3000) - no need to run node server as it runs automatically
+2. npm start (localhost:3000)- to start client-side
 
 ## Design
 - https://www.canva.com/design/DAFXqjBPQqU/rpmra1k-tyOIhCj0dOA7sw/edit?utm_content=DAFXqjBPQqU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton

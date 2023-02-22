@@ -1,7 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import SignIn from "./pages/SignIn";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
 import PostingsPage from "./pages/PostingsPage";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
@@ -16,12 +17,16 @@ import Posting from "./components/Postings/Posting";
 const App = () => {
   return (
     <div className="App">
-      {window.location.pathname !== "/" && <OurNav type="student" />}
+      {window.location.pathname !== "/" &&
+        window.location.pathname !== "/signin" && <OurNav type="student" />}
       <Route exact path="/">
         <HomePage />
       </Route>
       <Route exact path="/signin">
-        <SignIn />
+        <SignInPage />
+      </Route>
+      <Route exact path="/signup">
+        <SignUpPage />
       </Route>
       <Route exact path="/job-postings">
         <PostingsPage />
@@ -31,7 +36,9 @@ const App = () => {
           <Posting/>
         </Route>
       </Route>
-      {window.location.pathname !== "/" && <Footer />}
+
+      {window.location.pathname !== "/" &&
+        window.location.pathname !== "/signin" && <Footer />}
     </div>
   );
 };

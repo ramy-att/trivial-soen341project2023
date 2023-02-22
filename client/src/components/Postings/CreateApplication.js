@@ -18,16 +18,6 @@ const CreateApplication = (props) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Name*</Form.Label>
-            <Form.Control type="email" required placeholder="Enter email" />
-            <Form.Text className="text-muted"></Form.Text>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address*</Form.Label>
-            <Form.Control required type="email" placeholder="Enter email" />
-            <Form.Text className="text-muted"></Form.Text>
-          </Form.Group>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Resume*</Form.Label>
             <Form.Control required type="file" />
