@@ -24,7 +24,10 @@ const getAllStudents = async (req, res, next) => {
 const addStudent = async (req, res, next) => {
   //to add a new Student without errors AKA post
   const { studentName, studentEmail, studentPassword } = req.body; // we post in the body of the API
-  if (
+  const takenEmail = await Student.findOne({ studentEmail: studentEmail });
+  if (takenEmail) {
+    return res.status(400).json({ err: "User already exists" });
+  } else if (
     !studentName &&
     studentName.trim() === "" &&
     !studentEmail &&
