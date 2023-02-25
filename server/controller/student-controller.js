@@ -1,7 +1,6 @@
 //contain functions that controls the api calls
-
-const student = require("../model/student");
 const Student = require("../model/student");
+const bcrypt = require("bcrypt");
 
 //get all the users from the database
 //GET START
@@ -38,12 +37,13 @@ const addStudent = async (req, res, next) => {
     return res.status(422).json({ err: "Invaild data for student" });
   } // return error message if data is wrong or missing
   let student;
+  const hashedPassword = await bcrypt.hash(studentPassword, 10);
   try {
     // defining a student
     student = new Student({
       studentName,
       studentEmail,
-      studentPassword,
+      studentPassword: hashedPassword,
     });
     student = await student.save(); // save function from mongo
   } catch (err) {
