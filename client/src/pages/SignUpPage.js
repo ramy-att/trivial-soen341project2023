@@ -7,7 +7,7 @@ const SignUpPage = () => {
   return (
     <Container fluid className="">
       <div className="signUp">
-        <SignUp type="student" />
+        <SignUp type="employer" />
       </div>
     </Container>
   );
