@@ -96,7 +96,7 @@ const deleteStudent = async (req, res, next) => {
   return res.status(200).json({ message: "Student deleted successfully" });
 }; //DELETE END ****ONLY ADMIN CAN DELETE****
 //GET STUDENT BY ID START
-const getStudentById = async (req,res,next) => {
+const getStudentById = async (req, res, next) => {
   let id = req.params.id;
   let stu;
   try {
@@ -107,7 +107,7 @@ const getStudentById = async (req,res,next) => {
   if (!stu) {
     return res.status(404).json({ err: "could NOT get student by ID" });
   }
-  return res.status(200).json({stu});
+  return res.status(200).json({ stu });
 };
 
 exports.getAllStudents = getAllStudents;
