@@ -44,16 +44,251 @@ export const SignUp = (props) => {
         console.error(error);
       }
     }
-    // if (type == "employer") {
-    //   const url = { url };
-    //   const response = await fetch(url, {
-    //     method: "POST",
-    //     header: { "Content-Type": "application/json" },
-    //   });
-    //   const result = await response.json();
-    //   return result;
+    if (type === "employer") {
+  const url = "http://localhost:3001/employers";
+  const req = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      employerName: name,
+      employerEmail: email,
+      employerCompname:companyName,
+      employerPassword: pass,
+    }),
+  };
+  /**
+   * Message from Ramy:
+   * Please keep the code in the try and catch to catch errors
+   * Errors should be handled and stored in state to be displayed
+   * If no errors we can store the user ID in the redux storage
+   */
+  try {
+    const response = await fetch(url, req);
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+    if (type === "student") {
+  const url = "http://localhost:3001/students";
+  const req = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      studentName: name,
+      studentEmail: email,
+      studentPassword: pass,
+    }),
+  };
+  /**
+   * Message from Ramy:
+   * Please keep the code in the try and catch to catch errors
+   * Errors should be handled and stored in state to be displayed
+   * If no errors we can store the user ID in the redux storage
+   */
+  try {
+    const response = await fetch(url, req);
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+    if (type === "student") {
+  const url = "http://localhost:3001/students";
+  const req = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      studentName: name,
+      studentEmail: email,
+      studentPassword: pass,
+    }),
+  };
+  /**
+   * Message from Ramy:
+   * Please keep the code in the try and catch to catch errors
+   * Errors should be handled and stored in state to be displayed
+   * If no errors we can store the user ID in the redux storage
+   */
+  try {
+    const response = await fetch(url, req);
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+    if (type === "student") {
+  const url = "http://localhost:3001/students";
+  const req = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      studentName: name,
+      studentEmail: email,
+      studentPassword: pass,
+    }),
+  };
+  /**
+   * Message from Ramy:
+   * Please keep the code in the try and catch to catch errors
+   * Errors should be handled and stored in state to be displayed
+   * If no errors we can store the user ID in the redux storage
+   */
+  try {
+    const response = await fetch(url, req);
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+    if (type === "student") {
+  const url = "http://localhost:3001/students";
+  const req = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      studentName: name,
+      studentEmail: email,
+      studentPassword: pass,
+    }),
+  };
+  /**
+   * Message from Ramy:
+   * Please keep the code in the try and catch to catch errors
+   * Errors should be handled and stored in state to be displayed
+   * If no errors we can store the user ID in the redux storage
+   */
+  try {
+    const response = await fetch(url, req);
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+    if (type === "student") {
+  const url = "http://localhost:3001/students";
+  const req = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      studentName: name,
+      studentEmail: email,
+      studentPassword: pass,
+    }),
+  };
+  /**
+   * Message from Ramy:
+   * Please keep the code in the try and catch to catch errors
+   * Errors should be handled and stored in state to be displayed
+   * If no errors we can store the user ID in the redux storage
+   */
+  try {
+    const response = await fetch(url, req);
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+    if (type === "student") {
+  const url = "http://localhost:3001/students";
+  const req = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      studentName: name,
+      studentEmail: email,
+      studentPassword: pass,
+    }),
+  };
+  /**
+   * Message from Ramy:
+   * Please keep the code in the try and catch to catch errors
+   * Errors should be handled and stored in state to be displayed
+   * If no errors we can store the user ID in the redux storage
+   */
+  try {
+    const response = await fetch(url, req);
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+    if (type === "student") {
+  const url = "http://localhost:3001/students";
+  const req = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      studentName: name,
+      studentEmail: email,
+      studentPassword: pass,
+    }),
+  };
+  /**
+   * Message from Ramy:
+   * Please keep the code in the try and catch to catch errors
+   * Errors should be handled and stored in state to be displayed
+   * If no errors we can store the user ID in the redux storage
+   */
+  try {
+    const response = await fetch(url, req);
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-    // }
+    if (type === "student") {
+  const url = "http://localhost:3001/students";
+  const req = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      studentName: name,
+      studentEmail: email,
+      studentPassword: pass,
+    }),
+  };
+  /**
+   * Message from Ramy:
+   * Please keep the code in the try and catch to catch errors
+   * Errors should be handled and stored in state to be displayed
+   * If no errors we can store the user ID in the redux storage
+   */
+  try {
+    const response = await fetch(url, req);
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
   };
 
   return (
