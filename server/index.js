@@ -1,16 +1,24 @@
 const mongoose = require("mongoose"); //Database
-const cors = require("cors"); //HTTP Connection
 const express = require("express"); //Express
+const cors = require("cors"); //HTTP Connection
+
 const dotenv = require("dotenv"); //.env
 const path = require("path"); //to get path to .env
 
 const studentRouter = require("./routes/student-routes");
+const applicationRouter = require("./routes/application-routes");
+const postingRouter = require("./routes/jobPosting-routes");
+const employerRouter = require("./routes/employer-routes");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
 app.use(express.json());
 app.use(cors());
 app.use("/students", studentRouter); // connected to the local host
+app.use("/postings", postingRouter);
+app.use("/employers", employerRouter);
+app.use("/applications",applicationRouter)
 dotenv.config({ path: path.resolve(__dirname, "./.env") });
 
 mongoose.set("strictQuery", false);
