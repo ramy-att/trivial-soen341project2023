@@ -9,6 +9,8 @@ const studentRouter = require("./routes/student-routes");
 const applicationRouter = require("./routes/application-routes");
 const postingRouter = require("./routes/jobPosting-routes");
 const employerRouter = require("./routes/employer-routes");
+const signinRouter = require("./routes/signin-routes");
+const verifyJWT = require("./controller/student-controller");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -18,7 +20,16 @@ app.use(cors());
 app.use("/students", studentRouter); // connected to the local host
 app.use("/postings", postingRouter);
 app.use("/employers", employerRouter);
-app.use("/applications",applicationRouter)
+app.use("/applications", applicationRouter);
+app.use("/signin", signinRouter);
+app.get("/getUserInfo", verifyJWT, (req, res) => {
+  res.json({
+    isLoggedIn: true,
+    name: req.user.name,
+    email: req.user.name,
+    id: req.user.id,
+  });
+});
 dotenv.config({ path: path.resolve(__dirname, "./.env") });
 
 mongoose.set("strictQuery", false);

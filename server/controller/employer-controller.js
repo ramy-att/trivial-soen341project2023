@@ -1,4 +1,5 @@
 const Employer = require("../model/employer");
+const bcrypt = require("bcrypt");
 
 //GET START
 
@@ -25,27 +26,31 @@ const addEmployer = async (req, res, next) => {
     postings,
     applications,
   } = req.body; // we post in the body of the API
-  if (
+  const takenEmail = await Employer.findOne({ email: email });
+  if (takenEmail) {
+    return res.status(400).json({ err: "User already exists" });
+  } else if (
     !name &&
     name.trim() === "" &&
     !password &&
     password.trim() === "" &&
     !email &&
-    email.trim() == "" &&
+    email.trim() === "" &&
     !organizationName &&
-    organizationName.trim() == "" &&
+    organizationName.trim() === "" &&
     !category &&
-    category.trim() == ""
+    category.trim() === ""
   ) {
     return res.status(422).json({ err: "Invaild data for employer" });
   } // return error message if data is wrong or missing
 
   let employer;
+  const hashedPassword = await bcrypt.hash(password, 10);
   try {
     // defining an employer
     employer = new Employer({
       name,
-      password,
+      password: hashedPassword,
       email,
       organizationName,
       category,
