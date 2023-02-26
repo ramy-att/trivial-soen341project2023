@@ -1,16 +1,43 @@
 import React from "react";
 import "./SignIn.css";
-import Button from "../Buttons/Button";
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [hoverEmail, setHoverEmail] = useState(false);
   const [hoverPass, setHoverPass] = useState(false);
+  const [error, setError] = useState("");
+  const history = useHistory();
+
+  const verifyUser = async () => {
+    const url2 = "http://localhost:3001/signin";
+    const verifyReq = {
+      method: "GET",
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      },
+    };
+    try {
+      const response = await fetch(url2, verifyReq);
+      const result = await response.json();
+      return { ...result };
+    } catch (error) {}
+  };
+  const redirect = () => {
+    verifyUser().then((result) => {
+      const user = result.user;
+      // [TO DO]: FIX REDIRECTS
+      if (user && user.type === "student") {
+        history.push("/");
+      } else if (user && user.type === "employer") {
+        history.push("/");
+      }
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault(); //That so we don't lose our state
-    console.log(email, pass);
     const url = "http://localhost:3001/signin";
     const req = {
       method: "POST",
@@ -26,41 +53,20 @@ const SignIn = () => {
     try {
       const response = await fetch(url, req);
       const result = await response.json();
-      localStorage.setItem("token", result.token);
-      const url2 = "http://localhost:3001/signin";
-      const verifyReq = {
-        method:"GET",
-        headers: {
-          "x-access-token": localStorage.getItem("token"),
-        },
-      };
-      try {
-        const response = await fetch(url2, verifyReq);
-        const result = await response.json();
-        console.log(result);
-      } catch (error) {
-        console.error(error);
+      if (result.token) {
+        localStorage.setItem("token", result.token);
+      } else {
+        setError("Incorrect Credentials!");
       }
+      redirect();
     } catch (error) {
       console.error(error);
-    }
-  };
-  const verify = async () => {
-    const url = "http://localhost:3001/getUserInfo";
-    const req = {
-      headers: {
-        "x-access-token": localStorage.getItem("token"),
-      },
-    };
-    try {
-      const response = await fetch(url, req);
-      const result = await response.json();
-      console.log(result);
-    } catch (error) {
-      console.error(error);
+      setError("Some Error has Occured! Please try again.");
     }
   };
   useEffect(() => {
+    // If logged in redirect
+    redirect();
     if (email !== "") {
       setHoverEmail(true);
     }

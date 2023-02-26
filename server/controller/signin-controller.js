@@ -18,7 +18,7 @@ const verifyJWT = (req, res, next) => {
       user.email = decoded.email;
       user.name = decoded.name;
       user.type = decoded.type;
-      return res.json({user})
+      return user;
     });
   }
   return res.json({ err: "Incorrect Token", isLoggedIn: false });
