@@ -60,7 +60,6 @@ const SignIn = () => {
       }
       redirect();
     } catch (error) {
-      console.error(error);
       setError("Some Error has Occured! Please try again.");
     }
   };
