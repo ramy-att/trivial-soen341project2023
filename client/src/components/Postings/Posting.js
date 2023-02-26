@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Table } from "react-bootstrap";
 import CreateApplication from "./CreateApplication";
+import ManagePosting from "./ManagePosting";
 
 const Posting = () => {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
-
+  // ADD STATE: USER type
   const showModalHandler = () => {
     setShowModal((prev) => !prev);
   };
@@ -15,13 +16,26 @@ const Posting = () => {
       <div className="title-container">
         <h1>CAE: Front-End Intern (ID: #{id})</h1>
         {/* Button will only appear for student, will replace with "check applciation" if already applied" */}
-        <button
+        {/* <button
           className="apply-posting-button"
           onClick={() => {
             setShowModal(true);
           }}
         >
           Apply
+        </button> */}
+        <button
+          className="apply-posting-button"
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          Edit
+        </button>
+        <button
+          className="apply-posting-button"
+        >
+          Delete
         </button>
         {/* <span>Check Application!</span> */}
       </div>
@@ -99,7 +113,8 @@ const Posting = () => {
           </tbody>
         </Table>
       </div>
-      {showModal && <CreateApplication showModalHandler={showModalHandler} show />}
+      {/* {showModal && <CreateApplication showModalHandler={showModalHandler} show />} */}
+      {showModal && <ManagePosting showModalHandler={showModalHandler} show />}
     </Container>
   );
 };

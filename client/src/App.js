@@ -36,7 +36,6 @@ const App = () => {
           <Posting/>
         </Route>
       </Route>
-
       {window.location.pathname !== "/" &&
         window.location.pathname !== "/signin" && <Footer />}
     </div>
