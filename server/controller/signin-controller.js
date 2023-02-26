@@ -4,25 +4,24 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const verifyJWT = (req, res, next) => {
-  const token = req.headers("x-access-token")?.split(" ")[1];
+  const token = req.headers["x-access-token"]?.split(" ")[1];
   if (token) {
-    jwt.verify(token, process.JWT_SECRET, (error, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
       if (error) {
         return res.json({
           isLoggedIn: false,
           message: "Failed to authenticate",
         });
       }
-      req.user = {};
-      req.user.id = decoded.id;
-      req.user.email = decoded.email;
-      req.user.name = decoded.name;
-      req.user.type = decoded.type;
-      next();
+      user = {};
+      user.id = decoded.id;
+      user.email = decoded.email;
+      user.name = decoded.name;
+      user.type = decoded.type;
+      return res.json({user})
     });
-  } else {
-    res.json({ err: "Incorrect Token", isLoggedIn: false });
   }
+  return res.json({ err: "Incorrect Token", isLoggedIn: false });
 };
 const signin = async (req, res, next) => {
   const { email, password } = req.body;
