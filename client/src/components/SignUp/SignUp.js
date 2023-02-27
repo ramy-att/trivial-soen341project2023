@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../SignIn/SignIn.css";
 
 export const SignUp = (props) => {
-  const { type } = props;
+  const { typeSignUp } = props;
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [name, setName] = useState("");
@@ -17,7 +17,7 @@ export const SignUp = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (type === "student") {
+    if (typeSignUp === "student") {
       const url = "http://localhost:3001/students";
       const req = {
         method: "POST",
@@ -77,7 +77,7 @@ export const SignUp = (props) => {
   return (
     <div className="form-signUp">
       {/* Need to get the value of "type" by clicking on either student or employer from landing page*/}
-      {type === "student" ? (
+      {typeSignUp === "student" ? (
         <>
           {/* <div className="form-signUp"> */}
           <h1 className="text-center">Jobify</h1>
@@ -190,7 +190,7 @@ export const SignUp = (props) => {
           </a>
           {/* </div> */}
         </>
-      ) : type === "employer" ? (
+      ) : typeSignUp === "employer" ? (
         <>
           {/* <div className="form-signUp"> */}
           <h1 className="text-center">Jobify</h1>
