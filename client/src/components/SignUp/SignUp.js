@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../SignIn/SignIn.css";
 
 export const SignUp = (props) => {
-  const { type } = props;
+  const { typeSignUp } = props;
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [name, setName] = useState("");
@@ -17,7 +17,7 @@ export const SignUp = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (type === "student") {
+    if (typeSignUp === "student") {
       const url = "http://localhost:3001/students";
       const req = {
         method: "POST",
@@ -59,14 +59,19 @@ export const SignUp = (props) => {
   return (
     <div className="form-signUp">
       {/* Need to get the value of "type" by clicking on either student or employer from landing page*/}
-      {type === "student" ? (
+      {typeSignUp === "student" ? (
         <>
           {/* <div className="form-signUp"> */}
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
               <div className="label-container">
-                {hoverName && <label htmlFor="name" className="label">Full name</label>}</div>
+                {hoverName && (
+                  <label htmlFor="name" className="label">
+                    Full name
+                  </label>
+                )}
+              </div>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -82,8 +87,8 @@ export const SignUp = (props) => {
                   setHoverName(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverName(false)
+                  if (e.target.value === "") {
+                    setHoverName(false);
                   }
                 }}
                 name="name"
@@ -112,8 +117,8 @@ export const SignUp = (props) => {
                   setHoverEmail(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverEmail(false)
+                  if (e.target.value === "") {
+                    setHoverEmail(false);
                   }
                 }}
                 name="email"
@@ -121,7 +126,12 @@ export const SignUp = (props) => {
             </div>
             <div className="input-container ic2">
               <div className="label-container">
-                {hoverPass && <label htmlFor="password" className="label"> Password </label>}
+                {hoverPass && (
+                  <label htmlFor="password" className="label">
+                    {" "}
+                    Password{" "}
+                  </label>
+                )}
               </div>
               <input
                 value={pass}
@@ -138,8 +148,8 @@ export const SignUp = (props) => {
                   setHoverPass(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverPass(false)
+                  if (e.target.value === "") {
+                    setHoverPass(false);
                   }
                 }}
                 name="password"
@@ -162,14 +172,19 @@ export const SignUp = (props) => {
           </a>
           {/* </div> */}
         </>
-      ) : type === "employer" ? (
+      ) : typeSignUp === "employer" ? (
         <>
           {/* <div className="form-signUp"> */}
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
               <div className="label-container">
-                {hoverName && <label htmlFor="name" className="label">Full name</label>}</div>
+                {hoverName && (
+                  <label htmlFor="name" className="label">
+                    Full name
+                  </label>
+                )}
+              </div>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -185,8 +200,8 @@ export const SignUp = (props) => {
                   setHoverName(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverName(false)
+                  if (e.target.value === "") {
+                    setHoverName(false);
                   }
                 }}
                 name="name"
@@ -195,7 +210,9 @@ export const SignUp = (props) => {
             <div className="input-container ic1">
               <div className="label-container">
                 {hoverCompany && (
-                  <label htmlFor="companyName" className="label">Company Name</label>
+                  <label htmlFor="companyName" className="label">
+                    Company Name
+                  </label>
                 )}
               </div>
               <input
@@ -213,8 +230,8 @@ export const SignUp = (props) => {
                   setHoverCompany(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverCompany(false)
+                  if (e.target.value === "") {
+                    setHoverCompany(false);
                   }
                 }}
                 name="companyName"
@@ -244,8 +261,8 @@ export const SignUp = (props) => {
                   setHoverEmail(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverEmail(false)
+                  if (e.target.value === "") {
+                    setHoverEmail(false);
                   }
                 }}
                 name="email"
@@ -253,7 +270,12 @@ export const SignUp = (props) => {
             </div>
             <div className="input-container ic2">
               <div className="label-container">
-                {hoverPass && <label htmlFor="password" className="label"> Password </label>}
+                {hoverPass && (
+                  <label htmlFor="password" className="label">
+                    {" "}
+                    Password{" "}
+                  </label>
+                )}
               </div>
               <input
                 value={pass}
@@ -270,8 +292,8 @@ export const SignUp = (props) => {
                   setHoverPass(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverPass(false)
+                  if (e.target.value === "") {
+                    setHoverPass(false);
                   }
                 }}
                 name="password"

@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import "./pages.css";
 const SignInPage = () => {
   return (
-    <Container fluid className="">
+    <Container fluid>
       <div className="signIn">
         <SignIn />
       </div>
