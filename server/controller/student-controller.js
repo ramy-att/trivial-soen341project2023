@@ -1,7 +1,6 @@
 //contain functions that controls the api calls
-
-const student = require("../model/student");
 const Student = require("../model/student");
+const bcrypt = require("bcrypt");
 
 //get all the users from the database
 //GET START
@@ -24,7 +23,10 @@ const getAllStudents = async (req, res, next) => {
 const addStudent = async (req, res, next) => {
   //to add a new Student without errors AKA post
   const { studentName, studentEmail, studentPassword } = req.body; // we post in the body of the API
-  if (
+  const takenEmail = await Student.findOne({ studentEmail: studentEmail });
+  if (takenEmail) {
+    return res.status(400).json({ err: "User already exists" });
+  } else if (
     !studentName &&
     studentName.trim() === "" &&
     !studentEmail &&
@@ -35,12 +37,13 @@ const addStudent = async (req, res, next) => {
     return res.status(422).json({ err: "Invaild data for student" });
   } // return error message if data is wrong or missing
   let student;
+  const hashedPassword = await bcrypt.hash(studentPassword, 10);
   try {
     // defining a student
     student = new Student({
       studentName,
       studentEmail,
-      studentPassword,
+      studentPassword: hashedPassword,
     });
     student = await student.save(); // save function from mongo
   } catch (err) {
