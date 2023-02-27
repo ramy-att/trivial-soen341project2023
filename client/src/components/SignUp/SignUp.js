@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../SignIn/SignIn.css";
+import { Alert } from "bootstrap";
 
 export const SignUp = (props) => {
   const { type } = props;
@@ -7,6 +8,7 @@ export const SignUp = (props) => {
   const [pass, setPass] = useState("");
   const [name, setName] = useState("");
   const [companyName, setCompName] = useState("");
+  const [SignUpError, setSignUpError] = useState("");
   const [hoverEmail, setHoverEmail] = useState(false);
   const [hoverPass, setHoverPass] = useState(false);
   const [hoverName, setHoverName] = useState(false);
@@ -40,8 +42,12 @@ export const SignUp = (props) => {
         const response = await fetch(url, req);
         const result = await response.json();
         console.log(result);
+        if(result.err){
+          setSignUpError(result.err)
+        }
       } catch (error) {
-        console.error(error);
+       
+        console.log(error);
       }
     }
     // if (type == "employer") {
@@ -62,8 +68,12 @@ export const SignUp = (props) => {
       {type === "student" ? (
         <>
           {/* <div className="form-signUp"> */}
+         {SignUpError && <Alert variant="danger">{SignUpError}</Alert>}
+          {/* <Alert variant="danger">
+          Error
+        </Alert> */}
           <h1 className="text-center">Jobify</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} >
             <div className="input-container ic1">
               <div className="label-container">
                 {hoverName && <label htmlFor="name" className="label">Full name</label>}</div>
