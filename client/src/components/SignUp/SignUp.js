@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../SignIn/SignIn.css";
-import { Alert } from "bootstrap";
+import { Alert } from "react-bootstrap";
 
 export const SignUp = (props) => {
   const { type } = props;
