@@ -3,9 +3,10 @@ import { Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
+import PostingsPage from "./pages/PostingsPage";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
-
+import Posting from "./components/Postings/Posting";
 /**
  * TODO:
  * 1- Include Navbar and Footer on all pages
@@ -26,6 +27,14 @@ const App = () => {
       </Route>
       <Route exact path="/signup">
         <SignUpPage />
+      </Route>
+      <Route exact path="/job-postings">
+        <PostingsPage />
+      </Route>
+      <Route>
+        <Route exact path="/job-postings/:id">
+          <Posting/>
+        </Route>
       </Route>
 
       {window.location.pathname !== "/" &&
