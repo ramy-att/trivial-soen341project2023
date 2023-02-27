@@ -3,13 +3,13 @@ import SignUp from "../components/SignUp/SignUp";
 import { Container } from "react-bootstrap";
 import "./pages.css";
 
-const SignUpPage = () => {
+const SignUpPageStu = () => {
   return (
-    <Container fluid className="">
+    <Container fluid >
       <div className="signUp">
-        <SignUp type="student" />
+        <SignUp typeSignUp="student" />
       </div>
     </Container>
   );
 };
-export default SignUpPage;
+export default SignUpPageStu;
