@@ -44,7 +44,7 @@ export const SignUp = (props) => {
         console.error(error);
       }
     }
-    if (type === "employer") {
+    if (typeSignUp === "employer") {
       const url = "http://localhost:3001/employers";
       const req = {
         method: "POST",
