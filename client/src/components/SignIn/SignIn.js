@@ -146,7 +146,7 @@ const SignIn = () => {
           </button>
         </div>
         <div className="sign-up-instead">
-          <a href="SignUp">Don't have an account ? Sign Up</a>
+          <a href="/">Don't have an account ? Go back to SignUp</a>
           {/*Need to be changed and redirected to the landing page where they specify if epmloyer or student*/}
         </div>
       </form>
