@@ -8,47 +8,41 @@
 // 	"postings": [...jobPostings]
 // 	"applications": [...applications] filtered by applicantionInfo.company -> getByEmployer(exmployerID)
 // }
-const mongoose= require("mongoose");
-const Schema= mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const employerSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
 
-    name:{
-        type: String,
-        required: true,
-    },
+  password: {
+    type: String,
+    required: true,
+  },
 
-    password:{
-        type: String,
-        required: true,
-    },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 
-    email:{
-        type: String,
-        required: true,
-        unique: true,
-    },
+  organizationName: {
+    type: String,
+    required: true,
+  },
 
-    organizationName:{
-        type: String,
-        required: true,
-    },
+  category: {
+    type: String,
+  },
 
-    category:{
-        type: String,
-        required: true,
-    },
+  postings: {
+    type: String,
+  },
 
-    postings:{
-        type:String,
-    },
-
-
-    applications:{
-        type:String,
-    }
-
-
-
+  applications: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("employer", employerSchema);

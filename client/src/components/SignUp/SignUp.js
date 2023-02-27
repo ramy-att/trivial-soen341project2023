@@ -44,16 +44,34 @@ export const SignUp = (props) => {
         console.error(error);
       }
     }
-    // if (type == "employer") {
-    //   const url = { url };
-    //   const response = await fetch(url, {
-    //     method: "POST",
-    //     header: { "Content-Type": "application/json" },
-    //   });
-    //   const result = await response.json();
-    //   return result;
-
-    // }
+    if (typeSignUp === "employer") {
+      const url = "http://localhost:3001/employers";
+      const req = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: pass,
+          organizationName: companyName,
+        }),
+      };
+      /**
+       * Message from Ramy:
+       * Please keep the code in the try and catch to catch e
+       * Errors should be handled and stored in state to be d
+       * If no errors we can store the user ID in the redux s
+       */
+      try {
+        const response = await fetch(url, req);
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   return (
