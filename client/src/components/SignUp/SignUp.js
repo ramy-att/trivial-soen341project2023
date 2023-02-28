@@ -69,6 +69,8 @@ export const SignUp = (props) => {
        * Errors should be handled and stored in state to be d
        * If no errors we can store the user ID in the redux s
        */
+      
+      /**Here we are setting the signup error for the already exisiting user */
       try {
         const response = await fetch(url, req);
         const result = await response.json();
