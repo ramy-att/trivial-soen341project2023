@@ -17,6 +17,7 @@ export default function EditPage(props) {
     lengthPassword: false,
     numbers: false,
   });
+  const [transcription , setTranscription] = useState("");
 
   function Validation(event) {
     const password = event.target.value;
@@ -39,6 +40,9 @@ export default function EditPage(props) {
   function handlEmailChange(event) {
     setEmail(event.target.value);
   }
+function   handlTranscritionChange(event) {
+  setTranscription(event.target.value)
+}
   function handleSubmission(event) {
     event.preventDefault();
     // Should get the return from backend
@@ -153,6 +157,17 @@ export default function EditPage(props) {
                 type="file"
                 value={file}
                 onChange={handlFileChange}
+              />
+            </Form.Group> 
+            <Form.Group
+              className="transcription"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>transcription</Form.Label>
+              <Form.Control
+                type="file"
+                value={file}
+                onChange={handlTranscritionChange}
               />
             </Form.Group>
             <Form.Group className="email">
