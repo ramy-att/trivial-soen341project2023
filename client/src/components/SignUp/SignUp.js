@@ -73,8 +73,11 @@ export const SignUp = (props) => {
         const response = await fetch(url, req);
         const result = await response.json();
         console.log(result);
+        if (result.err) {
+          setSignUpError(result.err);
+        }
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     }
   };
@@ -198,6 +201,7 @@ export const SignUp = (props) => {
       ) : typeSignUp === "employer" ? (
         <>
           {/* <div className="form-signUp"> */}
+          {SignUpError && <Alert variant="danger">{SignUpError}</Alert>}
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
