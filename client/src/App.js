@@ -1,7 +1,13 @@
 import React from "react";
+import { Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import SignInPage from "./pages/SignInPage";
+import SignUpPageStu from "./pages/SignUpPageStu";
+import SignUpPageEmp from "./pages/SignUpPageEmp";
+import PostingsPage from "./pages/PostingsPage";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
-import Student from "./components/Students/Student";
+import Posting from "./components/Postings/Posting";import Student from "./components/Students/Student";
 import Employer from "./components/Employer/EditPage";
 
 /**
@@ -14,11 +20,32 @@ import Employer from "./components/Employer/EditPage";
 const App = () => {
   return (
     <div className="App">
-      {window.location.pathname !== "/" && <OurNav type="student" />}
-       <OurNav/>
-        <Student/>
-        <Footer/>
-      {window.location.pathname !== "/" && <Footer />}
+      {window.location.pathname !== "/" &&
+        window.location.pathname !== "/signin" && <OurNav type="student" />}
+      <Route exact path="/">
+        <HomePage />
+      </Route>
+      <Route exact path="/signin">
+        <SignInPage />
+      </Route>
+      <Route exact path="/signup-stu">
+        <SignUpPageStu />
+      </Route>
+      <Route exact path="/signup-emp">
+        <SignUpPageEmp />
+      </Route>
+
+      <Route exact path="/job-postings">
+        <PostingsPage />
+      </Route>
+      <Route>
+        <Route exact path="/job-postings/:id">
+          <Posting />
+        </Route>
+      </Route>
+
+      {window.location.pathname !== "/" &&
+        window.location.pathname !== "/signin" && <Footer />}
     </div>
   );
 };

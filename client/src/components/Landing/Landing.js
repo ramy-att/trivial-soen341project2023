@@ -2,6 +2,7 @@ import React from "react";
 import Container from "react-bootstrap/esm/Container";
 import Button from "../Buttons/Button";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Landing.css";
 
 const Landing = () => {
@@ -13,7 +14,9 @@ const Landing = () => {
         <h1 className="title">Jobify</h1>
         <h2 className="subTitle">Career Opportunities</h2>
         <div className="buttons">
-          <Button type="authen">Sign In</Button>
+          <Link to="/SignIn" className="Link">
+            <Button type="authen">Sign In</Button>
+          </Link>
           <Button
             type="authen"
             onClick={() => setShowSignUpButtons(!showSignUpButtons)}
@@ -23,8 +26,12 @@ const Landing = () => {
         </div>
         {showSignUpButtons && (
           <div className="buttons">
-            <Button type="authen">Employer</Button>
-            <Button type="authen">Student</Button>
+            <Link to="/signup-emp" className="Link">
+              <Button type="authen">Employer</Button>
+            </Link>
+            <Link to="/signup-stu" className="Link">
+              <Button type="authen">Student</Button>
+            </Link>
           </div>
         )}
         <p className="copyright">
