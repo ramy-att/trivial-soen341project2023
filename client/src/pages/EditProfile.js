@@ -1,14 +1,6 @@
 import React from "react";
-import Employer from "../components/Employer/EditPage";
-import Footer from "../components/Footer/Footer"
+import EditPage from "../components/EditPage/EditPage";
 
-function Editprofile (){
-    return(
-        <div>
-            
-                    <Employer/>
-                    <Footer/>
-
-        </div>
-    )
+export default function Editprofile() {
+  return <EditPage type="student"/>;
 }

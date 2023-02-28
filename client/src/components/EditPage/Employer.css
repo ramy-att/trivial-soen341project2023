@@ -1,19 +1,36 @@
-form {
-
-    text-align: center;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    background-color: #0a1640;
-    color: white;
-    width: 50%;
-    margin-left: 25%;
-    margin-bottom: 10%;
-    margin-top: 10%;
-
+.editPage {
+  height: 90vh;
 }
- .submitButton{
-    background-color: 0a1640 !important;
-    color: white !important;
+.editTitleContainer {
+  margin-top: 1.5rem;
+  padding-left: 1rem;
+  text-align: center;
+  color: #0a1640;
+}
+.formContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.editProfile {
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: #0a1640;
+  color: white;
+  width: 60%;
+}
+.submitButton {
+  margin-top: 0.5rem;
+  width: 5rem;
+  background-color: white !important;
+  color: #0a1640 !important;
+}
+.submitButton:hover {
+  background-color: green !important;
+}
+.alertContainer {
+  height: 2.5rem;
+}
+input {
+  margin: 0.5rem 0 0.5rem 0 !important;
 }

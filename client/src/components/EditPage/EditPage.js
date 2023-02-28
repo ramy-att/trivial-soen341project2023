@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import  "./Employer.css"
+import "./Employer.css";
 
 export default function EditPage(props) {
-
-  const { type = "student" | "employer"} = props
+  const { type = "student" | "employer" } = props;
   // [FORM STATES]
   const [organization, setOrganiztation] = useState("");
   const [file, setFile] = useState("");
@@ -42,166 +41,150 @@ export default function EditPage(props) {
   }
   function handleSubmission(event) {
     event.preventDefault();
+    // Should get the return from backend
     if (checks.capitalLetter && checks.numbers && checks.lengthPassword) {
       setSubmitted("success");
-
     } else {
       setSubmitted("error");
     }
+    // Clear the alert after 5 seconds
+    setTimeout(() => {
+      setSubmitted("");
+    }, 5000);
   }
-  function handlFileChange (event){
-    setFile(event.target.value)
+  function handlFileChange(event) {
+    setFile(event.target.value);
   }
-  
-  
 
   return (
-    
-  
-    <div>
-      
-     { submitted === "sucess" ? (
-      <Alert key= "success">Submission Sucess </Alert>)
-      : submitted === "error" ? (
-        <Alert key= "error"> Error </Alert>)
-        : null
-      }
-
-      
-
-
-      {type === "employer" ? (
-     
-      <Form onSubmit={handleSubmission}>
-        <Form.Group className="email">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            required
-            placeholder="name@example.com"
-            value={email}
-            onChange={handlEmailChange}
-          />
-        </Form.Group>
-        <Form.Group
-          className="username"
-          // controlId="exampleForm.ControlTextarea1"
-        >
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            required
-            value={username}
-            onChange={handlUsernameChange}
-          />
-        </Form.Group>
-        <Form.Group
-          className="organization"
-          // controlId="exampleForm.ControlTextarea1"
-        >
-          <Form.Label>organization</Form.Label>
-          <Form.Control
-            type="text"
-            required
-            value={organization}
-            onChange={handlOrganizationChange}
-          />
-        </Form.Group>
-        <Form.Group
-          className="password"
-          // controlId="exampleForm.ControlTextarea1"
-        >
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            required
-            value={password}
-            onChange={Validation}
-          />
-        </Form.Group>
-        <Button className="submitButton" variant="primary" type="submit" >
-          Submit
-        </Button>
-        
-      </Form>
-      ) : type === "student" ? (
-
-      
-        <Form onSubmit={handleSubmission}>
-          <Form.Group className="email">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              required
-              placeholder="name@example.com"
-              value={email}
-              onChange={handlEmailChange}
-            />
-          </Form.Group>
-          <Form.Group
-            className="username"
-            // controlId="exampleForm.ControlTextarea1"
-          >
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              required
-              value={username}
-              onChange={handlUsernameChange}
-            />
-          </Form.Group>
-          <Form.Group
-            className="resume"
-            // controlId="exampleForm.ControlTextarea1"
-          >
-            <Form.Label>Resume</Form.Label>
-            <Form.Control
-              type="file"
-              required
-              value={file}
-              onChange={handlFileChange}
-              multiple
-            />
-          </Form.Group>
-          <Form.Group
-            className="password"
-            // controlId="exampleForm.ControlTextarea1"
-          >
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              required
-              value={password}
-              onChange={Validation}
-            />
-          </Form.Group>
-          <Button className="submitButton" variant="primary" type="submit" >
-            Submit
-          </Button>
-        </Form>) 
-        : null
-        
-        } 
-        
-        </div>
-        
-        
-        ) }
-        
-        
-        
-        
-        
-      
-        
-
-
-      
-      
-
-
-
-
-    
-  
-
+    <div className="editPage">
+      <div className="alertContainer">
+        {submitted === "success" ? (
+          <Alert key="success" variant="success">
+            Submission Success
+          </Alert>
+        ) : submitted === "error" ? (
+          <Alert key="error" variant="danger">
+            Error
+          </Alert>
+        ) : null}
+      </div>
+      <div className="editTitleContainer">
+        <h1> Edit Your Profile!</h1>
+      </div>
+      <div className="formContainer">
+        {type === "employer" ? (
+          <Form onSubmit={handleSubmission} className="editProfile">
+            <Form.Group
+              className="username"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                required
+                placeholder="John Doe"
+                value={username}
+                onChange={handlUsernameChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="organization"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Organization Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="SWE Inc."
+                required
+                value={organization}
+                onChange={handlOrganizationChange}
+              />
+            </Form.Group>
+            <Form.Group className="email">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                required
+                placeholder="name@example.com"
+                value={email}
+                onChange={handlEmailChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="password"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                required
+                placeholder="Password"
+                value={password}
+                onChange={Validation}
+              />
+            </Form.Group>
+            <div className="text-center">
+              <Button className="submitButton" variant="primary" type="submit">
+                Edit
+              </Button>
+            </div>
+          </Form>
+        ) : type === "student" ? (
+          <Form onSubmit={handleSubmission} className="editProfile">
+            <Form.Group
+              className="username"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                required
+                value={username}
+                onChange={handlUsernameChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="resume"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Resume</Form.Label>
+              <Form.Control
+                type="file"
+                value={file}
+                onChange={handlFileChange}
+              />
+            </Form.Group>
+            <Form.Group className="email">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                required
+                placeholder="name@example.com"
+                value={email}
+                onChange={handlEmailChange}
+              />
+            </Form.Group>
+            <Form.Group
+              className="password"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                required
+                value={password}
+                onChange={Validation}
+              />
+            </Form.Group>
+            <div className="text-center">
+              <Button className="submitButton" variant="primary" type="submit">
+                Edit
+              </Button>
+            </div>
+          </Form>
+        ) : null}
+      </div>
+    </div>
+  );
+}
