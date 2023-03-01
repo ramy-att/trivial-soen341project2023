@@ -69,11 +69,12 @@ const updateStudent = async (req, res, next) => {
     return res.status(422).json({ err: "Invaild data for student" });
   }
   let stu;
+  const hashedPassword = await bcrypt.hash(studentPassword, 10);
   try {
     stu = await Student.findByIdAndUpdate(id, {
       studentName,
       studentEmail,
-      studentPassword,
+      studentPassword: hashedPassword,
     });
   } catch (err) {
     return next(err);

@@ -17,7 +17,6 @@ export default function EditPage(props) {
     lengthPassword: false,
     numbers: false,
   });
-  const [userInfo, setUserInfo] = useState({});
 
   const [transcription, setTranscription] = useState("");
   const [id, setId] = useState("");
@@ -48,20 +47,13 @@ export default function EditPage(props) {
     };
     try {
       const response = await fetch(url2, verifyReq);
-
       const result = await response.json();
-
-      setUserInfo(result.user);
-      // setUsername(result.user.name)
-      // console.log(userInfo)
-      // setEmail(result.user.email)
-
-      console.log(userInfo.name);
-      setId(userInfo.id);
-      console.log(userInfo.email);
-      console.log(userInfo.id);
-      // console.log(url);
-      return userInfo;
+      console.log(result);
+      setUsername(result.user.name);
+      setEmail(result.user.email);
+      setId(result.user.id);
+      console.log(result.user.id);
+      return result;
     } catch (error) {}
   };
 
@@ -90,23 +82,37 @@ export default function EditPage(props) {
   //     setSubmitted("");
   //   }, 5000);
   // }
+  const reSignin = async () => {
+    const url = "http://localhost:3001/signin";
+    const req = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      console.log(result);
+      if (result.token) {
+        localStorage.setItem("token", result.token);
+      } else {
+        console.log("Incorrect Credentials!");
+      }
+    } catch (error) {
+      console.log("Some Error has Occured! Please try again.");
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (checks.capitalLetter && checks.numbers && checks.lengthPassword) {
-      setSubmitted("success");
-    } else {
-      setSubmitted("error");
-    }
-    // Clear the alert after 5 seconds
-    setTimeout(() => {
-      setSubmitted("");
-    }, 5000);
-
     if (type === "student") {
       const fakeUrl = "http://localhost:3001/students/";
-      setId(userInfo.id);
-      console.log(userInfo.id);
-      const url = fakeUrl + userInfo.id;
+      const url = fakeUrl + id;
       const req = {
         method: "PUT",
         headers: {
@@ -118,16 +124,13 @@ export default function EditPage(props) {
           studentPassword: password,
         }),
       };
-      /**
-       * Message from Ramy:
-       * Please keep the code in the try and catch to catch errors
-       * Errors should be handled and stored in state to be displayed
-       * If no errors we can store the user ID in the redux storage
-       */
       try {
         const response = await fetch(url, req);
         const result = await response.json();
         console.log(result);
+        localStorage.removeItem("token");
+        reSignin();
+        verifyUser();
         if (result.err) {
           // setSignUpError(result.err);
         }
@@ -250,7 +253,6 @@ export default function EditPage(props) {
                 required
                 value={username}
                 onChange={handlUsernameChange}
-                defaultValue={userInfo.name}
               />
             </Form.Group>
             <Form.Group
@@ -282,7 +284,6 @@ export default function EditPage(props) {
                 required
                 value={email}
                 onChange={handlEmailChange}
-                defaultValue={userInfo.email}
               />
             </Form.Group>
             <Form.Group
