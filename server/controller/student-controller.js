@@ -69,13 +69,20 @@ const updateStudent = async (req, res, next) => {
     return res.status(422).json({ err: "Invaild data for student" });
   }
   let stu;
+  let studentResume;
+  if(req.resume){
+    studentResume = req.resume.path;
+  }
+  console.log(req.resume);
   try {
     stu = await Student.findByIdAndUpdate(id, {
       studentName,
       studentEmail,
       studentPassword,
+      resume: studentResume,
     });
-  } catch (err) {
+  }
+  catch (err) {
     return next(err);
   }
   if (!stu) {

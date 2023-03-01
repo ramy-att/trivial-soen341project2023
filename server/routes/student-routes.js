@@ -7,12 +7,13 @@ const {
   deleteStudent,
   getStudentById,
 } = require("../controller/student-controller");
-
+const upload = require('../middleware');
 const studentRouter = express.Router(); // contains all the request methods(get,post,put,delete)
 
 studentRouter.get("/", getAllStudents); //get
 studentRouter.post("/", addStudent); //create
-studentRouter.put("/:id", updateStudent); //update
+studentRouter.put("/:id", upload.single('resume'), updateStudent); //update
 studentRouter.delete("/:id", deleteStudent);
 studentRouter.get("/:id", getStudentById);
+
 module.exports = studentRouter;
