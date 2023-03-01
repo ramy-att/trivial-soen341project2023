@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Alert, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "./Employer.css";
+import "./server/model/student"
 
 export default function EditPage(props) {
   const { type = "student" | "employer" } = props;
@@ -17,6 +18,8 @@ export default function EditPage(props) {
     lengthPassword: false,
     numbers: false,
   });
+
+
   const [transcription , setTranscription] = useState("");
 
   function Validation(event) {
@@ -31,6 +34,24 @@ export default function EditPage(props) {
       numbers: numbersCheck,
     });
   }
+
+  const verifyUser = async () => {
+    const url2 = "http://localhost:3001/signin";
+    const verifyReq = {
+      method: "GET",
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      },
+    };
+    try {
+      const response = await fetch(url2, verifyReq);
+      const result = await response.json();
+      return { ...result };
+    } catch (error) {}
+  };
+
+
+
   function handlOrganizationChange(event) {
     setOrganiztation(event.target.value);
   }
@@ -60,6 +81,7 @@ function   handlTranscritionChange(event) {
     setFile(event.target.value);
   }
 
+
   return (
     <div className="editPage">
       <div className="alertContainer">
@@ -87,7 +109,6 @@ function   handlTranscritionChange(event) {
               <Form.Control
                 type="text"
                 required
-                placeholder="John Doe"
                 value={username}
                 onChange={handlUsernameChange}
               />
@@ -143,6 +164,8 @@ function   handlTranscritionChange(event) {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
+                defaultValue={user.name}
+
                 required
                 value={username}
                 onChange={handlUsernameChange}
@@ -175,7 +198,7 @@ function   handlTranscritionChange(event) {
               <Form.Control
                 type="email"
                 required
-                placeholder="name@example.com"
+                defaultValue={user.email}
                 value={email}
                 onChange={handlEmailChange}
               />
