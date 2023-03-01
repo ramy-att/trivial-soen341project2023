@@ -57,12 +57,10 @@ export default function EditPage(props) {
       // setEmail(result.user.email)
 
       console.log(userInfo.name);
-      setId(userInfo.id)
-      console.log(userInfo)
-      console.log(id)
-      const fakeUrl =  "http://localhost:3001/students/";
-       const url = fakeUrl+id;
-       console.log (url)
+      setId(userInfo.id);
+      console.log(userInfo.email);
+      console.log(userInfo.id);
+      // console.log(url);
       return userInfo;
     } catch (error) {}
   };
@@ -93,21 +91,22 @@ export default function EditPage(props) {
   //   }, 5000);
   // }
   const handleSubmit = async (e) => {
-   
     e.preventDefault();
-     if (checks.capitalLetter && checks.numbers && checks.lengthPassword) {
-          setSubmitted("success");
-        } else {
-          setSubmitted("error");
-        }
-        // Clear the alert after 5 seconds
-        setTimeout(() => {
-          setSubmitted("");
-        }, 5000)
-    
+    if (checks.capitalLetter && checks.numbers && checks.lengthPassword) {
+      setSubmitted("success");
+    } else {
+      setSubmitted("error");
+    }
+    // Clear the alert after 5 seconds
+    setTimeout(() => {
+      setSubmitted("");
+    }, 5000);
+
     if (type === "student") {
-      const fakeUrl =  "http://localhost:3001/students/";
-       const url = fakeUrl+id;
+      const fakeUrl = "http://localhost:3001/students/";
+      setId(userInfo.id);
+      console.log(userInfo.id);
+      const url = fakeUrl + userInfo.id;
       const req = {
         method: "PUT",
         headers: {
@@ -117,7 +116,6 @@ export default function EditPage(props) {
           studentName: username,
           studentEmail: email,
           studentPassword: password,
-
         }),
       };
       /**
@@ -150,7 +148,6 @@ export default function EditPage(props) {
           password: password,
           organizationName: organization,
         }),
-
       };
       try {
         const response = await fetch(url, req);
