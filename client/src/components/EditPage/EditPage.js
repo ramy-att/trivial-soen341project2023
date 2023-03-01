@@ -2,7 +2,6 @@ import React, { useState , useEffect} from "react";
 import { Alert, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "./Employer.css";
-import "./server/model/student"
 
 export default function EditPage(props) {
   const { type = "student" | "employer" } = props;
@@ -18,6 +17,10 @@ export default function EditPage(props) {
     lengthPassword: false,
     numbers: false,
   });
+  const [ userInfo, setUserInfo] = useState({
+
+}) 
+
 
 
   const [transcription , setTranscription] = useState("");
@@ -46,9 +49,15 @@ export default function EditPage(props) {
     try {
       const response = await fetch(url2, verifyReq);
       const result = await response.json();
-      return { ...result };
+      setUserInfo( userInfo, result);
+      console.log(result)
+      return (result)
     } catch (error) {}
   };
+
+  useEffect (()=>{
+    verifyUser()
+  }, [])
 
 
 
@@ -164,7 +173,6 @@ function   handlTranscritionChange(event) {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                defaultValue={user.name}
 
                 required
                 value={username}
@@ -198,7 +206,6 @@ function   handlTranscritionChange(event) {
               <Form.Control
                 type="email"
                 required
-                defaultValue={user.email}
                 value={email}
                 onChange={handlEmailChange}
               />
