@@ -1,6 +1,7 @@
 const mongoose = require("mongoose"); //Database
 const express = require("express"); //Express
 const cors = require("cors"); //HTTP Connection
+const multer = require("multer");
 
 const dotenv = require("dotenv"); //.env
 const path = require("path"); //to get path to .env
@@ -22,6 +23,7 @@ app.use("/postings", postingRouter);
 app.use("/employers", employerRouter);
 app.use("/applications", applicationRouter);
 app.use("/signin", signinRouter);
+app
 
 dotenv.config({ path: path.resolve(__dirname, "./.env") });
 
