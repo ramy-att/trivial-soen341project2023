@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Alert, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import "./Employer.css";
@@ -17,13 +17,9 @@ export default function EditPage(props) {
     lengthPassword: false,
     numbers: false,
   });
-  const [ userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState({});
 
-}) 
-
-
-
-  const [transcription , setTranscription] = useState("");
+  const [transcription, setTranscription] = useState("");
 
   function Validation(event) {
     const password = event.target.value;
@@ -37,10 +33,10 @@ export default function EditPage(props) {
       numbers: numbersCheck,
     });
   }
-   
-  useEffect (()=>{
-    verifyUser()
-  }, [])
+
+  useEffect(() => {
+    verifyUser();
+  }, []);
   const verifyUser = async () => {
     const url2 = "http://localhost:3001/signin";
     const verifyReq = {
@@ -51,19 +47,18 @@ export default function EditPage(props) {
     };
     try {
       const response = await fetch(url2, verifyReq);
-       
+
       const result = await response.json();
-      
-      setUserInfo (result.user)
-      
-      console.log(userInfo)
-      return (result)
+
+      setUserInfo(result.user);
+      // setUsername(result.user.name)
+      // console.log(userInfo)
+      // setEmail(result.user.email)
+
+      console.log(userInfo.name);
+      return userInfo;
     } catch (error) {}
   };
-
-
-
-
 
   function handlOrganizationChange(event) {
     setOrganiztation(event.target.value);
@@ -74,9 +69,9 @@ export default function EditPage(props) {
   function handlEmailChange(event) {
     setEmail(event.target.value);
   }
-function   handlTranscritionChange(event) {
-  setTranscription(event.target.value)
-}
+  function handlTranscritionChange(event) {
+    setTranscription(event.target.value);
+  }
   function handleSubmission(event) {
     event.preventDefault();
     // Should get the return from backend
@@ -93,7 +88,6 @@ function   handlTranscritionChange(event) {
   function handlFileChange(event) {
     setFile(event.target.value);
   }
-
 
   return (
     <div className="editPage">
@@ -177,10 +171,10 @@ function   handlTranscritionChange(event) {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-
                 required
-                value={username}
+                // value={username}
                 onChange={handlUsernameChange}
+                defaultValue={userInfo.name}
               />
             </Form.Group>
             <Form.Group
@@ -193,7 +187,7 @@ function   handlTranscritionChange(event) {
                 value={file}
                 onChange={handlFileChange}
               />
-            </Form.Group> 
+            </Form.Group>
             <Form.Group
               className="transcription"
               controlId="exampleForm.ControlTextarea1"
@@ -210,12 +204,9 @@ function   handlTranscritionChange(event) {
               <Form.Control
                 type="email"
                 required
-                value={email}
+                // value={email}
                 onChange={handlEmailChange}
                 defaultValue={userInfo.email}
-                
-                
-                
               />
             </Form.Group>
             <Form.Group
