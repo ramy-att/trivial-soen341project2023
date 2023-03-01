@@ -48,6 +48,10 @@ const App = () => {
     <Editprofile/>
    </Route>
 
+   <Route exact path = "/edit-profile-employer">
+    <EditProfileEmp/>
+   </Route>
+
       </Route>
 
       {window.location.pathname !== "/" &&
