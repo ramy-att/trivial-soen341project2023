@@ -37,7 +37,10 @@ export default function EditPage(props) {
       numbers: numbersCheck,
     });
   }
-
+   
+  useEffect (()=>{
+    verifyUser()
+  }, [])
   const verifyUser = async () => {
     const url2 = "http://localhost:3001/signin";
     const verifyReq = {
@@ -48,16 +51,17 @@ export default function EditPage(props) {
     };
     try {
       const response = await fetch(url2, verifyReq);
+       
       const result = await response.json();
-      setUserInfo( userInfo, result);
-      console.log(result)
+      
+      setUserInfo (result.user)
+      
+      console.log(userInfo)
       return (result)
     } catch (error) {}
   };
 
-  useEffect (()=>{
-    verifyUser()
-  }, [])
+
 
 
 
@@ -208,6 +212,10 @@ function   handlTranscritionChange(event) {
                 required
                 value={email}
                 onChange={handlEmailChange}
+                defaultValue={userInfo.email}
+                
+                
+                
               />
             </Form.Group>
             <Form.Group
