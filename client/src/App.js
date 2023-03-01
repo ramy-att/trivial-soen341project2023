@@ -20,7 +20,7 @@ const App = () => {
   return (
     <div className="App">
       {window.location.pathname !== "/" &&
-        window.location.pathname !== "/signin" && <OurNav type="student" />}
+        window.location.pathname !== "/SignIn" && <OurNav type="student" />}
       <Route exact path="/">
         <HomePage />
       </Route>
@@ -51,7 +51,7 @@ const App = () => {
       </Route>
 
       {window.location.pathname !== "/" &&
-        window.location.pathname !== "/signin" && <Footer />}
+        window.location.pathname !== "/SignIn" && <Footer />}
     </div>
   );
 };

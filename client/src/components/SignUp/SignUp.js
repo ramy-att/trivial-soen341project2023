@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../SignIn/SignIn.css";
+import { Alert } from "react-bootstrap";
 
 export const SignUp = (props) => {
   const { typeSignUp } = props;
@@ -7,6 +8,7 @@ export const SignUp = (props) => {
   const [pass, setPass] = useState("");
   const [name, setName] = useState("");
   const [companyName, setCompName] = useState("");
+  const [SignUpError, setSignUpError] = useState("");
   const [hoverEmail, setHoverEmail] = useState(false);
   const [hoverPass, setHoverPass] = useState(false);
   const [hoverName, setHoverName] = useState(false);
@@ -40,8 +42,11 @@ export const SignUp = (props) => {
         const response = await fetch(url, req);
         const result = await response.json();
         console.log(result);
+        if (result.err) {
+          setSignUpError(result.err);
+        }
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     }
     if (typeSignUp === "employer") {
@@ -64,12 +69,17 @@ export const SignUp = (props) => {
        * Errors should be handled and stored in state to be d
        * If no errors we can store the user ID in the redux s
        */
+      
+      /**Here we are setting the signup error for the already exisiting user */
       try {
         const response = await fetch(url, req);
         const result = await response.json();
         console.log(result);
+        if (result.err) {
+          setSignUpError(result.err);
+        }
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     }
   };
@@ -79,7 +89,7 @@ export const SignUp = (props) => {
       {/* Need to get the value of "type" by clicking on either student or employer from landing page*/}
       {typeSignUp === "student" ? (
         <>
-          {/* <div className="form-signUp"> */}
+          {SignUpError && <Alert variant="danger">{SignUpError}</Alert>}
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
@@ -193,6 +203,7 @@ export const SignUp = (props) => {
       ) : typeSignUp === "employer" ? (
         <>
           {/* <div className="form-signUp"> */}
+          {SignUpError && <Alert variant="danger">{SignUpError}</Alert>}
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
