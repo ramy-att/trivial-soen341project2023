@@ -13,6 +13,7 @@ const singleFileUpload = async (req, res, next) => {
         //     // fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
         // });
         // await file.save();
+        //should add something incase the file formate is not pdf
         res.status(201).send('File Uploaded Successfully');
     }catch(error) {
         res.status(400).send(error.message);
