@@ -23,7 +23,7 @@ const getAllStudents = async (req, res, next) => {
 //POST START AKA create a new user
 const addStudent = async (req, res, next) => {
   //to add a new Student without errors AKA post
-  const { studentName, studentEmail, studentPassword } = req.body; // we post in the body of the API
+  const { studentName, studentEmail, studentPassword, applications } = req.body; // we post in the body of the API
   if (
     !studentName &&
     studentName.trim() === "" &&
@@ -41,6 +41,7 @@ const addStudent = async (req, res, next) => {
       studentName,
       studentEmail,
       studentPassword,
+      applications
     });
     student = await student.save(); // save function from mongo
   } catch (err) {
@@ -54,7 +55,7 @@ const addStudent = async (req, res, next) => {
 //PUT STARTS (update user)
 const updateStudent = async (req, res, next) => {
   const id = req.params.id;
-  const { studentName, studentEmail, studentPassword } = req.body;
+  const { studentName, studentEmail, studentPassword, applications} = req.body;
   if (
     !studentName &&
     studentName.trim() === "" &&
@@ -71,6 +72,7 @@ const updateStudent = async (req, res, next) => {
       studentName,
       studentEmail,
       studentPassword,
+      applications
     });
   } catch (err) {
     return next(err);

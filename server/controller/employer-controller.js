@@ -17,26 +17,24 @@ const getAllEmployers = async (req, res, next) => {
 
 const addEmployer = async (req, res, next) => {
   const {
-    name,
-    password,
-    email,
+    employerName,
+    employerPassword,
+    employerEmail,
     organizationName,
     category,
     postings,
     applications,
   } = req.body; // we post in the body of the API
   if (
-    !name &&
-    name.trim() === "" &&
-    !password &&
-    password.trim() === "" &&
-    !email &&
-    email.trim() == "" &&
+    !employerName &&
+    employerName.trim() === "" &&
+    !employerPassword &&
+    employerPassword.trim() === "" &&
+    !employerEmail &&
+    employerEmail.trim() === "" &&
     !organizationName &&
-    organizationName.trim() == "" &&
-    !category &&
-    category.trim() == ""
-  ) {
+    organizationName.trim() === ""
+  ){
     return res.status(422).json({ err: "Invaild data for employer" });
   } // return error message if data is wrong or missing
 
@@ -44,9 +42,9 @@ const addEmployer = async (req, res, next) => {
   try {
     // defining an employer
     employer = new Employer({
-      name,
-      password,
-      email,
+      employerName,
+      employerPassword,
+      employerEmail,
       organizationName,
       category,
       postings,
@@ -71,34 +69,33 @@ const addEmployer = async (req, res, next) => {
 const updateEmployer = async (req, res, next) => {
   const id = req.params.id;
   const {
-    name,
-    password,
-    email,
+    employerName,
+    employerPassword,
+    employerEmail,
     organizationName,
     category,
     postings,
     applications,
   } = req.body; // we post in the body of the API
   if (
-    !name &&
-    name.trim() === "" &&
-    !password &&
-    password.trim() === "" &&
-    !email &&
-    email.trim() == "" &&
+    !employerName &&
+    employerName.trim() === "" &&
+    !employerPassword &&
+    employerPassword.trim() === "" &&
+    !employerEmail &&
+    employerEmail.trim() === "" &&
     !organizationName &&
-    organizationName.trim() == "" &&
-    !category &&
-    category.trim() == ""
+    organizationName.trim() === ""
+    
   ) {
     return res.status(422).json({ err: "Invaild data for job employer" });
   } // return error message if data is wrong or missing
   let employer;
   try {
     employer = await Employer.findByIdAndUpdate(id, {
-      name,
-      password,
-      email,
+      employerName,
+      employerPassword,
+      employerEmail,
       organizationName,
       category,
       postings,

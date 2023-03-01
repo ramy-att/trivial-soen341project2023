@@ -41,6 +41,7 @@ const applicationSchema = new Schema({
         type: String,
         required: true,
     },
+    
 
     studentResume:{
         type: Buffer,
@@ -58,6 +59,10 @@ const applicationSchema = new Schema({
     //Employer can change Application Status
     applicationStatus:{
         type: String,
+    },
+
+    studentTranscript:{
+        type: Buffer,
     }
 
 });

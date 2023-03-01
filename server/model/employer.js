@@ -12,17 +12,17 @@ const mongoose= require("mongoose");
 const Schema= mongoose.Schema;
 const employerSchema = new Schema({
 
-    name:{
+    employerName:{
         type: String,
         required: true,
     },
 
-    password:{
+    employerPassword:{
         type: String,
         required: true,
     },
 
-    email:{
+    employerEmail:{
         type: String,
         required: true,
         unique: true,
@@ -35,7 +35,6 @@ const employerSchema = new Schema({
 
     category:{
         type: String,
-        required: true,
     },
 
     postings:{
