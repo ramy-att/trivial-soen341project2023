@@ -20,6 +20,7 @@ export default function EditPage(props) {
   const [userInfo, setUserInfo] = useState({});
 
   const [transcription, setTranscription] = useState("");
+  const [id, setId] = useState("");
 
   function Validation(event) {
     const password = event.target.value;
@@ -56,6 +57,12 @@ export default function EditPage(props) {
       // setEmail(result.user.email)
 
       console.log(userInfo.name);
+      setId(userInfo.id)
+      console.log(userInfo)
+      console.log(userInfo.id)
+      const fakeUrl =  "http://localhost:3001/students/";
+       const url = fakeUrl+id;
+       console.log (url)
       return userInfo;
     } catch (error) {}
   };
@@ -72,19 +79,91 @@ export default function EditPage(props) {
   function handlTranscritionChange(event) {
     setTranscription(event.target.value);
   }
-  function handleSubmission(event) {
-    event.preventDefault();
-    // Should get the return from backend
-    if (checks.capitalLetter && checks.numbers && checks.lengthPassword) {
-      setSubmitted("success");
-    } else {
-      setSubmitted("error");
+  // const handleSubmission = async (event) => {
+  //   event.preventDefault();
+  //   // Should get the return from backend
+  //   if (checks.capitalLetter && checks.numbers && checks.lengthPassword) {
+  //     setSubmitted("success");
+  //   } else {
+  //     setSubmitted("error");
+  //   }
+  //   // Clear the alert after 5 seconds
+  //   setTimeout(() => {
+  //     setSubmitted("");
+  //   }, 5000);
+  // }
+  const handleSubmit = async (e) => {
+   
+    e.preventDefault();
+     if (checks.capitalLetter && checks.numbers && checks.lengthPassword) {
+          setSubmitted("success");
+        } else {
+          setSubmitted("error");
+        }
+        // Clear the alert after 5 seconds
+        setTimeout(() => {
+          setSubmitted("");
+        }, 5000)
+    
+    if (type === "student") {
+      const fakeUrl =  "http://localhost:3001/students/";
+       const url = fakeUrl+id;
+      const req = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studentName: username,
+          studentEmail: email,
+          studentPassword: password,
+
+        }),
+      };
+      /**
+       * Message from Ramy:
+       * Please keep the code in the try and catch to catch errors
+       * Errors should be handled and stored in state to be displayed
+       * If no errors we can store the user ID in the redux storage
+       */
+      try {
+        const response = await fetch(url, req);
+        const result = await response.json();
+        console.log(result);
+        if (result.err) {
+          // setSignUpError(result.err);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-    // Clear the alert after 5 seconds
-    setTimeout(() => {
-      setSubmitted("");
-    }, 5000);
-  }
+    if (type === "employer") {
+      const url = "http://localhost:3001/employers";
+      const req = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: username,
+          email: email,
+          password: password,
+          organizationName: organization,
+        }),
+
+      };
+      try {
+        const response = await fetch(url, req);
+        const result = await response.json();
+        console.log(result);
+        if (result.err) {
+          // setSignUpError(result.err);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   function handlFileChange(event) {
     setFile(event.target.value);
   }
@@ -107,7 +186,7 @@ export default function EditPage(props) {
       </div>
       <div className="formContainer">
         {type === "employer" ? (
-          <Form onSubmit={handleSubmission} className="editProfile">
+          <Form onSubmit={handleSubmit} className="editProfile">
             <Form.Group
               className="username"
               controlId="exampleForm.ControlTextarea1"
@@ -163,7 +242,7 @@ export default function EditPage(props) {
             </div>
           </Form>
         ) : type === "student" ? (
-          <Form onSubmit={handleSubmission} className="editProfile">
+          <Form onSubmit={handleSubmit} className="editProfile">
             <Form.Group
               className="username"
               controlId="exampleForm.ControlTextarea1"
@@ -204,7 +283,7 @@ export default function EditPage(props) {
               <Form.Control
                 type="email"
                 required
-                // value={email}
+                value={email}
                 onChange={handlEmailChange}
                 defaultValue={userInfo.email}
               />
