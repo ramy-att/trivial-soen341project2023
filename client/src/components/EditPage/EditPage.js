@@ -59,7 +59,7 @@ export default function EditPage(props) {
       console.log(userInfo.name);
       setId(userInfo.id)
       console.log(userInfo)
-      console.log(userInfo.id)
+      console.log(id)
       const fakeUrl =  "http://localhost:3001/students/";
        const url = fakeUrl+id;
        console.log (url)
@@ -251,7 +251,7 @@ export default function EditPage(props) {
               <Form.Control
                 type="text"
                 required
-                // value={username}
+                value={username}
                 onChange={handlUsernameChange}
                 defaultValue={userInfo.name}
               />
