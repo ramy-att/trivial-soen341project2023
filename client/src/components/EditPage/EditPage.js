@@ -49,9 +49,18 @@ export default function EditPage(props) {
       const response = await fetch(url2, verifyReq);
       const result = await response.json();
       console.log(result);
-      setUsername(result.user.name);
-      setEmail(result.user.email);
-      setId(result.user.id);
+      if (result.user.type == "student") {
+        setUsername(result.user.name);
+        setEmail(result.user.email);
+        setId(result.user.id);
+      }
+      if (result.user.type == "employer") {
+        setUsername(result.user.name);
+        setEmail(result.user.email);
+        setId(result.user.id);
+        setOrganiztation(result.user.organizationName);
+      }
+      setOrganiztation(result.user.organizationName);
       console.log(result.user.id);
       return result;
     } catch (error) {}
@@ -139,7 +148,8 @@ export default function EditPage(props) {
       }
     }
     if (type === "employer") {
-      const url = "http://localhost:3001/employers";
+      const fakeUrl = "http://localhost:3001/employers/";
+      const url = fakeUrl + id;
       const req = {
         method: "PUT",
         headers: {
@@ -156,6 +166,9 @@ export default function EditPage(props) {
         const response = await fetch(url, req);
         const result = await response.json();
         console.log(result);
+        localStorage.removeItem("token");
+        reSignin();
+        verifyUser();
         if (result.err) {
           // setSignUpError(result.err);
         }
@@ -164,6 +177,7 @@ export default function EditPage(props) {
       }
     }
   };
+
   function handlFileChange(event) {
     setFile(event.target.value);
   }
@@ -206,7 +220,6 @@ export default function EditPage(props) {
               <Form.Label>Organization Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="SWE Inc."
                 required
                 value={organization}
                 onChange={handlOrganizationChange}
