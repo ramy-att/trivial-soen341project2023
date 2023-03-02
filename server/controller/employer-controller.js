@@ -99,10 +99,11 @@ const updateEmployer = async (req, res, next) => {
     return res.status(422).json({ err: "Invaild data for job employer" });
   } // return error message if data is wrong or missing
   let employer;
+  const hashedPassword = await bcrypt.hash(password, 10);
   try {
     employer = await Employer.findByIdAndUpdate(id, {
       name,
-      password,
+      password: hashedPassword,
       email,
       organizationName,
       category,
