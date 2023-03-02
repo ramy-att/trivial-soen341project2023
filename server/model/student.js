@@ -18,7 +18,7 @@ const studentSchema = new Schema({
     required: true,
     minLength: 6,
   },
-  resume: { type: Buffer },
+  resume: { type: String },
   Coverletter: { type: Buffer },
 });
 
