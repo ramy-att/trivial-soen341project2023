@@ -2,13 +2,14 @@ import React from "react";
 import "./SignIn.css";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [hoverEmail, setHoverEmail] = useState(false);
   const [hoverPass, setHoverPass] = useState(false);
-  const [error, setError] = useState("");
+  const [errorF, setError] = useState("");
   const history = useHistory();
 
   const verifyUser = async () => {
@@ -56,10 +57,14 @@ const SignIn = () => {
       if (result.token) {
         localStorage.setItem("token", result.token);
       } else {
-        setError("Incorrect Credentials!");
+        setError("Invalid Credentials");
+        console.log("HELLOOhhO");
+        // setError("Incorrect Credentials!");
+        
       }
       redirect();
     } catch (error) {
+      console.log("BYEEE");
       setError("Some Error has Occured! Please try again.");
     }
   };
@@ -76,6 +81,7 @@ const SignIn = () => {
 
   return (
     <div className="form-login">
+     {errorF && <Alert variant="danger">{errorF}</Alert>}
       <h1 className="text-center">Jobify</h1>
       <form onSubmit={handleSubmit}>
         <div className="input-container ic1">
