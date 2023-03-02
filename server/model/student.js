@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const singlefile = require("../model/singlefile");
 const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
@@ -18,8 +19,8 @@ const studentSchema = new Schema({
     required: true,
     minLength: 6,
   },
-  resume: { type: Buffer },
-  Coverletter: { type: Buffer },
+  resume : { type: [Schema.Types.ObjectId], ref: 'singlefile' },
+  Coverletter: { type: [Schema.Types.ObjectId], ref: 'singlefile'  },
 });
 
 module.exports = mongoose.model("student", studentSchema);
