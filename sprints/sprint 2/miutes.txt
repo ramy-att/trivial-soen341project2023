@@ -17,3 +17,15 @@ Meeting 2:
 
 Meeting 3:
 -Finalizing how everyone is doing and if anyone has blockers.
+
+Meeting 4:
+-120 minutes
+-Updating and discussing issues and bugs. 
+-The main issue discovered is the complexity of uploading a file to the database.
+-Frontend (Mario, Ziad, Khaled) and backend (Tarek, Ramy, Mazen) teams work together on these issues
+
+Meeting 5:
+-75 minutes
+-The bugs discussed in meeting 4 were solved before meeting 5
+-Different solutions for uploading files were explored and tested.
+-Discussed next steps for sprint 3
