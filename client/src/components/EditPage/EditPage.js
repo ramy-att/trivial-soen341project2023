@@ -78,6 +78,7 @@ export default function EditPage(props) {
   function handlTranscritionChange(event) {
     setTranscription(event.target.value);
   }
+
   // const handleSubmission = async (event) => {
   //   event.preventDefault();
   //   // Should get the return from backend
@@ -91,6 +92,7 @@ export default function EditPage(props) {
   //     setSubmitted("");
   //   }, 5000);
   // }
+
   const reSignin = async () => {
     const url = "http://localhost:3001/signin";
     const req = {
@@ -138,11 +140,17 @@ export default function EditPage(props) {
         const result = await response.json();
         console.log(result);
         localStorage.removeItem("token");
-        reSignin();
-        verifyUser();
+
         if (result.err) {
-          // setSignUpError(result.err);
+          setSubmitted("error");
+        } else {
+          reSignin();
+          verifyUser();
+          setSubmitted("success");
         }
+        setTimeout(() => {
+          setSubmitted("");
+        }, 5000);
       } catch (error) {
         console.log(error);
       }
@@ -167,11 +175,17 @@ export default function EditPage(props) {
         const result = await response.json();
         console.log(result);
         localStorage.removeItem("token");
-        reSignin();
-        verifyUser();
+
         if (result.err) {
-          // setSignUpError(result.err);
+          setSubmitted("error");
+        } else {
+          reSignin();
+          verifyUser();
+          setSubmitted("success");
         }
+        setTimeout(() => {
+          setSubmitted("");
+        }, 5000);
       } catch (error) {
         console.log(error);
       }
@@ -187,11 +201,11 @@ export default function EditPage(props) {
       <div className="alertContainer">
         {submitted === "success" ? (
           <Alert key="success" variant="success">
-            Submission Success
+            You have updated your information successfully!!
           </Alert>
         ) : submitted === "error" ? (
           <Alert key="error" variant="danger">
-            Error
+            There has been an error with your update. Please try again
           </Alert>
         ) : null}
       </div>
@@ -283,7 +297,7 @@ export default function EditPage(props) {
               className="transcription"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>transcription</Form.Label>
+              <Form.Label>Transcipt</Form.Label>
               <Form.Control
                 type="file"
                 value={file}

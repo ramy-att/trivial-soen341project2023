@@ -27,14 +27,14 @@ const addStudent = async (req, res, next) => {
   if (takenEmail) {
     return res.status(400).json({ err: "User already exists" });
   } else if (
-    !studentName &&
-    studentName.trim() === "" &&
-    !studentEmail &&
-    studentEmail.trim() === "" &&
-    !studentPassword &&
-    studentPassword.length > 6
+    !studentName ||
+    studentName.trim() === "" ||
+    !studentEmail ||
+    studentEmail.trim() === "" ||
+    !studentPassword ||
+    studentPassword.length < 6
   ) {
-    return res.status(422).json({ err: "Invaild data for student" });
+    return res.status(422).json({ err: "Invaild data, cannot add student" });
   } // return error message if data is wrong or missing
   let student;
   const hashedPassword = await bcrypt.hash(studentPassword, 10);
@@ -59,13 +59,14 @@ const updateStudent = async (req, res, next) => {
   const id = req.params.id;
   const { studentName, studentEmail, studentPassword } = req.body;
   if (
-    !studentName &&
-    studentName.trim() === "" &&
-    !studentEmail &&
-    studentEmail.trim() === "" &&
-    !studentPassword &&
-    studentPassword.length > 6
+    !studentName ||
+    studentName.trim() === "" ||
+    !studentEmail ||
+    studentEmail.trim() === "" ||
+    !studentPassword ||
+    studentPassword.length < 6
   ) {
+    console.log("HELLO I AM RETURNING");
     return res.status(422).json({ err: "Invaild data for student" });
   }
   let stu;

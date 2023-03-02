@@ -58,10 +58,10 @@ const SignIn = () => {
         localStorage.setItem("token", result.token);
       } else {
         setError("Invalid Credentials");
-        console.log("HELLOOhhO");
-        // setError("Incorrect Credentials!");
-        
       }
+      setTimeout(() => {
+        setError("");
+      }, 5000);
       redirect();
     } catch (error) {
       console.log("BYEEE");
@@ -81,7 +81,7 @@ const SignIn = () => {
 
   return (
     <div className="form-login">
-     {errorF && <Alert variant="danger">{errorF}</Alert>}
+      {errorF && <Alert variant="danger">{errorF}</Alert>}
       <h1 className="text-center">Jobify</h1>
       <form onSubmit={handleSubmit}>
         <div className="input-container ic1">

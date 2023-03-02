@@ -44,7 +44,7 @@ const App = () => {
         </Route>
       </Route>
       <Route>
-        <Route exact path="/edit-profile">
+        <Route exact path="/edit-profile-student">
           <Editprofile />
         </Route>
 
