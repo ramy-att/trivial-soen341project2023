@@ -13,14 +13,13 @@ client pages: profile page, view all students, employers, postings and applicati
 
 student={
 	"studentID": [mongoDB];
-	"name": string, required;
-	"email": email, unique, required;
-	"password": password, required;
-	"category": engineering | business | .... // required categories?
-	"resme": file, required,
-	"coverLetter": file,
+	"studentName": string, required;
+	"studentEmail": email, unique, required;
+	"studentPassword": password, required;
+	"resume": file,
+	"Coverletter": file,
 	"transcript": file,
-	"applications":["[applicationID]","[applicationID]"]; // applied to
+	"applications":applicationID, applicationID as a comma seperated string
 }
 controllers: createStudent() "POST" ; getStudent() "GET"; updateStudent() "PUT"; getAllStudents() "GET"
 client pages: profile page, applied to page (and indv), job postings page
@@ -30,17 +29,18 @@ jobPosting={
 	"description": string, required;
 	"title": string, required;
 	"expirationDate": date (year-mm-dd), required;
-	"location": remote|string, required;
+	"location": |string, required;
+	"applications": comma seperated string
 }
 controllers: createPosting() "POST"; getPosting() "GET"; deletePosting() "DELTE"; getAllPostings() "GET"
 
 application={
 	"applicationID": [mongoDB];
-	"postingID": jobPostingID;
-	"applicantionInfo": {name, email};
-	"organizationName": string;
-	"status": underReview | interview | selected | rejected;
-	"applicationPackage": {resume, coverLetter, Transcript}
+	"studentID": student mongodb id, required;
+	"studentResume": file,
+	"studentCoverLetter": file;
+	"extraDetailsForEmployerByStudent": string;
+	"applicationStatus": string
 }
 controllers: createApplication() "POST"; getApplication() "GET"; deleteApplication() "DELTE"; getAllApplications() "GET"
 
@@ -50,9 +50,9 @@ employer={
 	"email": email, unique, required;
 	"password": password, required;
 	"organizationName": string, required
-	"category": engineering | business | .... // required categories?
-	"postings": [...jobPostings]
-	"applications": [...applications] filtered by applicantionInfo.company -> getByEmployer(exmployerID)
+	"category": string
+	"postings": comma seperated string
+	"applications":  comma seperated string
 }
 controllers: createEmployer() "POST"; getEmployer() "GET"; updateEmployer() "PUT"; getAllEmployers() "GET"
 client pages: profile page, postingPage(edit/add), job postings page- applications
