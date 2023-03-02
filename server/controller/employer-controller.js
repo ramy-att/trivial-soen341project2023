@@ -32,8 +32,6 @@ const addEmployer = async (req, res, next) => {
   } else if (
     !name ||
     name.trim() === "" ||
-    !password ||
-    password.length < 6 ||
     !email ||
     email.trim() === "" ||
     !organizationName ||
@@ -41,7 +39,11 @@ const addEmployer = async (req, res, next) => {
   ) {
     return res.status(422).json({ err: "Invaild data, cannot add employer" });
   } // return error message if data is wrong or missing
-
+  else if (!password || password.length < 6) {
+    return res
+      .status(430)
+      .json({ err: "Please enter a valid password: Must be > 6 characters" });
+  }
   let employer;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
@@ -86,14 +88,15 @@ const updateEmployer = async (req, res, next) => {
     !name ||
     name.trim() === "" ||
     !password ||
-    password.length < 6 ||
-    !email ||
     email.trim() === "" ||
     !organizationName ||
     organizationName.trim() === ""
   ) {
     return res.status(422).json({ err: "Invaild data for job employer" });
   } // return error message if data is wrong or missing
+  else if (!password || password.length < 6) {
+     return res.status(430).json({ err: "Please enter a valid password: Must be more than 6 characters" });
+  }
   let employer;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
