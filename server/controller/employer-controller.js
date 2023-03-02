@@ -30,18 +30,16 @@ const addEmployer = async (req, res, next) => {
   if (takenEmail) {
     return res.status(400).json({ err: "User already exists" });
   } else if (
-    !name &&
-    name.trim() === "" &&
-    !password &&
-    password.trim() === "" &&
-    !email &&
-    email.trim() === "" &&
-    !organizationName &&
-    organizationName.trim() === "" &&
-    !category &&
-    category.trim() === ""
+    !name ||
+    name.trim() === "" ||
+    !password ||
+    password.length < 6 ||
+    !email ||
+    email.trim() === "" ||
+    !organizationName ||
+    organizationName.trim() === ""
   ) {
-    return res.status(422).json({ err: "Invaild data for employer" });
+    return res.status(422).json({ err: "Invaild data, cannot add employer" });
   } // return error message if data is wrong or missing
 
   let employer;
@@ -85,16 +83,14 @@ const updateEmployer = async (req, res, next) => {
     applications,
   } = req.body; // we post in the body of the API
   if (
-    !name &&
-    name.trim() === "" &&
-    !password &&
-    password.trim() === "" &&
-    !email &&
-    email.trim() == "" &&
-    !organizationName &&
-    organizationName.trim() == "" &&
-    !category &&
-    category.trim() == ""
+    !name ||
+    name.trim() === "" ||
+    !password ||
+    password.length < 6 ||
+    !email ||
+    email.trim() === "" ||
+    !organizationName ||
+    organizationName.trim() === ""
   ) {
     return res.status(422).json({ err: "Invaild data for job employer" });
   } // return error message if data is wrong or missing

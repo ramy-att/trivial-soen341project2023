@@ -8,7 +8,8 @@ import PostingsPage from "./pages/PostingsPage";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
 import Posting from "./components/Postings/Posting";
-import Editprofile from "./pages/EditProfile"
+import Editprofile from "./pages/EditProfile";
+import EditProfileEmp from "./pages/EditProfileEmp";
 /**
  * TODO:
  * 1- Include Navbar and Footer on all pages
@@ -43,11 +44,13 @@ const App = () => {
         </Route>
       </Route>
       <Route>
+        <Route exact path="/edit-profile-student">
+          <Editprofile />
+        </Route>
 
-   <Route exact path = "/edit-profile">
-    <Editprofile/>
-   </Route>
-
+        <Route exact path="/edit-profile-employer">
+          <EditProfileEmp />
+        </Route>
       </Route>
 
       {window.location.pathname !== "/" &&
