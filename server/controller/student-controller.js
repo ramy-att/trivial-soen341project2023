@@ -30,12 +30,13 @@ const addStudent = async (req, res, next) => {
     !studentName ||
     studentName.trim() === "" ||
     !studentEmail ||
-    studentEmail.trim() === "" ||
-    !studentPassword ||
-    studentPassword.length < 6
+    studentEmail.trim() === ""
   ) {
     return res.status(422).json({ err: "Invaild data, cannot add student" });
   } // return error message if data is wrong or missing
+  else if (!studentPassword || studentPassword.length < 6) {
+    return res.status(430).json({ err: "Please enter a valid password: Must be > 6 characters" });
+  }
   let student;
   const hashedPassword = await bcrypt.hash(studentPassword, 10);
   try {
@@ -62,12 +63,14 @@ const updateStudent = async (req, res, next) => {
     !studentName ||
     studentName.trim() === "" ||
     !studentEmail ||
-    studentEmail.trim() === "" ||
-    !studentPassword ||
-    studentPassword.length < 6
+    studentEmail.trim() === ""
   ) {
     console.log("HELLO I AM RETURNING");
     return res.status(422).json({ err: "Invaild data for student" });
+  } else if (!studentPassword || studentPassword.length < 6) {
+    return res
+      .status(430)
+      .json({ err: "Please enter a valid password: Must be > 6 characters" });
   }
   let stu;
   const hashedPassword = await bcrypt.hash(studentPassword, 10);
