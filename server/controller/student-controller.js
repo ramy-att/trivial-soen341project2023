@@ -1,7 +1,6 @@
 //contain functions that controls the api calls
-
-const student = require("../model/student");
 const Student = require("../model/student");
+const bcrypt = require("bcrypt");
 
 //get all the users from the database
 //GET START
@@ -24,23 +23,28 @@ const getAllStudents = async (req, res, next) => {
 const addStudent = async (req, res, next) => {
   //to add a new Student without errors AKA post
   const { studentName, studentEmail, studentPassword } = req.body; // we post in the body of the API
-  if (
-    !studentName &&
-    studentName.trim() === "" &&
-    !studentEmail &&
-    studentEmail.trim() === "" &&
-    !studentPassword &&
-    studentPassword.length > 6
+  const takenEmail = await Student.findOne({ studentEmail: studentEmail });
+  if (takenEmail) {
+    return res.status(400).json({ err: "User already exists" });
+  } else if (
+    !studentName ||
+    studentName.trim() === "" ||
+    !studentEmail ||
+    studentEmail.trim() === ""
   ) {
-    return res.status(422).json({ err: "Invaild data for student" });
+    return res.status(422).json({ err: "Invaild data, cannot add student" });
   } // return error message if data is wrong or missing
+  else if (!studentPassword || studentPassword.length < 6) {
+    return res.status(430).json({ err: "Please enter a valid password: Must be > 6 characters" });
+  }
   let student;
+  const hashedPassword = await bcrypt.hash(studentPassword, 10);
   try {
     // defining a student
     student = new Student({
       studentName,
       studentEmail,
-      studentPassword,
+      studentPassword: hashedPassword,
     });
     student = await student.save(); // save function from mongo
   } catch (err) {
@@ -56,21 +60,25 @@ const updateStudent = async (req, res, next) => {
   const id = req.params.id;
   const { studentName, studentEmail, studentPassword } = req.body;
   if (
-    !studentName &&
-    studentName.trim() === "" &&
-    !studentEmail &&
-    studentEmail.trim() === "" &&
-    !studentPassword &&
-    studentPassword.length > 6
+    !studentName ||
+    studentName.trim() === "" ||
+    !studentEmail ||
+    studentEmail.trim() === ""
   ) {
+    console.log("HELLO I AM RETURNING");
     return res.status(422).json({ err: "Invaild data for student" });
+  } else if (!studentPassword || studentPassword.length < 6) {
+    return res
+      .status(430)
+      .json({ err: "Please enter a valid password: Must be > 6 characters" });
   }
   let stu;
+  const hashedPassword = await bcrypt.hash(studentPassword, 10);
   try {
     stu = await Student.findByIdAndUpdate(id, {
       studentName,
       studentEmail,
-      studentPassword,
+      studentPassword: hashedPassword,
     });
   } catch (err) {
     return next(err);

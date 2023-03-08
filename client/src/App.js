@@ -2,11 +2,14 @@ import React from "react";
 import { Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
-import SignUpPage from "./pages/SignUpPage";
+import SignUpPageStu from "./pages/SignUpPageStu";
+import SignUpPageEmp from "./pages/SignUpPageEmp";
 import PostingsPage from "./pages/PostingsPage";
 import OurNav from "./components/NavBar/OurNav";
 import Footer from "./components/Footer/Footer";
 import Posting from "./components/Postings/Posting";
+import Editprofile from "./pages/EditProfile";
+import EditProfileEmp from "./pages/EditProfileEmp";
 /**
  * TODO:
  * 1- Include Navbar and Footer on all pages
@@ -18,26 +21,39 @@ const App = () => {
   return (
     <div className="App">
       {window.location.pathname !== "/" &&
-        window.location.pathname !== "/signin" && <OurNav type="student" />}
+        window.location.pathname !== "/SignIn" && <OurNav type="student" />}
       <Route exact path="/">
         <HomePage />
       </Route>
       <Route exact path="/signin">
         <SignInPage />
       </Route>
-      <Route exact path="/signup">
-        <SignUpPage />
+      <Route exact path="/signup-stu">
+        <SignUpPageStu />
       </Route>
+      <Route exact path="/signup-emp">
+        <SignUpPageEmp />
+      </Route>
+
       <Route exact path="/job-postings">
         <PostingsPage />
       </Route>
       <Route>
         <Route exact path="/job-postings/:id">
-          <Posting/>
+          <Posting />
+        </Route>
+      </Route>
+      <Route>
+        <Route exact path="/edit-profile-student">
+          <Editprofile />
+        </Route>
+
+        <Route exact path="/edit-profile-employer">
+          <EditProfileEmp />
         </Route>
       </Route>
       {window.location.pathname !== "/" &&
-        window.location.pathname !== "/signin" && <Footer />}
+        window.location.pathname !== "/SignIn" && <Footer />}
     </div>
   );
 };

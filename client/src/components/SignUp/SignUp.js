@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "../SignIn/SignIn.css";
+import { Alert } from "react-bootstrap";
 
 export const SignUp = (props) => {
-  const { type } = props;
+  const { typeSignUp } = props;
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [name, setName] = useState("");
   const [companyName, setCompName] = useState("");
+  const [SignUpError, setSignUpError] = useState("");
   const [hoverEmail, setHoverEmail] = useState(false);
   const [hoverPass, setHoverPass] = useState(false);
   const [hoverName, setHoverName] = useState(false);
@@ -17,7 +19,7 @@ export const SignUp = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (type === "student") {
+    if (typeSignUp === "student") {
       const url = "http://localhost:3001/students";
       const req = {
         method: "POST",
@@ -40,33 +42,70 @@ export const SignUp = (props) => {
         const response = await fetch(url, req);
         const result = await response.json();
         console.log(result);
+        if (result.err) {
+          setSignUpError(result.err);
+        }
+        setTimeout(() => {
+          setSignUpError("");
+        }, 5000);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     }
-    // if (type == "employer") {
-    //   const url = { url };
-    //   const response = await fetch(url, {
-    //     method: "POST",
-    //     header: { "Content-Type": "application/json" },
-    //   });
-    //   const result = await response.json();
-    //   return result;
+    if (typeSignUp === "employer") {
+      const url = "http://localhost:3001/employers";
+      const req = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: pass,
+          organizationName: companyName,
+        }),
+      };
+      /**
+       * Message from Ramy:
+       * Please keep the code in the try and catch to catch e
+       * Errors should be handled and stored in state to be d
+       * If no errors we can store the user ID in the redux s
+       */
 
-    // }
+      /**Here we are setting the signup error for the already exisiting user */
+      try {
+        const response = await fetch(url, req);
+        const result = await response.json();
+        console.log(result);
+        if (result.err) {
+          setSignUpError(result.err);
+        }
+        setTimeout(() => {
+          setSignUpError("");
+        }, 5000);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
     <div className="form-signUp">
       {/* Need to get the value of "type" by clicking on either student or employer from landing page*/}
-      {type === "student" ? (
+      {typeSignUp === "student" ? (
         <>
-          {/* <div className="form-signUp"> */}
+          {SignUpError && <Alert variant="danger">{SignUpError}</Alert>}
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
               <div className="label-container">
-                {hoverName && <label htmlFor="name" className="label">Full name</label>}</div>
+                {hoverName && (
+                  <label htmlFor="name" className="label">
+                    Full name
+                  </label>
+                )}
+              </div>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -82,8 +121,8 @@ export const SignUp = (props) => {
                   setHoverName(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverName(false)
+                  if (e.target.value === "") {
+                    setHoverName(false);
                   }
                 }}
                 name="name"
@@ -112,8 +151,8 @@ export const SignUp = (props) => {
                   setHoverEmail(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverEmail(false)
+                  if (e.target.value === "") {
+                    setHoverEmail(false);
                   }
                 }}
                 name="email"
@@ -121,7 +160,12 @@ export const SignUp = (props) => {
             </div>
             <div className="input-container ic2">
               <div className="label-container">
-                {hoverPass && <label htmlFor="password" className="label"> Password </label>}
+                {hoverPass && (
+                  <label htmlFor="password" className="label">
+                    {" "}
+                    Password{" "}
+                  </label>
+                )}
               </div>
               <input
                 value={pass}
@@ -138,8 +182,8 @@ export const SignUp = (props) => {
                   setHoverPass(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverPass(false)
+                  if (e.target.value === "") {
+                    setHoverPass(false);
                   }
                 }}
                 name="password"
@@ -162,14 +206,20 @@ export const SignUp = (props) => {
           </a>
           {/* </div> */}
         </>
-      ) : type === "employer" ? (
+      ) : typeSignUp === "employer" ? (
         <>
           {/* <div className="form-signUp"> */}
+          {SignUpError && <Alert variant="danger">{SignUpError}</Alert>}
           <h1 className="text-center">Jobify</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-container ic1">
               <div className="label-container">
-                {hoverName && <label htmlFor="name" className="label">Full name</label>}</div>
+                {hoverName && (
+                  <label htmlFor="name" className="label">
+                    Full name
+                  </label>
+                )}
+              </div>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -185,8 +235,8 @@ export const SignUp = (props) => {
                   setHoverName(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverName(false)
+                  if (e.target.value === "") {
+                    setHoverName(false);
                   }
                 }}
                 name="name"
@@ -195,7 +245,9 @@ export const SignUp = (props) => {
             <div className="input-container ic1">
               <div className="label-container">
                 {hoverCompany && (
-                  <label htmlFor="companyName" className="label">Company Name</label>
+                  <label htmlFor="companyName" className="label">
+                    Company Name
+                  </label>
                 )}
               </div>
               <input
@@ -213,8 +265,8 @@ export const SignUp = (props) => {
                   setHoverCompany(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverCompany(false)
+                  if (e.target.value === "") {
+                    setHoverCompany(false);
                   }
                 }}
                 name="companyName"
@@ -244,8 +296,8 @@ export const SignUp = (props) => {
                   setHoverEmail(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverEmail(false)
+                  if (e.target.value === "") {
+                    setHoverEmail(false);
                   }
                 }}
                 name="email"
@@ -253,7 +305,12 @@ export const SignUp = (props) => {
             </div>
             <div className="input-container ic2">
               <div className="label-container">
-                {hoverPass && <label htmlFor="password" className="label"> Password </label>}
+                {hoverPass && (
+                  <label htmlFor="password" className="label">
+                    {" "}
+                    Password{" "}
+                  </label>
+                )}
               </div>
               <input
                 value={pass}
@@ -270,8 +327,8 @@ export const SignUp = (props) => {
                   setHoverPass(true);
                 }}
                 onBlur={(e) => {
-                  if(e.target.value===""){
-                    setHoverPass(false)
+                  if (e.target.value === "") {
+                    setHoverPass(false);
                   }
                 }}
                 name="password"

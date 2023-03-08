@@ -16,6 +16,8 @@ This project is to create a simplified version of a Career service platform with
 - MongoDB as our database.
 - ExpressJs (Back end/Server Side).
 
+## Sprint 2 Demo
+https://youtu.be/tjCQIaSnsHM
 
 ## Editor and styles
 - Used text-editor is preferably VsCode to ensure consistency 
