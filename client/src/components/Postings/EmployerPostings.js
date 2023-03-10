@@ -8,6 +8,7 @@ import "./Postings.css";
 
 const EmployerPostings = () => {
   const [showModal, setShowModal] = useState(false);
+  console.log("EmployerPostings");
   const Manage = (
     <div className="manageCell">
       <Trash size={20} className="delete-icon" />

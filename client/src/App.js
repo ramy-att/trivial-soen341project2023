@@ -11,7 +11,7 @@ import Posting from "./components/Postings/Posting";
 import Editprofile from "./pages/EditProfile";
 import EditProfileEmp from "./pages/EditProfileEmp";
 import ErrorPage from "./pages/ErrorPage";
-import { useHistory } from "react-router-dom";
+import { useHistory, Switch } from "react-router-dom";
 /**
  * TODO:
  * 1- Include Navbar and Footer on all pages
@@ -44,7 +44,7 @@ const App = () => {
   const redirect = () => {
     verifyUser().then((result) => {
       const user = result.user;
-      setUserInfo({ ...user });
+      setUserInfo(user ? { ...user } : "nonAuth");
       if (user && user.type === "student") {
         if (
           window.location.pathname === "/signup-emp" ||
@@ -61,7 +61,7 @@ const App = () => {
         }
       }
       if (
-        window.location.pathname === "/signin" ||
+        window.location.pathname === "/SignIn" ||
         window.location.pathname === "/signup-emp" ||
         (window.location.pathname === "/signup-student" && user)
       ) {
@@ -71,42 +71,40 @@ const App = () => {
   };
   useEffect(() => {
     redirect();
-  }, [window.location.pathname]);
+    console.log(window.location.pathname);
+  }, [window.location.pathname, userInfo]);
   return (
     <UserContext.Provider value={userInfo}>
       <div className="App">
-        {window.location.pathname !== "/" &&
-          window.location.pathname !== "/SignIn" && <OurNav type="student" />}
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route exact path="/signin">
-          <SignInPage />
-        </Route>
-        <Route exact path="/signup-stu">
-          <SignUpPageStu />
-        </Route>
-        <Route exact path="/signup-emp">
-          <SignUpPageEmp />
-        </Route>
-        <Route exact path="/job-postings">
-          <PostingsPage userInfo={userInfo} />
-        </Route>
-        <Route>
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route exact path="/signin">
+            <SignInPage />
+          </Route>
+          <Route exact path="/signup-stu">
+            <SignUpPageStu />
+          </Route>
+          <Route exact path="/signup-emp">
+            <SignUpPageEmp />
+          </Route>
+          <Route exact path="/job-postings">
+            <PostingsPage userInfo={userInfo} />
+          </Route>
           <Route exact path="/job-postings/:id">
             <Posting userInfo={userInfo} />
           </Route>
-        </Route>
-        <Route>
           <Route exact path="/edit-profile-student">
             <Editprofile />
           </Route>
           <Route exact path="/edit-profile-employer">
             <EditProfileEmp />
           </Route>
-        </Route>
-        {window.location.pathname !== "/" &&
-          window.location.pathname !== "/SignIn" && <Footer />}
+          <Route>
+            <ErrorPage />
+          </Route>
+        </Switch>
       </div>
     </UserContext.Provider>
   );

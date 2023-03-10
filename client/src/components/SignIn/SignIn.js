@@ -29,11 +29,9 @@ const SignIn = () => {
   const redirect = () => {
     verifyUser().then((result) => {
       const user = result.user;
-      // [TO DO]: FIX REDIRECTS
-      if (user && user.type === "student") {
-        history.push("/");
-      } else if (user && user.type === "employer") {
-        history.push("/");
+      if (user) {
+        console.log("here!");
+        history.push("/job-postings");
       }
     });
   };
@@ -69,7 +67,6 @@ const SignIn = () => {
     }
   };
   useEffect(() => {
-    // If logged in redirect
     if (email !== "") {
       setHoverEmail(true);
     }

@@ -22,7 +22,7 @@ const OurNav = (props) => {
   return (
     <Navbar collapseOnSelect expand="md" className="ourNav">
       <Container fluid>
-        <NavLink className="logo" exact to="/signin">
+        <NavLink className="logo" exact to="/">
           Jobify
         </NavLink>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -76,17 +76,11 @@ const OurNav = (props) => {
             <Nav className="me-auto navLeft"></Nav>
           ) : null}
           <Nav>
-            {userInfo ? (
+            {userInfo !== "nonAuth" ? (
               <Button className="sign-out" onClick={signOut}>
                 Sign Out
               </Button>
-            ) : (
-              <>
-                <NavLink exact to="/signin" activeClassName="highlighted">
-                  Sign In
-                </NavLink>
-              </>
-            )}
+            ) : null}
           </Nav>
         </Navbar.Collapse>
       </Container>

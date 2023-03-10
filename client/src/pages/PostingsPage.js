@@ -3,13 +3,23 @@ import StudentPostings from "../components/Postings/StudentPostings";
 import EmployerPostings from "../components/Postings/EmployerPostings";
 import { useContext } from "react";
 import { UserContext } from "../App";
+import OurNav from "../components/NavBar/OurNav";
+import Footer from "../components/Footer/Footer";
 
 const PostingsPage = () => {
   const userInfo = useContext(UserContext);
-  if (userInfo && userInfo.type === "employer") {
-    return <EmployerPostings />;
-  } else if (userInfo && userInfo.type === "student") {
-    return <StudentPostings />;
-  }
+  const posting =
+    userInfo && userInfo.type === "employer" ? (
+      <EmployerPostings />
+    ) : userInfo && userInfo.type === "student" ? (
+      <StudentPostings />
+    ) : null;
+  return (
+    <>
+      <OurNav />
+      {posting}
+      <Footer />
+    </>
+  );
 };
 export default PostingsPage;
