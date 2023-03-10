@@ -1,29 +1,115 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Table } from "react-bootstrap";
+import ManagePosting from "./ManagePosting";
+import { UserContext } from "../../App";
+import { Trash, Pencil } from "react-bootstrap-icons";
 import CreateApplication from "./CreateApplication";
+import DataTable from "../DataTable/DataTable";
 
 const Posting = () => {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
+  const userInfo = useContext(UserContext);
 
+  // ADD STATE: USER type
   const showModalHandler = () => {
     setShowModal((prev) => !prev);
+  };
+  const applications = () => {
+    if (userInfo && userInfo.type === "employer") {
+      return (
+        <>
+          <h3>Applications</h3>
+          <DataTable
+            header={[
+              "#",
+              "Name",
+              "email",
+              "Resume",
+              "CV",
+              "Transcsript",
+              "Status",
+            ]}
+            pageWidth="100%"
+            data={[
+              {
+                Item0: "0",
+                Item1: "Aiman Hanna",
+                Item2: "aiman@hanna.com",
+                Item3: "",
+                Item4: "",
+                Item5: "",
+                Item6: "Rejected",
+              },
+              {
+                Item0: "1",
+                Item1: "Aiman Hanna",
+                Item2: "aiman@hanna.com",
+                Item3: "",
+                Item4: "",
+                Item5: "",
+                Item6: "Rejected",
+              },
+              {
+                Item0: "2",
+                Item1: "Aiman Hanna",
+                Item2: "aiman@hanna.com",
+                Item3: "",
+                Item4: "",
+                Item5: "",
+                Item6: "Rejected",
+              },
+              {
+                Item0: "3",
+                Item1: "Aiman Hanna",
+                Item2: "aiman@hanna.com",
+                Item3: "",
+                Item4: "",
+                Item5: "",
+                Item6: "Rejected",
+              },
+            ]}
+          />
+        </>
+      );
+    }
+  };
+  const actions = () => {
+    {
+      /* Button will only appear for student, will replace with "check applciation" if already applied" */
+    }
+    return userInfo && userInfo.type === "student" ? (
+      <button
+        className="apply-posting-button"
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        Apply
+      </button>
+    ) : userInfo && userInfo.type === "employer" ? (
+      <div className="employer-actions">
+        <Pencil
+          className="edit-icon"
+          size={30}
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          Edit
+        </Pencil>
+        <Trash className="delete-icon" size={30}>
+          Delete
+        </Trash>
+      </div>
+    ) : null;
   };
   return (
     <Container fluid className="postings-page">
       <div className="title-container">
         <h1>CAE: Front-End Intern (ID: #{id})</h1>
-        {/* Button will only appear for student, will replace with "check applciation" if already applied" */}
-        <button
-          className="apply-posting-button"
-          onClick={() => {
-            setShowModal(true);
-          }}
-        >
-          Apply
-        </button>
-        {/* <span>Check Application!</span> */}
+        {actions()}
       </div>
       <div className="description-container">
         <div className="job-description">
@@ -99,7 +185,13 @@ const Posting = () => {
           </tbody>
         </Table>
       </div>
-      {showModal && <CreateApplication showModalHandler={showModalHandler} show />}
+      {showModal && userInfo && userInfo.type === "employer" && (
+        <ManagePosting showModalHandler={showModalHandler} show />
+      )}
+      {showModal && userInfo && userInfo.type === "student" && (
+        <CreateApplication showModalHandler={showModalHandler} show />
+      )}
+      {applications()}
     </Container>
   );
 };

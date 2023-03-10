@@ -1,12 +1,10 @@
 import React from "react";
+import Footer from "../components/Footer/Footer";
 import Landing from "../components/Landing/Landing";
-import Button from "react-bootstrap/Button"; 
-
-
-
+import OurNav from "../components/NavBar/OurNav";
 
 const HomePage = () => {
- return(<div><Landing/></div>)
+  return <Landing />;
 };
 
 export default HomePage;
