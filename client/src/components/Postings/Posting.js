@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { Container, Table } from "react-bootstrap";
 import ManagePosting from "./ManagePosting";
 import { UserContext } from "../../App";
-import { PlusCircle, Trash, Pencil } from "react-bootstrap-icons";
+import { Trash, Pencil } from "react-bootstrap-icons";
+import DataTable from "../DataTable/DataTable";
 
 const Posting = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const Posting = () => {
     {
       /* Button will only appear for student, will replace with "check applciation" if already applied" */
     }
-    return userInfo.type === "student" ? (
+    return userInfo && userInfo.type === "student" ? (
       <button
         className="apply-posting-button"
         onClick={() => {
@@ -27,7 +28,7 @@ const Posting = () => {
       >
         Apply
       </button>
-    ) : userInfo.type === "employer" ? (
+    ) : userInfo && userInfo.type === "employer" ? (
       <div className="employer-actions">
         <Pencil
           className="edit-icon"
@@ -125,6 +126,45 @@ const Posting = () => {
         </Table>
       </div>
       {showModal && <ManagePosting showModalHandler={showModalHandler} show />}
+      <h3>Applications</h3>
+      <DataTable
+        header={["#", "Name", "email", "Resume", "CV", "Transcsript"]}
+        pageWidth="100%"
+        data={[
+          {
+            Item0: "0",
+            Item1: "Aiman Hanna",
+            Item2: "aiman@hanna.com",
+            Item3: "",
+            Item4: "",
+            Item5: "",
+          },
+          {
+            Item0: "1",
+            Item1: "Aiman Hanna",
+            Item2: "aiman@hanna.com",
+            Item3: "",
+            Item4: "",
+            Item5: "",
+          },
+          {
+            Item0: "2",
+            Item1: "Aiman Hanna",
+            Item2: "aiman@hanna.com",
+            Item3: "",
+            Item4: "",
+            Item5: "",
+          },
+          {
+            Item0: "3",
+            Item1: "Aiman Hanna",
+            Item2: "aiman@hanna.com",
+            Item3: "",
+            Item4: "",
+            Item5: "",
+          },
+        ]}
+      />
     </Container>
   );
 };
