@@ -70,7 +70,6 @@ const SignIn = () => {
   };
   useEffect(() => {
     // If logged in redirect
-    redirect();
     if (email !== "") {
       setHoverEmail(true);
     }

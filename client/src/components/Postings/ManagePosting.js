@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
 
 const ManagePosting = (props) => {
-  const { editing, data } = props;
+  const { showModalHandler, data } = props;
   const [location, setLocation] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [description, setDescription] = useState("");
@@ -16,13 +16,14 @@ const ManagePosting = (props) => {
     console.log(description);
     console.log(expirationDate);
   };
+  const editing = data ? true : false;
   return (
     <Modal
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      onHide={props.showModalHandler}
+      onHide={showModalHandler}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -35,6 +36,7 @@ const ManagePosting = (props) => {
             <Form.Label>Position*</Form.Label>
             <Form.Control
               value={position}
+              placeholder="Intern"
               onChange={(e) => {
                 setPosition(e.target.value);
               }}
@@ -45,6 +47,7 @@ const ManagePosting = (props) => {
             <Form.Label>Description*</Form.Label>
             <Form.Control
               value={description}
+              placeholder="Bring cupcakes to the office."
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
@@ -80,7 +83,7 @@ const ManagePosting = (props) => {
           {location === "3" && (
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Location*</Form.Label>
-              <Form.Control required />
+              <Form.Control required placeholder="Montreal" />
             </Form.Group>
           )}
           <div className="text-center">

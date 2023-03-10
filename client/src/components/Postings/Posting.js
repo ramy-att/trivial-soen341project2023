@@ -1,43 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Table } from "react-bootstrap";
-import CreateApplication from "./CreateApplication";
 import ManagePosting from "./ManagePosting";
+import { UserContext } from "../../App";
+import { PlusCircle, Trash, Pencil } from "react-bootstrap-icons";
 
 const Posting = () => {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
+  const userInfo = useContext(UserContext);
+
   // ADD STATE: USER type
   const showModalHandler = () => {
     setShowModal((prev) => !prev);
   };
-  return (
-    <Container fluid className="postings-page">
-      <div className="title-container">
-        <h1>CAE: Front-End Intern (ID: #{id})</h1>
-        {/* Button will only appear for student, will replace with "check applciation" if already applied" */}
-        {/* <button
-          className="apply-posting-button"
-          onClick={() => {
-            setShowModal(true);
-          }}
-        >
-          Apply
-        </button> */}
-        <button
-          className="apply-posting-button"
+  const actions = () => {
+    {
+      /* Button will only appear for student, will replace with "check applciation" if already applied" */
+    }
+    return userInfo.type === "student" ? (
+      <button
+        className="apply-posting-button"
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        Apply
+      </button>
+    ) : userInfo.type === "employer" ? (
+      <div className="employer-actions">
+        <Pencil
+          className="edit-icon"
+          size={30}
           onClick={() => {
             setShowModal(true);
           }}
         >
           Edit
-        </button>
-        <button
-          className="apply-posting-button"
-        >
+        </Pencil>
+        <Trash className="delete-icon" size={30}>
           Delete
-        </button>
-        {/* <span>Check Application!</span> */}
+        </Trash>
+      </div>
+    ) : null;
+  };
+  return (
+    <Container fluid className="postings-page">
+      <div className="title-container">
+        <h1>CAE: Front-End Intern (ID: #{id})</h1>
+        {actions()}
       </div>
       <div className="description-container">
         <div className="job-description">
@@ -113,7 +124,6 @@ const Posting = () => {
           </tbody>
         </Table>
       </div>
-      {/* {showModal && <CreateApplication showModalHandler={showModalHandler} show />} */}
       {showModal && <ManagePosting showModalHandler={showModalHandler} show />}
     </Container>
   );
