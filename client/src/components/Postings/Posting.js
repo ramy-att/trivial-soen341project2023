@@ -4,6 +4,7 @@ import { Container, Table } from "react-bootstrap";
 import ManagePosting from "./ManagePosting";
 import { UserContext } from "../../App";
 import { Trash, Pencil } from "react-bootstrap-icons";
+import CreateApplication from "./CreateApplication";
 import DataTable from "../DataTable/DataTable";
 
 const Posting = () => {
@@ -14,6 +15,65 @@ const Posting = () => {
   // ADD STATE: USER type
   const showModalHandler = () => {
     setShowModal((prev) => !prev);
+  };
+  const applications = () => {
+    if (userInfo && userInfo.type === "employer") {
+      return (
+        <>
+          <h3>Applications</h3>
+          <DataTable
+            header={[
+              "#",
+              "Name",
+              "email",
+              "Resume",
+              "CV",
+              "Transcsript",
+              "Status",
+            ]}
+            pageWidth="100%"
+            data={[
+              {
+                Item0: "0",
+                Item1: "Aiman Hanna",
+                Item2: "aiman@hanna.com",
+                Item3: "",
+                Item4: "",
+                Item5: "",
+                Item6: "Rejected",
+              },
+              {
+                Item0: "1",
+                Item1: "Aiman Hanna",
+                Item2: "aiman@hanna.com",
+                Item3: "",
+                Item4: "",
+                Item5: "",
+                Item6: "Rejected",
+              },
+              {
+                Item0: "2",
+                Item1: "Aiman Hanna",
+                Item2: "aiman@hanna.com",
+                Item3: "",
+                Item4: "",
+                Item5: "",
+                Item6: "Rejected",
+              },
+              {
+                Item0: "3",
+                Item1: "Aiman Hanna",
+                Item2: "aiman@hanna.com",
+                Item3: "",
+                Item4: "",
+                Item5: "",
+                Item6: "Rejected",
+              },
+            ]}
+          />
+        </>
+      );
+    }
   };
   const actions = () => {
     {
@@ -125,46 +185,13 @@ const Posting = () => {
           </tbody>
         </Table>
       </div>
-      {showModal && <ManagePosting showModalHandler={showModalHandler} show />}
-      <h3>Applications</h3>
-      <DataTable
-        header={["#", "Name", "email", "Resume", "CV", "Transcsript"]}
-        pageWidth="100%"
-        data={[
-          {
-            Item0: "0",
-            Item1: "Aiman Hanna",
-            Item2: "aiman@hanna.com",
-            Item3: "",
-            Item4: "",
-            Item5: "",
-          },
-          {
-            Item0: "1",
-            Item1: "Aiman Hanna",
-            Item2: "aiman@hanna.com",
-            Item3: "",
-            Item4: "",
-            Item5: "",
-          },
-          {
-            Item0: "2",
-            Item1: "Aiman Hanna",
-            Item2: "aiman@hanna.com",
-            Item3: "",
-            Item4: "",
-            Item5: "",
-          },
-          {
-            Item0: "3",
-            Item1: "Aiman Hanna",
-            Item2: "aiman@hanna.com",
-            Item3: "",
-            Item4: "",
-            Item5: "",
-          },
-        ]}
-      />
+      {showModal && userInfo && userInfo.type === "employer" && (
+        <ManagePosting showModalHandler={showModalHandler} show />
+      )}
+      {showModal && userInfo && userInfo.type === "student" && (
+        <CreateApplication showModalHandler={showModalHandler} show />
+      )}
+      {applications()}
     </Container>
   );
 };
