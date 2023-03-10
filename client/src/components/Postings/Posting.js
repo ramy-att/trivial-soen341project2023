@@ -128,7 +128,7 @@ const Posting = () => {
       {showModal && <ManagePosting showModalHandler={showModalHandler} show />}
       <h3>Applications</h3>
       <DataTable
-        header={["#", "Name", "email", "Resume", "CV", "Transcsript"]}
+        header={["#", "Name", "email", "Resume", "CV", "Transcsript", "Status"]}
         pageWidth="100%"
         data={[
           {
@@ -138,6 +138,7 @@ const Posting = () => {
             Item3: "",
             Item4: "",
             Item5: "",
+            Item6: "Rejected",
           },
           {
             Item0: "1",
@@ -146,6 +147,7 @@ const Posting = () => {
             Item3: "",
             Item4: "",
             Item5: "",
+            Item6: "Rejected",
           },
           {
             Item0: "2",
@@ -154,6 +156,7 @@ const Posting = () => {
             Item3: "",
             Item4: "",
             Item5: "",
+            Item6: "Rejected",
           },
           {
             Item0: "3",
@@ -162,6 +165,7 @@ const Posting = () => {
             Item3: "",
             Item4: "",
             Item5: "",
+            Item6: "Rejected",
           },
         ]}
       />

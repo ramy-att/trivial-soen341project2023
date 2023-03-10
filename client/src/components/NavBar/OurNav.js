@@ -76,16 +76,16 @@ const OurNav = (props) => {
             <Nav className="me-auto navLeft"></Nav>
           ) : null}
           <Nav>
-            {userInfo ? (
-              <Button className="sign-out" onClick={signOut}>
-                Sign Out
-              </Button>
-            ) : (
+            {userInfo === "nonAuth" ? (
               <>
                 <NavLink exact to="/signin" activeClassName="highlighted">
                   Sign In
                 </NavLink>
               </>
+            ) : (
+              <Button className="sign-out" onClick={signOut}>
+                Sign Out
+              </Button>
             )}
           </Nav>
         </Navbar.Collapse>
