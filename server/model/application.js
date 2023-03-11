@@ -1,11 +1,3 @@
-// application={
-// 	"applicationID": [mongoDB];
-// 	"postingID": jobPostingID;
-// 	"applicantionInfo": {name, email};
-// 	"organizationName": string;
-// 	"status": submitted | underReview | interview | selected | rejected;
-// 	"applicationPackage": {resume, coverLetter, Transcript}
-// }
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 

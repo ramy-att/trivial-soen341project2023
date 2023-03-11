@@ -1,25 +1,15 @@
-// employer={
-// 	"employerID": [mongoDB];
-// 	"name": string, required;
-// 	"email": email, unique, required;
-// 	"password": password, required;
-// 	"organizationName": string, required
-// 	"category": engineering | business | .... // required categories?
-// 	"postings": [...jobPostings]
-// 	"applications": [...applications] filtered by applicantionInfo.company -> getByEmployer(exmployerID)
-// }
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const employerSchema = new Schema({
-  name: {
+  employerName: {
     type: String,
     required: true,
   },
-  password: {
+  employerPassword: {
     type: String,
     required: true,
   },
-  email: {
+  employerEmail: {
     type: String,
     required: true,
     unique: true,
@@ -27,9 +17,6 @@ const employerSchema = new Schema({
   organizationName: {
     type: String,
     required: true,
-  },
-  applications: {
-    type: String,
   },
 });
 
