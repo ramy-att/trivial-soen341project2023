@@ -1,7 +1,7 @@
 const Employer = require("../model/employer");
 const bcrypt = require("bcrypt");
 
-//GET START
+// [GET: GET ALL EMPLOYERS]
 
 const getAllEmployers = async (req, res, next) => {
   let employer;
@@ -16,46 +16,40 @@ const getAllEmployers = async (req, res, next) => {
   return res.status(200).json({ employer });
 };
 
+// [POST: ADD A NEW EMPLOYER]
+
 const addEmployer = async (req, res, next) => {
-  const {
-    name,
-    password,
-    email,
-    organizationName,
-    category,
-    postings,
-    applications,
-  } = req.body; // we post in the body of the API
-  const takenEmail = await Employer.findOne({ email: email });
-  if (takenEmail) {
+  const { employerName, employerPassword, employerEmail, organizationName } =
+    req.body; // we post in the body of the API
+  const takenemployerEmail = await Employer.findOne({
+    employerEmail: employerEmail,
+  });
+  if (takenemployerEmail) {
     return res.status(400).json({ err: "User already exists" });
   } else if (
-    !name ||
-    name.trim() === "" ||
-    !email ||
-    email.trim() === "" ||
+    !employerName ||
+    employerName.trim() === "" ||
+    !employerEmail ||
+    employerEmail.trim() === "" ||
     !organizationName ||
     organizationName.trim() === ""
   ) {
     return res.status(422).json({ err: "Invaild data, cannot add employer" });
   } // return error message if data is wrong or missing
-  else if (!password || password.length < 6) {
-    return res
-      .status(430)
-      .json({ err: "Please enter a valid password: Must be > 6 characters" });
+  else if (!employerPassword || employerPassword.length < 6) {
+    return res.status(430).json({
+      err: "Please enter a valid employerPassword: Must be > 6 characters",
+    });
   }
   let employer;
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedEmployerPassword = await bcrypt.hash(employerPassword, 10);
   try {
     // defining an employer
     employer = new Employer({
-      name,
-      password: hashedPassword,
-      email,
+      employerName,
+      employerPassword: hashedEmployerPassword,
+      employerEmail,
       organizationName,
-      category,
-      postings,
-      applications,
     });
     employer = await employer.save(); // save function from mongo
   } catch (err) {
@@ -70,44 +64,29 @@ const addEmployer = async (req, res, next) => {
   return res.status(201).json({ employer }); // 201 is everything goes well return a student Objs
 };
 
-// POST ENDS
-//PUT STARTS (update user)
+// [PATCH: UDPATE EMPLOYER]
 
 const updateEmployer = async (req, res, next) => {
   const id = req.params.id;
-  const {
-    name,
-    password,
-    email,
-    organizationName,
-    category,
-    postings,
-    applications,
-  } = req.body; // we post in the body of the API
+  const { employerName, employerPassword, employerEmail, organizationName } =
+    req.body; // we post in the body of the API
   if (
-    !name ||
-    name.trim() === "" ||
-    !password ||
-    email.trim() === "" ||
-    !organizationName ||
-    organizationName.trim() === ""
+    !employerPassword ||
+    employerPassword.trim() === "" ||
+    employerPassword.length < 6
   ) {
-    return res.status(422).json({ err: "Invaild data for job employer" });
+    return res
+      .status(422)
+      .json({ err: "Please input a valid employerPassword" });
   } // return error message if data is wrong or missing
-  else if (!password || password.length < 6) {
-     return res.status(430).json({ err: "Please enter a valid password: Must be more than 6 characters" });
-  }
   let employer;
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedEmployerPassword = await bcrypt.hash(employerPassword, 10);
   try {
     employer = await Employer.findByIdAndUpdate(id, {
-      name,
-      password: hashedPassword,
-      email,
+      employerName,
+      employerPassword: hashedEmployerPassword,
+      employerEmail,
       organizationName,
-      category,
-      postings,
-      applications,
     });
   } catch (err) {
     return next(err);
@@ -117,9 +96,12 @@ const updateEmployer = async (req, res, next) => {
   }
   return res.status(200).json({ message: "updated Successfully" });
 };
-//PUT ENDS
-//DELETE STARTS ****ONLY ADMIN AND EMPLOYER employer OWNER CAN DELETE****
+
+// [DELETE: DELETE EMPLOYER]
+// ONLY ADMINS CAN DELETE USERS
+
 const deleteEmployer = async (req, res, next) => {
+  // Should cascade
   const id = req.params.id;
   let employer;
   try {
@@ -131,8 +113,10 @@ const deleteEmployer = async (req, res, next) => {
     return res.status(500).json({ err: "Unable to delete employer" });
   }
   return res.status(200).json({ message: "employer deleted successfully" });
-}; //DELETE END ****ONLY ADMIN AND employer OWNER CAN DELETE****
-//GET employer BY ID START
+};
+
+// [GET: GET EMPLOYER BY ID]
+
 const getEmployerById = async (req, res, next) => {
   let id = req.params.id;
   let employer;

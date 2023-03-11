@@ -10,7 +10,6 @@ const applicationRouter = require("./routes/application-routes");
 const postingRouter = require("./routes/jobPosting-routes");
 const employerRouter = require("./routes/employer-routes");
 const signinRouter = require("./routes/signin-routes");
-// const verifyJWT = require("./controller/signin-controller");
 
 const PORT = process.env.PORT || 3001;
 const app = express();

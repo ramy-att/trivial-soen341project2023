@@ -13,7 +13,7 @@ const postingRouter = express.Router(); // contains all the request methods(get,
 
 postingRouter.get("/", getAllPostings); //get
 postingRouter.post("/", addPosting); //create
-postingRouter.put("/:id", updatePosting); //update
+postingRouter.patch("/:id", updatePosting); //update
 postingRouter.delete("/:id", deletePosting);
 postingRouter.get("/:id", getPostingById);
 module.exports = postingRouter;

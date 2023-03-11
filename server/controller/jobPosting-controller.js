@@ -1,6 +1,6 @@
 const Posting = require("../model/posting");
 
-//GET START
+// [GET: GET AL POSTINGS]
 
 const getAllPostings = async (req, res, next) => {
   let posting;
@@ -15,16 +15,20 @@ const getAllPostings = async (req, res, next) => {
   return res.status(200).json({ posting }); //if everything works return the postings
 };
 
+// [POST: ADD NEW POSTING]
+
 const addPosting = async (req, res, next) => {
-  const { description, title, expirationDate, location } = req.body; // we post in the body of the API
+  const { employerID, description, title, expirationDate, location } = req.body; // we post in the body of the API
   if (
-    !description &&
-    description.trim() === "" &&
-    !title &&
-    title.trim() === "" &&
-    !location &&
-    location.trim() == "" &&
-    !expirationDate &&
+    !employerID ||
+    employerID.trim() === "" ||
+    !description ||
+    description.trim() === "" ||
+    !title ||
+    title.trim() === "" ||
+    !location ||
+    location.trim() == "" ||
+    !expirationDate ||
     expirationDate.trim() == ""
   ) {
     return res.status(422).json({ err: "Invaild data for job posting" });
@@ -34,6 +38,7 @@ const addPosting = async (req, res, next) => {
   try {
     // defining a student
     posting = new Posting({
+      employerID,
       description,
       title,
       expirationDate,
@@ -52,24 +57,11 @@ const addPosting = async (req, res, next) => {
   return res.status(201).json({ posting }); // 201 is everything goes well return a student Objs
 };
 
-// POST ENDS
-//PUT STARTS (update user)
+// [PUT: UPDATE POSTING]
 
 const updatePosting = async (req, res, next) => {
   const id = req.params.id;
   const { description, title, expirationDate, location } = req.body; // we post in the body of the API
-  if (
-    !description &&
-    description.trim() === "" &&
-    !title &&
-    title.trim() === "" &&
-    !location &&
-    location.trim() == "" &&
-    !expirationDate &&
-    expirationDate.trim() == ""
-  ) {
-    return res.status(422).json({ err: "Invaild data for job posting" });
-  } // return error message if data is wrong or missing
   let posting;
   try {
     posting = await Posting.findByIdAndUpdate(id, {
@@ -86,13 +78,22 @@ const updatePosting = async (req, res, next) => {
   }
   return res.status(200).json({ message: "Posting updated Successfully" });
 };
-//PUT ENDS
-//DELETE STARTS ****ONLY ADMIN AND EMPLOYER POSTING OWNER CAN DELETE****
+
+// [DELETE: DELETE POSTING]
+// ONLY ADMIN AND EMPLOYER CAN DELETE
+
 const deletePosting = async (req, res, next) => {
   const id = req.params.id;
+  const employer = req.body.employerID;
+
   let posting;
   try {
-    posting = await Posting.findByIdAndRemove(id);
+    posting = await Posting.findById(id);
+    if (posting.employerID === employer) {
+      posting = await Posting.findByIdAndRemove(id);
+    } else {
+      return res.status(500).json({ err: "Permission Error" });
+    }
   } catch (err) {
     return next(err);
   }
@@ -100,8 +101,8 @@ const deletePosting = async (req, res, next) => {
     return res.status(500).json({ err: "Unable to delete posting" });
   }
   return res.status(200).json({ message: "Posting deleted successfully" });
-}; //DELETE END ****ONLY ADMIN AND POSTING OWNER CAN DELETE****
-//GET POSTING BY ID START
+};
+// [GET: GET BY ID]
 const getPostingById = async (req, res, next) => {
   let id = req.params.id;
   let posting;
@@ -121,6 +122,3 @@ exports.addPosting = addPosting;
 exports.updatePosting = updatePosting;
 exports.deletePosting = deletePosting;
 exports.getPostingById = getPostingById;
-
-//student is the model
-//students is the controller
