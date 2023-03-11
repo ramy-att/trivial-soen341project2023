@@ -117,8 +117,28 @@ const getPostingById = async (req, res, next) => {
   return res.status(200).json({ posting });
 };
 
+// [GET: LET EMPLOYER GET HIS OWN POSTINGS]
+const getEmployerPostings = async (req, res, next) => {
+  // /postings/employer/:id
+  let id = req.params.id;
+  let postings;
+  try {
+    postings = await Posting.find({ employerID: id });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: "Could not fetch all postings" });
+  }
+  if (!postings) {
+    return res
+      .status(404)
+      .json({ err: "Could not get postings by employer id" });
+  }
+  return res.status(200).json({ postings });
+};
+
 exports.getAllPostings = getAllPostings;
 exports.addPosting = addPosting;
 exports.updatePosting = updatePosting;
 exports.deletePosting = deletePosting;
 exports.getPostingById = getPostingById;
+exports.getEmployerPostings = getEmployerPostings;
