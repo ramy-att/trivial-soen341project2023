@@ -20,7 +20,9 @@ const getAllStudents = async (req, res, next) => {
 };
 //GET END
 //POST START AKA create a new user
+
 const addStudent = async (req, res, next) => {
+
   //to add a new Student without errors AKA post
   const { studentName, studentEmail, studentPassword } = req.body; // we post in the body of the API
   const takenEmail = await Student.findOne({ studentEmail: studentEmail });
@@ -57,6 +59,35 @@ const addStudent = async (req, res, next) => {
 //PUT STARTS (update user)
 const updateStudent = async (req, res, next) => {
   const id = req.params.id;
+  if(req.files){ // if i submit
+    const fs = require('fs')
+
+    const path = './server/uploads/' + req.params.id + '.pdf' 
+
+    try {
+      fs.unlinkSync(path)
+      //file removed
+    } catch(err) {
+      console.error(err)
+    }
+    
+    console.log(req.files)
+    var file=req.files.file
+    var filename= file.name
+    console.log(filename)
+
+    file.mv('./server/uploads/' + req.params.id + '.pdf',function (err) {
+
+      if(err){
+        res.send(err)
+      }else{
+        res.send("File Uploaded")
+      }
+
+    }
+    )
+
+  }
   const { studentName, studentEmail, studentPassword } = req.body;
   if (
     !studentName &&
