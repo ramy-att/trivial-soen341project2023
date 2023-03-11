@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"); //Database
 const express = require("express"); //Express
 const cors = require("cors"); //HTTP Connection
-const upload = require('express-fileupload');
+const upload = require("express-fileupload");
 
 const dotenv = require("dotenv"); //.env
 const path = require("path"); //to get path to .env
@@ -11,8 +11,7 @@ const applicationRouter = require("./routes/application-routes");
 const postingRouter = require("./routes/jobPosting-routes");
 const employerRouter = require("./routes/employer-routes");
 const signinRouter = require("./routes/signin-routes");
-const fileRouter = require("./routes/file-routes")
-// const verifyJWT = require("./controller/signin-controller");
+const fileRouter = require("./routes/file-routes");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -25,40 +24,34 @@ app.use("/postings", postingRouter);
 app.use("/employers", employerRouter);
 app.use("/applications", applicationRouter);
 app.use("/signin", signinRouter);
-app.use("/file",fileRouter);
+app.use("/file", fileRouter);
 
- app.get('/',(req,res)=>{
-   console.log("Test")
-   res.sendFile(__dirname+'/upload.html')
- }) 
+// [USED FOR TESTING IN upload.html]
+app.get("/download", (req, res) => {
+  console.log("DOWNLOAD BUTTON PRESSED");
+  const file = `${__dirname}/uploads/640bed07ba4b4ab648528f29.pdf`;
+  res.download(file); // Set disposition and send it.
+});
+app.get("/", (req, res) => {
+  console.log("Test");
+  res.sendFile(__dirname + "/upload.html");
+});
+app.post("/", (req, res) => {
+  if (req.files) {
+    console.log(req.files);
+    var file = req.files.file;
+    var filename = file.name;
+    console.log(filename);
 
-
-
-app.post('/',(req,res)=>{
-  if(req.files){
-    console.log(req.files)
-    var file=req.files.file
-    var filename= file.name
-    console.log(filename)
-
-    file.mv('./server/uploads/' + filename,function (err) {
-      if(err){
-        res.send(err)
-      }else{
-        res.send("File Uploaded")
+    file.mv("./server/uploads/" + filename, function (err) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("File Uploaded");
       }
-
-    }
-    )
-
+    });
   }
-})
-
-app.get('/download',(req,res)=>{
-    console.log("DOWNLOAD BUTTON PRESSED")
-    const file = `${__dirname}/uploads/640bed07ba4b4ab648528f29.pdf`;
-    res.download(file); // Set disposition and send it.
-})
+});
 
 dotenv.config({ path: path.resolve(__dirname, "./.env") });
 

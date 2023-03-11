@@ -23,4 +23,3 @@ const studentSchema = new Schema({
 });
 
 module.exports = mongoose.model("student", studentSchema);
-//Student schema (Which is an object that contains all the student's info)

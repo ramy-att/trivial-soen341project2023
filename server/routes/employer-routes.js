@@ -12,7 +12,7 @@ const employerRouter = express.Router(); // contains all the request methods(get
 
 employerRouter.get("/", getAllEmployers); //get
 employerRouter.post("/", addEmployer); //create
-employerRouter.put("/:id", updateEmployer); //update
-employerRouter.delete("/:id", deleteEmployer);//only accessable to 
+employerRouter.patch("/:id", updateEmployer); //update
+employerRouter.delete("/:id", deleteEmployer); //only accessable to
 employerRouter.get("/:id", getEmployerById);
 module.exports = employerRouter;

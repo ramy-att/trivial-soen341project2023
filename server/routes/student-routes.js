@@ -12,7 +12,7 @@ const studentRouter = express.Router(); // contains all the request methods(get,
 
 studentRouter.get("/", getAllStudents); //get
 studentRouter.post("/", addStudent); //create
-studentRouter.put("/:id", updateStudent); //update
+studentRouter.patch("/:id", updateStudent); //update
 studentRouter.delete("/:id", deleteStudent);
 studentRouter.get("/:id", getStudentById);
 module.exports = studentRouter;
