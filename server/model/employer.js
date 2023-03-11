@@ -15,31 +15,19 @@ const employerSchema = new Schema({
     type: String,
     required: true,
   },
-
   password: {
     type: String,
     required: true,
   },
-
   email: {
     type: String,
     required: true,
     unique: true,
   },
-
   organizationName: {
     type: String,
     required: true,
   },
-
-  category: {
-    type: String,
-  },
-
-  postings: {
-    type: String,
-  },
-
   applications: {
     type: String,
   },

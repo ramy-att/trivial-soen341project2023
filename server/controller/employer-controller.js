@@ -84,19 +84,9 @@ const updateEmployer = async (req, res, next) => {
     postings,
     applications,
   } = req.body; // we post in the body of the API
-  if (
-    !name ||
-    name.trim() === "" ||
-    !password ||
-    email.trim() === "" ||
-    !organizationName ||
-    organizationName.trim() === ""
-  ) {
-    return res.status(422).json({ err: "Invaild data for job employer" });
+  if (!password || password.trim() === "" || password.length < 6) {
+    return res.status(422).json({ err: "Please input a valid password" });
   } // return error message if data is wrong or missing
-  else if (!password || password.length < 6) {
-     return res.status(430).json({ err: "Please enter a valid password: Must be more than 6 characters" });
-  }
   let employer;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {

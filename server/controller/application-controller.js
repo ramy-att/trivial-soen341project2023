@@ -1,6 +1,6 @@
 const Application = require("../model/application");
 
-//GET START
+// [GET: GET ALL THE APPLICATION]
 
 const getAllApplications = async (req, res, next) => {
   let application;
@@ -15,19 +15,17 @@ const getAllApplications = async (req, res, next) => {
   return res.status(200).json({ application });
 };
 
+// [POST: ADD A NEW APPLICATION]
 const addApplication = async (req, res, next) => {
-  const {
-    studentID,
-    studentResume,
-    studentCoverLetter,
-    extraDetailsForEmployerByStudent,
-    applicationStatus,
-  } = req.body; // we post in the body of the API
+  const { studentID, postingID, extraDetails, applicationStatus } = req.body; // we post in the body of the API
   if (
-    !studentID &&
-    studentID.trim() === ""
-    ) {
-    
+    !studentID ||
+    studentID.trim() === "" ||
+    !postingID ||
+    postingID.trim() === "" ||
+    !applicationStatus ||
+    applicationStatus.trim() === ""
+  ) {
     return res.status(422).json({ err: "Invaild data for application" });
   } // return error message if data is wrong or missing
 
@@ -36,12 +34,11 @@ const addApplication = async (req, res, next) => {
     // defining an application
     application = new Application({
       studentID, // = getStudentID()
-      studentResume,
-      studentCoverLetter,
-      extraDetailsForEmployerByStudent,
+      postingID,
+      extraDetails,
       applicationStatus,
     });
-    
+
     application = await application.save(); // save function from mongo
   } catch (err) {
     return next(err);
@@ -55,8 +52,7 @@ const addApplication = async (req, res, next) => {
   return res.status(201).json({ application }); // 201 is everything goes well return a student Objs
 };
 
-// POST ENDS
-//PUT STARTS (update user)
+// [PATCH: UPDATE AN APPLICATION]
 
 const updateApplication = async (req, res, next) => {
   const id = req.params.id;
@@ -67,45 +63,49 @@ const updateApplication = async (req, res, next) => {
     extraDetailsForEmployerByStudent,
     applicationStatus,
   } = req.body; // we post in the body of the API
-  if (
-    !studentID &&
-    studentID.trim() === ""
-  ) {
-    return res.status(422).json({ err: "Invaild data for job application" });
-  } // return error message if data is wrong or missing
   let application;
   try {
     application = await Application.findByIdAndUpdate(id, {
-        studentID,
-        studentResume,
-        studentCoverLetter,
-        extraDetailsForEmployerByStudent,
-        applicationStatus,
+      studentID,
+      studentResume,
+      studentCoverLetter,
+      extraDetailsForEmployerByStudent,
+      applicationStatus,
     });
   } catch (err) {
     return next(err);
   }
   if (!application) {
-    return res.status(500).json({ err: "unable to save the application info" });
+    return res.status(500).json({ err: "Unable to save the application info" });
   }
-  return res.status(200).json({ message: "updated Successfully" });
+  return res.status(200).json({ message: "Application updated successfully!" });
 };
-//PUT ENDS
-//DELETE STARTS ****ONLY ADMIN AND application application OWNER CAN DELETE****
+
+// [DELETE: DELETE AN APPLICATION]
+// ONLY ADMIN AND STUDENT CAN DELETE
 const deleteApplication = async (req, res, next) => {
   const id = req.params.id;
+  const student = req.body.studentID;
+
   let application;
   try {
-    application = await Application.findByIdAndRemove(id);
+    application = await Application.findById(id);
+    // For now only allow student to delete this applciations
+    if (student && application.studentID === student) {
+      application = await Application.findByIdAndRemove(id);
+    } else {
+      return res.status(500).json({ err: "Permission Error" });
+    }
   } catch (err) {
     return next(err);
   }
   if (!application) {
     return res.status(500).json({ err: "Unable to delete application" });
   }
-  return res.status(200).json({ message: "application deleted successfully" });
-}; //DELETE END ****ONLY ADMIN AND application OWNER CAN DELETE****
-//GET application BY ID START
+  return res.status(200).json({ message: "Application deleted successfully" });
+};
+
+// [GET: GET APPLICATION BY ID]
 const getApplicationById = async (req, res, next) => {
   let id = req.params.id;
   let application;
@@ -115,7 +115,7 @@ const getApplicationById = async (req, res, next) => {
     return next(err);
   }
   if (!application) {
-    return res.status(404).json({ err: "could NOT get application by ID" });
+    return res.status(404).json({ err: "Could not get application by ID" });
   }
   return res.status(200).json({ application });
 };

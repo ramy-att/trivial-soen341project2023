@@ -12,7 +12,7 @@ const applicationRouter = express.Router(); // contains all the request methods(
 
 applicationRouter.get("/", getAllApplications); //get
 applicationRouter.post("/", addApplication); //create
-applicationRouter.put("/:id", updateApplication); //update
-applicationRouter.delete("/:id", deleteApplication);//only accessable to 
+applicationRouter.patch("/:id", updateApplication); //update
+applicationRouter.delete("/:id", deleteApplication); //only accessable to
 applicationRouter.get("/:id", getApplicationById);
 module.exports = applicationRouter;
