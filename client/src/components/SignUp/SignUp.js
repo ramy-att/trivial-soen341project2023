@@ -45,6 +45,9 @@ export const SignUp = (props) => {
         if (result.err) {
           setSignUpError(result.err);
         }
+        setTimeout(() => {
+          setSignUpError("");
+        }, 5000);
       } catch (error) {
         console.log(error);
       }
@@ -69,7 +72,7 @@ export const SignUp = (props) => {
        * Errors should be handled and stored in state to be d
        * If no errors we can store the user ID in the redux s
        */
-      
+
       /**Here we are setting the signup error for the already exisiting user */
       try {
         const response = await fetch(url, req);
@@ -78,6 +81,9 @@ export const SignUp = (props) => {
         if (result.err) {
           setSignUpError(result.err);
         }
+        setTimeout(() => {
+          setSignUpError("");
+        }, 5000);
       } catch (error) {
         console.log(error);
       }

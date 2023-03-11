@@ -18,6 +18,9 @@ const verifyJWT = (req, res, next) => {
       user.email = decoded.email;
       user.name = decoded.name;
       user.type = decoded.type;
+      if (decoded.type === "employer") {
+        user.organizationName = decoded.organizationName;
+      }
       return res.json({ user });
     });
   }
@@ -38,6 +41,7 @@ const signin = async (req, res, next) => {
         id: employer._id,
         name: employer.name,
         email: employer.email,
+        organizationName: employer.organizationName,
         type: "employer",
       };
       jwt.sign(

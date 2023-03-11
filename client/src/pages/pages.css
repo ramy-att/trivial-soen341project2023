@@ -1,3 +1,18 @@
+::-webkit-scrollbar {
+  width: 1.25rem;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #0a1640;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
 .signIn {
   min-height: 100vh;
   height: 100%;

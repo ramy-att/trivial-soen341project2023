@@ -30,20 +30,20 @@ const addEmployer = async (req, res, next) => {
   if (takenEmail) {
     return res.status(400).json({ err: "User already exists" });
   } else if (
-    !name &&
-    name.trim() === "" &&
-    !password &&
-    password.trim() === "" &&
-    !email &&
-    email.trim() === "" &&
-    !organizationName &&
-    organizationName.trim() === "" &&
-    !category &&
-    category.trim() === ""
+    !name ||
+    name.trim() === "" ||
+    !email ||
+    email.trim() === "" ||
+    !organizationName ||
+    organizationName.trim() === ""
   ) {
-    return res.status(422).json({ err: "Invaild data for employer" });
+    return res.status(422).json({ err: "Invaild data, cannot add employer" });
   } // return error message if data is wrong or missing
-
+  else if (!password || password.length < 6) {
+    return res
+      .status(430)
+      .json({ err: "Please enter a valid password: Must be > 6 characters" });
+  }
   let employer;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
@@ -85,24 +85,24 @@ const updateEmployer = async (req, res, next) => {
     applications,
   } = req.body; // we post in the body of the API
   if (
-    !name &&
-    name.trim() === "" &&
-    !password &&
-    password.trim() === "" &&
-    !email &&
-    email.trim() == "" &&
-    !organizationName &&
-    organizationName.trim() == "" &&
-    !category &&
-    category.trim() == ""
+    !name ||
+    name.trim() === "" ||
+    !password ||
+    email.trim() === "" ||
+    !organizationName ||
+    organizationName.trim() === ""
   ) {
     return res.status(422).json({ err: "Invaild data for job employer" });
   } // return error message if data is wrong or missing
+  else if (!password || password.length < 6) {
+     return res.status(430).json({ err: "Please enter a valid password: Must be more than 6 characters" });
+  }
   let employer;
+  const hashedPassword = await bcrypt.hash(password, 10);
   try {
     employer = await Employer.findByIdAndUpdate(id, {
       name,
-      password,
+      password: hashedPassword,
       email,
       organizationName,
       category,

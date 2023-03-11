@@ -7,7 +7,7 @@ export default function Editprofile() {
   return (
     <>
       <OurNav />
-      <EditPage type="student" />;
+      <EditPage type="employer" />
       <Footer />
     </>
   );
