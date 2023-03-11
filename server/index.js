@@ -25,10 +25,10 @@ app.use("/employers", employerRouter);
 app.use("/applications", applicationRouter);
 app.use("/signin", signinRouter);
 
-app.get('/',(req,res)=>{
-  console.log("Test")
-  res.sendFile(__dirname+'/upload.html')
-}) 
+ app.get('/',(req,res)=>{
+   console.log("Test")
+   res.sendFile(__dirname+'/upload.html')
+ }) 
 
 
 
@@ -50,6 +50,12 @@ app.post('/',(req,res)=>{
     )
 
   }
+})
+
+app.get('/download',(req,res)=>{
+    console.log("DOWNLOAD BUTTON PRESSED")
+    const file = `${__dirname}/uploads/640bed07ba4b4ab648528f29.pdf`;
+    res.download(file); // Set disposition and send it.
 })
 
 dotenv.config({ path: path.resolve(__dirname, "./.env") });

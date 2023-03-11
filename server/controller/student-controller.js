@@ -62,7 +62,7 @@ const updateStudent = async (req, res, next) => {
   if(req.files){ // if i submit
     const fs = require('fs')
 
-    const path = './server/uploads/' + req.params.id + '.pdf' 
+    const path = './server/uploads/' + req.params.id + '.pdf'  //deletes old file
 
     try {
       fs.unlinkSync(path)
@@ -70,13 +70,13 @@ const updateStudent = async (req, res, next) => {
     } catch(err) {
       console.error(err)
     }
-    
+
     console.log(req.files)
     var file=req.files.file
     var filename= file.name
     console.log(filename)
 
-    file.mv('./server/uploads/' + req.params.id + '.pdf',function (err) {
+    file.mv(path,function (err) {
 
       if(err){
         res.send(err)
