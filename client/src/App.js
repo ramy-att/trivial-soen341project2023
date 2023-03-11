@@ -25,7 +25,7 @@ const App = () => {
   const history = useHistory();
   const [userInfo, setUserInfo] = useState();
 
-  console.log("Dom Dom Rakka Dom Dom"); // Leave this please - Ramy
+  // console.log("Dom Dom Rakka Dom Dom"); // Leave this please - Ramy
 
   const verifyUser = async () => {
     const url2 = "http://localhost:3001/signin";
@@ -72,7 +72,7 @@ const App = () => {
   useEffect(() => {
     redirect();
     console.log(window.location.pathname);
-  }, [window.location.pathname, userInfo]);
+  }, [/*window.location.pathname, userInfo*/]);
   return (
     <UserContext.Provider value={userInfo}>
       <div className="App">

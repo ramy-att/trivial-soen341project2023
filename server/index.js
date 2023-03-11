@@ -11,6 +11,7 @@ const applicationRouter = require("./routes/application-routes");
 const postingRouter = require("./routes/jobPosting-routes");
 const employerRouter = require("./routes/employer-routes");
 const signinRouter = require("./routes/signin-routes");
+const fileRouter = require("./routes/file-routes")
 // const verifyJWT = require("./controller/signin-controller");
 
 const PORT = process.env.PORT || 3001;
@@ -24,6 +25,7 @@ app.use("/postings", postingRouter);
 app.use("/employers", employerRouter);
 app.use("/applications", applicationRouter);
 app.use("/signin", signinRouter);
+app.use("/file",fileRouter);
 
  app.get('/',(req,res)=>{
    console.log("Test")

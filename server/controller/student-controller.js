@@ -60,35 +60,102 @@ const addStudent = async (req, res, next) => {
 //PUT STARTS (update user)
 const updateStudent = async (req, res, next) => {
   const id = req.params.id;
-  if(req.files){ // if i submit
+  console.log(req);
+  // coverLetters
+  if(req.files.resume){ // if i submit
     const fs = require('fs')
 
-    const path = './server/uploads/' + req.params.id + '.pdf'  //deletes old file
+    const path = './server/controller/uploads/resumes/' + req.params.id + '.pdf'  //deletes old resume
+    if(fs.existsSync(path)){
+      try {
+        fs.unlinkSync(path)
+        //resume removed
+      } catch(err) {
+        console.error(err)
+      }
+   }
 
-    try {
-      fs.unlinkSync(path)
-      //file removed
-    } catch(err) {
-      console.error(err)
-    }
+   // console.log(req.files.resume)
+    var resume=req.files.resume
+   // var resumename= resume.name
+   // console.log(resumename)
 
-    console.log(req.files)
-    var file=req.files.file
-    var filename= file.name
-    console.log(filename)
-
-    file.mv(path,function (err) {
+    resume.mv(path,function (err) {
 
       if(err){
         res.send(err)
       }else{
-        res.send("File Uploaded")
+        res.send("resume Uploaded")
       }
 
     }
     )
 
   }
+
+  if(req.files.coverLetter){ // if i submit
+    const fs = require('fs')
+
+    const path = './server/controller/uploads/coverLetters/' + req.params.id + '.pdf'  //deletes old coverLetter
+    if(fs.existsSync(path)){
+      try {
+        fs.unlinkSync(path)
+        //coverLetter removed
+      } catch(err) {
+        console.error(err)
+      }
+   }
+
+   // console.log(req.files.coverLetter)
+    var coverLetter=req.files.coverLetter
+   // var coverLettername= coverLetter.name
+   // console.log(coverLettername)
+
+    coverLetter.mv(path,function (err) {
+
+      if(err){
+        res.send(err)
+      }else{
+        res.send("coverLetter Uploaded")
+      }
+
+    }
+    )
+
+  }
+
+  if(req.files.transcript){ // if i submit
+    const fs = require('fs')
+
+    const path = './server/controller/uploads/transcripts/' + req.params.id + '.pdf'  //deletes old transcript
+    if(fs.existsSync(path)){
+      try {
+        fs.unlinkSync(path)
+        //transcript removed
+      } catch(err) {
+        console.error(err)
+      }
+   }
+
+   // console.log(req.files.transcript)
+    var transcript=req.files.transcript
+   // var transcriptname= transcript.name
+   // console.log(transcriptname)
+
+    transcript.mv(path,function (err) {
+
+      if(err){
+        res.send(err)
+      }else{
+        res.send("transcript Uploaded")
+      }
+
+    }
+    )
+
+  }
+
+
   const { studentName, studentEmail, studentPassword } = req.body;
   if (
     !studentName ||

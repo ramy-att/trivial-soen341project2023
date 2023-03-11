@@ -12,6 +12,55 @@ const Posting = () => {
   const [showModal, setShowModal] = useState(false);
   const userInfo = useContext(UserContext);
 
+  const downloadFile = async (filename) => {
+    const url = `/api/download/${filename}`;
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const urlObj = window.URL || window.webkitURL;
+    const objectUrl = urlObj.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = objectUrl;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    urlObj.revokeObjectURL(objectUrl);
+  }
+  //downloads file
+  const fileDownloader = async (event) =>{
+    event.preventDefault();
+    
+    const url = "http://localhost:3001/file";
+    const req = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        studentId: '640bed07ba4b4ab648528f29', //STUDENT ID
+        type:'coverLetters' //type of file plural
+      }),
+    };
+    try {
+      const response = await fetch(url, req);
+      const blob = await response.blob();
+      const urlObj = window.URL || window.webkitURL;
+      const objectUrl = urlObj.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = 'Mazen-Mohamed.pdf'; //STUDENT NAME
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      urlObj.revokeObjectURL(objectUrl);
+      //console.log(response);
+    
+    } catch (error) {
+      console.log("DOWNLOAD FILE FAILED");
+      console.log(error);
+    }
+
+  };
   // ADD STATE: USER type
   const showModalHandler = () => {
     setShowModal((prev) => !prev);
@@ -37,7 +86,7 @@ const Posting = () => {
                 Item0: "0",
                 Item1: "Aiman Hanna",
                 Item2: "aiman@hanna.com",
-                Item3: "",
+                Item3: <form onSubmit={fileDownloader}> <input type="submit" value="Transcript"/></form>,
                 Item4: "",
                 Item5: "",
                 Item6: "Rejected",
