@@ -120,8 +120,27 @@ const getApplicationById = async (req, res, next) => {
   return res.status(200).json({ application });
 };
 
+const getPostingApplications = async (req, res, next) => {
+  // /posting/:id
+  let id = req.params.id;
+  let applications;
+  try {
+    applications = await Application.find({ postingID: id });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: "Could not fetch all applications" });
+  }
+  if (!applications) {
+    return res
+      .status(404)
+      .json({ err: "Could not get applications by posting id" });
+  }
+  return res.status(200).json({ applications });
+};
+
 exports.getAllApplications = getAllApplications;
 exports.addApplication = addApplication;
 exports.updateApplication = updateApplication;
 exports.deleteApplication = deleteApplication;
 exports.getApplicationById = getApplicationById;
+exports.getPostingApplications = getPostingApplications;
