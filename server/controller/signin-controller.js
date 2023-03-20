@@ -23,9 +23,11 @@ const verifyJWT = (req, res, next) => {
       }
       return res.json({ user });
     });
+  } else {
+    return res.json({ err: "Incorrect Token", isLoggedIn: false });
   }
-  return res.json({ err: "Incorrect Token", isLoggedIn: false });
 };
+
 const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
