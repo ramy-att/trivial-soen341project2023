@@ -60,9 +60,9 @@ export const SignUp = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: name,
-          email: email,
-          password: pass,
+          employerName: name,
+          employerEmail: email,
+          employerPassword: pass,
           organizationName: companyName,
         }),
       };
