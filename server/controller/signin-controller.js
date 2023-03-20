@@ -29,18 +29,18 @@ const verifyJWT = (req, res, next) => {
 const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const employer = await Employer.findOne({ email: email });
+  const employer = await Employer.findOne({ employerEmail: email });
   const student = await Student.findOne({ studentEmail: email });
 
   if (!employer && !student) {
     return res.json({ err: "Invalid credentials" });
   } else if (employer) {
-    const compare = await bcrypt.compare(password, employer.password); // true || false
+    const compare = await bcrypt.compare(password, employer.employerPassword); // true || false
     if (compare) {
       const payload = {
         id: employer._id,
-        name: employer.name,
-        email: employer.email,
+        name: employer.employerName,
+        email: employer.employerEmail,
         organizationName: employer.organizationName,
         type: "employer",
       };
