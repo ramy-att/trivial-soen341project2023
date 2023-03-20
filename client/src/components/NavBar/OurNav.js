@@ -5,48 +5,62 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import "./OurNav.css";
+import { useContext } from "react";
+import { UserContext } from "../../App";
+import { useHistory } from "react-router-dom";
 
 const OurNav = (props) => {
-  const { type = "student" | "employer" | "admin" | "nonAuth" } = props;
+  const userInfo = useContext(UserContext);
+  const history = useHistory();
 
   const signOut = () => {
     // TODO: Implement Later
+    localStorage.removeItem("token");
+    history.push("/");
   };
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="md"
-      className="ourNav"
-    >
+    <Navbar collapseOnSelect expand="md" className="ourNav">
       <Container fluid>
-        <NavLink className="logo" exact to="/signin">
+        <NavLink className="logo" exact to="/">
           Jobify
         </NavLink>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          {type === "student" ? (
+          {userInfo && userInfo.type === "student" ? (
             <Nav className="me-auto navLeft">
-              <NavLink exact to="/signin" activeClassName="highlighted">
+              <NavLink exact to="/job-postings" activeClassName="highlighted">
                 Postings
               </NavLink>
-              <NavLink exact to="/" activeClassName="highlighted">
+              <NavLink
+                exact
+                to="/job-applications"
+                activeClassName="highlighted"
+              >
                 Applications
               </NavLink>
-              <NavLink exact to="/" activeClassName="highlighted">
+              <NavLink
+                exact
+                to="/edit-profile-student"
+                activeClassName="highlighted"
+              >
                 Profile
               </NavLink>
             </Nav>
-          ) : type === "employer" ? (
+          ) : userInfo && userInfo.type === "employer" ? (
             <Nav className="me-auto navLeft">
-              <NavLink exact to="/signin" activeClassName="highlighted">
-                Postings
+              <NavLink exact to="/job-postings" activeClassName="highlighted">
+                Postings & Applications
               </NavLink>
-              <NavLink exact to="/" activeClassName="highlighted">
+              <NavLink
+                exact
+                to="/edit-profile-employer"
+                activeClassName="highlighted"
+              >
                 Profile
               </NavLink>
             </Nav>
-          ) : type === "admin" ? (
+          ) : userInfo && userInfo.type === "admin" ? (
             <Nav className="me-auto navLeft">
               <NavLink exact to="/signin" activeClassName="highlighted">
                 Applications
@@ -58,24 +72,15 @@ const OurNav = (props) => {
                 Profiles
               </NavLink>
             </Nav>
-          ) : type === "nonAuth" ? (
+          ) : !userInfo ? (
             <Nav className="me-auto navLeft"></Nav>
           ) : null}
           <Nav>
-            {type !== "nonAuth" ? (
+            {userInfo !== "nonAuth" ? (
               <Button className="sign-out" onClick={signOut}>
                 Sign Out
               </Button>
-            ) : (
-              <>
-                <NavLink exact to="/" activeClassName="highlighted">
-                  Sign In
-                </NavLink>
-                <NavLink exact to="/" activeClassName="highlighted">
-                  Sign Out
-                </NavLink>
-              </>
-            )}
+            ) : null}
           </Nav>
         </Navbar.Collapse>
       </Container>

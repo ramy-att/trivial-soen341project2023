@@ -18,9 +18,8 @@ const studentSchema = new Schema({
     required: true,
     minLength: 6,
   },
-  resume: { type: Buffer },
+  resume: { type: String },
   Coverletter: { type: Buffer },
 });
 
 module.exports = mongoose.model("student", studentSchema);
-//Student schema (Which is an object that contains all the student's info)

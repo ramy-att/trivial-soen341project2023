@@ -1,23 +1,26 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const employerSchema = new Schema({
-  employerName: {
+const postingSchema = new Schema({
+  employerID: {
     type: String,
     required: true,
   },
-  employerPassword: {
+  description: {
     type: String,
     required: true,
   },
-  employerEmail: {
+  title: {
     type: String,
     required: true,
-    unique: true,
   },
-  organizationName: {
+  expirationDate: {
+    type: String,
+    required: true,
+  },
+  location: {
     type: String,
     required: true,
   },
 });
 
-module.exports = mongoose.model("employer", employerSchema);
+module.exports = mongoose.model("posting", postingSchema);
