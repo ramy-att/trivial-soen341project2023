@@ -6,6 +6,22 @@ const applicationSchema = new Schema({
     type: String,
     required: true,
   },
+  studentName: {
+    type: String,
+    required: false,
+  },
+  title: {
+    type: String,
+    required: false,
+  },
+  organizationName: {
+    type: String,
+    required: false,
+  },
+  studentEmail: {
+    type: String,
+    required: false,
+  },
   postingID: {
     type: String,
     required: true,

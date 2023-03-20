@@ -7,6 +7,7 @@ const {
   deleteApplication,
   getApplicationById,
   getPostingApplications,
+  getStudentApplications,
 } = require("../controller/application-controller");
 
 const applicationRouter = express.Router(); // contains all the request methods(get,post,put,delete)
@@ -17,4 +18,5 @@ applicationRouter.patch("/:id", updateApplication); //update
 applicationRouter.delete("/:id", deleteApplication); //only accessable to
 applicationRouter.get("/:id", getApplicationById);
 applicationRouter.get("/posting/:id", getPostingApplications);
+applicationRouter.get("/student/:id", getStudentApplications);
 module.exports = applicationRouter;
