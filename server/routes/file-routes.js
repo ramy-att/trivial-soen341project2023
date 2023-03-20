@@ -5,6 +5,6 @@ const {
 
 const fileRouter = express.Router(); // contains all the request methods(get,post,put,delete)
 
-fileRouter.post("/", downloadFile); //get
+fileRouter.post("/", downloadFile); //get/download file
 
 module.exports = fileRouter;
