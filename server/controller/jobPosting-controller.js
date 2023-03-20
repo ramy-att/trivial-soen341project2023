@@ -18,7 +18,7 @@ const getAllPostings = async (req, res, next) => {
 // [POST: ADD NEW POSTING]
 
 const addPosting = async (req, res, next) => {
-  const { employerID, description, title, expirationDate, location } = req.body; // we post in the body of the API
+  const { employerID, description, title, expirationDate, location, organizationName } = req.body; // we post in the body of the API
   if (
     !employerID ||
     employerID.trim() === "" ||
@@ -29,7 +29,9 @@ const addPosting = async (req, res, next) => {
     !location ||
     location.trim() == "" ||
     !expirationDate ||
-    expirationDate.trim() == ""
+    expirationDate.trim() == ""||
+    !organizationName || 
+    organizationName.trim()==""
   ) {
     return res.status(422).json({ err: "Invaild data for job posting" });
   } // return error message if data is wrong or missing
@@ -43,6 +45,7 @@ const addPosting = async (req, res, next) => {
       title,
       expirationDate,
       location,
+      organizationName, // add the organization name
     });
     posting = await posting.save(); // save function from mongo
   } catch (err) {
@@ -61,7 +64,7 @@ const addPosting = async (req, res, next) => {
 
 const updatePosting = async (req, res, next) => {
   const id = req.params.id;
-  const { description, title, expirationDate, location } = req.body; // we post in the body of the API
+  const { description, title, expirationDate, location, organizationName} = req.body; // we post in the body of the API
   let posting;
   try {
     posting = await Posting.findByIdAndUpdate(id, {
@@ -69,6 +72,7 @@ const updatePosting = async (req, res, next) => {
       title,
       expirationDate,
       location,
+      organizationName,
     });
   } catch (err) {
     return next(err);

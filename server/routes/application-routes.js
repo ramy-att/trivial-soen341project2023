@@ -14,7 +14,7 @@ const applicationRouter = express.Router(); // contains all the request methods(
 applicationRouter.get("/", getAllApplications); //get
 applicationRouter.post("/", addApplication); //create
 applicationRouter.patch("/:id", updateApplication); //update
-applicationRouter.delete("/:id", deleteApplication); //only accessable to
+applicationRouter.delete("/:id", deleteApplication); //only accessable to Employer and admin?
 applicationRouter.get("/:id", getApplicationById);
 applicationRouter.get("/posting/:id", getPostingApplications);
 module.exports = applicationRouter;
