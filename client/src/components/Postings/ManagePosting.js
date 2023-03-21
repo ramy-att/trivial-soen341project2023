@@ -11,12 +11,9 @@ const ManagePosting = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(location);
-    console.log(position);
-    console.log(description);
-    console.log(expirationDate);
   };
   const editing = data ? true : false;
+
   return (
     <Modal
       {...props}

@@ -17,7 +17,15 @@ const DataTable = (props) => {
 
     maxRows: number of rows to display @default is 15
    */
-  const { data, header, footer, maxRows = 15, pageWidth, ...rest } = props;
+  const {
+    data,
+    displayedData,
+    header,
+    footer,
+    maxRows = 15,
+    pageWidth,
+    ...rest
+  } = props;
   const [currentPage, setCurrentPage] = useState(0);
   const [currentData, setCurrentData] = useState([...data]);
   const [numberPages, setNumberPages] = useState(
@@ -26,9 +34,11 @@ const DataTable = (props) => {
   useEffect(() => {
     const start = currentPage * maxRows;
     const end = currentPage * maxRows + maxRows;
-    setCurrentData(data.slice(start, end));
-  }, [maxRows, currentPage]);
+    setCurrentData(displayedData.slice(start, end) || displayedData);
+  }, [maxRows, currentPage, displayedData]);
 
+  // console.log(displayedData);
+  // console.log(data);
   return (
     <div className="DataTable" style={{ width: pageWidth || "90%" }}>
       <Table bordered hover responsive {...rest}>

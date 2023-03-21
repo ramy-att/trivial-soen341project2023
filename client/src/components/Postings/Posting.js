@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Table } from "react-bootstrap";
 import ManagePosting from "./ManagePosting";
@@ -10,7 +10,73 @@ import DataTable from "../DataTable/DataTable";
 const Posting = () => {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
+  const [posting, setPosting] = useState({});
+  const [postingApps, setPostingApps] = useState([]);
+  const [displayedData, setDisplayedData] = useState([]);
   const userInfo = useContext(UserContext);
+
+  const getPostings = async () => {
+    const url = `http://localhost:3001/postings/${id}`;
+    const req = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      if (!result.err) {
+        setPosting(result.posting);
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
+  const getDisplayedData = (applications) => {
+    const data = applications.map((application, idx) => {
+      const app = {
+        id: idx,
+        name: application.studentName,
+        email: application.studentEmail,
+        resume: <button>Resume</button>,
+        coverLetter: <button>Resume</button>,
+        transcript: <button>Transcript</button>,
+        status: application.applicationStatus,
+      };
+      return app;
+    });
+    setDisplayedData(data);
+  };
+  const getApplications = async () => {
+    const url = `http://localhost:3001/applications/posting/${id}`;
+    const req = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      if (!result.err) {
+        getDisplayedData(result.applications);
+        setPostingApps(result.applications);
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
+  useEffect(() => {
+    getPostings();
+    if (userInfo && userInfo.type == "employer") {
+      getApplications();
+    }
+  }, [userInfo]);
 
   const downloadFile = async (filename) => {
     const url = `/api/download/${filename}`;
@@ -25,11 +91,11 @@ const Posting = () => {
     link.click();
     document.body.removeChild(link);
     urlObj.revokeObjectURL(objectUrl);
-  }
+  };
   //downloads file
-  const fileDownloader = async (event) =>{
+  const fileDownloader = async (event) => {
     event.preventDefault();
-    
+
     const url = "http://localhost:3001/file";
     const req = {
       method: "POST",
@@ -37,8 +103,8 @@ const Posting = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        studentId: '640bed07ba4b4ab648528f29', //STUDENT ID
-        type:'coverLetters' //type of file plural
+        studentId: "640bed07ba4b4ab648528f29", //STUDENT ID
+        type: "coverLetters", //type of file plural
       }),
     };
     try {
@@ -48,18 +114,16 @@ const Posting = () => {
       const objectUrl = urlObj.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = objectUrl;
-      link.download = 'Mazen-Mohamed.pdf'; //STUDENT NAME
+      link.download = "Mazen-Mohamed.pdf"; //STUDENT NAME
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       urlObj.revokeObjectURL(objectUrl);
       //console.log(response);
-    
     } catch (error) {
       console.log("DOWNLOAD FILE FAILED");
       console.log(error);
     }
-
   };
   // ADD STATE: USER type
   const showModalHandler = () => {
@@ -81,44 +145,8 @@ const Posting = () => {
               "Status",
             ]}
             pageWidth="100%"
-            data={[
-              {
-                Item0: "0",
-                Item1: "Aiman Hanna",
-                Item2: "aiman@hanna.com",
-                Item3: <form onSubmit={fileDownloader}> <input type="submit" value="Transcript"/></form>,
-                Item4: "",
-                Item5: "",
-                Item6: "Rejected",
-              },
-              {
-                Item0: "1",
-                Item1: "Aiman Hanna",
-                Item2: "aiman@hanna.com",
-                Item3: "",
-                Item4: "",
-                Item5: "",
-                Item6: "Rejected",
-              },
-              {
-                Item0: "2",
-                Item1: "Aiman Hanna",
-                Item2: "aiman@hanna.com",
-                Item3: "",
-                Item4: "",
-                Item5: "",
-                Item6: "Rejected",
-              },
-              {
-                Item0: "3",
-                Item1: "Aiman Hanna",
-                Item2: "aiman@hanna.com",
-                Item3: "",
-                Item4: "",
-                Item5: "",
-                Item6: "Rejected",
-              },
-            ]}
+            displayedData={displayedData}
+            data={postingApps}
           />
         </>
       );
@@ -163,6 +191,7 @@ const Posting = () => {
       <div className="description-container">
         <div className="job-description">
           <h3>Job Description: </h3>
+          {posting.description}
           <p>
             Aliqua magna pariatur eu anim sunt dolore anim in laboris nulla aute
             pariatur id ea. Qui incididunt reprehenderit voluptate qui sint
@@ -217,19 +246,19 @@ const Posting = () => {
           <tbody>
             <tr>
               <td>Organization</td>
-              <td>CAE</td>
+              <td>{posting.organizationName}</td>
             </tr>
             <tr>
               <td>Position</td>
-              <td>Front-End Intern</td>
+              <td>{posting.title}</td>
             </tr>
             <tr>
               <td>Location</td>
-              <td>Remote</td>
+              <td>{posting.location}</td>
             </tr>
             <tr>
               <td>Deadline</td>
-              <td>20-02-2023</td>
+              <td>{posting.expirationDate}</td>
             </tr>
           </tbody>
         </Table>
