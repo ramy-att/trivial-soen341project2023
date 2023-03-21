@@ -1,5 +1,5 @@
 const Posting = require("../model/posting");
-
+const Employer = require("../model/employer");
 // [GET: GET AL POSTINGS]
 
 const getAllPostings = async (req, res, next) => {
@@ -33,12 +33,14 @@ const addPosting = async (req, res, next) => {
   ) {
     return res.status(422).json({ err: "Invaild data for job posting" });
   } // return error message if data is wrong or missing
-
   let posting;
+  let employer;
   try {
+    employer = await Employer.findById(employerID);
     // defining a student
     posting = new Posting({
       employerID,
+      organizationName: employer.organizationName,
       description,
       title,
       expirationDate,

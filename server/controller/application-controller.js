@@ -1,4 +1,6 @@
 const Application = require("../model/application");
+const Student = require("../model/student");
+const Posting = require("../model/posting");
 
 // [GET: GET ALL THE APPLICATION]
 
@@ -28,17 +30,23 @@ const addApplication = async (req, res, next) => {
   ) {
     return res.status(422).json({ err: "Invaild data for application" });
   } // return error message if data is wrong or missing
-
-  let application;
+  let student;
+  let postingInfo;
   try {
+    student = await Student.findById(studentID);
+    postingInfo = await Posting.findById(postingID);
+
     // defining an application
     application = new Application({
       studentID, // = getStudentID()
+      studentName: student.studentName,
+      studentEmail: student.studentEmail,
+      organizationName: postingInfo.organizationName,
+      title: postingInfo.title,
       postingID,
       extraDetails,
       applicationStatus,
     });
-
     application = await application.save(); // save function from mongo
   } catch (err) {
     return next(err);
@@ -138,9 +146,28 @@ const getPostingApplications = async (req, res, next) => {
   return res.status(200).json({ applications });
 };
 
+const getStudentApplications = async (req, res, next) => {
+  // /student/:id
+  let id = req.params.id;
+  let applications;
+  try {
+    applications = await Application.find({ studentID: id });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: "Could not fetch student applications" });
+  }
+  if (!applications) {
+    return res
+      .status(404)
+      .json({ err: "Could not get applications by student id" });
+  }
+  return res.status(200).json({ applications });
+};
+
 exports.getAllApplications = getAllApplications;
 exports.addApplication = addApplication;
 exports.updateApplication = updateApplication;
 exports.deleteApplication = deleteApplication;
 exports.getApplicationById = getApplicationById;
 exports.getPostingApplications = getPostingApplications;
+exports.getStudentApplications = getStudentApplications;
