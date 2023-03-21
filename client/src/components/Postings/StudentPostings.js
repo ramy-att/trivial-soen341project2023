@@ -3,13 +3,54 @@ import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import DataTable from "../DataTable/DataTable.js";
 import "./Postings.css";
+import { useEffect, useState } from "react";
 
 const StudentPostings = () => {
-  const apply = (
-    <Link to="/job-postings/0" className="apply-to-posts">
-      Apply
-    </Link>
-  );
+  const [postings, setPostings] = useState([]);
+  const [displayedData, setDisplayedData] = useState([]);
+
+  const getData = (postings) => {
+    const data = postings.map((posting, idx) => {
+      const post = {
+        ID: idx,
+        apply: (
+          <Link to={`/job-postings/${posting._id}`} className="apply-to-posts">
+            Apply
+          </Link>
+        ),
+        organizationName: posting.organizationName,
+        title: posting.title,
+        expirationDate: posting.expirationDate,
+        location: posting.location,
+      };
+      return post;
+    });
+    setDisplayedData([...data]);
+  };
+  const getPostings = async () => {
+    const url = "http://localhost:3001/postings";
+    const req = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      if (!result.err) {
+        getData([...result.posting]);
+        setPostings([...result.posting]);
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
+  useEffect(() => {
+    getPostings();
+  }, []);
   return (
     <Container fluid className="postingsPage">
       <h1>Browse Jobs</h1>
@@ -23,40 +64,8 @@ const StudentPostings = () => {
             "Expiration Date",
             "Location",
           ]}
-          data={[
-            {
-              Item0: "0",
-              apply: apply,
-              Item1: "CAE",
-              Item2: "FrontEnd Intern",
-              Item3: "20-02-2023",
-              Item4: "Remote",
-            },
-            {
-              Item0: "1",
-              apply: apply,
-              Item1: "Bombardier",
-              Item2: "BackEnd Intern",
-              Item3: "20-02-2023",
-              Item4: "Remote",
-            },
-            {
-              Item0: "2",
-              apply: apply,
-              Item1: "Deloitte",
-              Item2: "Business Analyst",
-              Item3: "20-02-2023",
-              Item4: "Remote",
-            },
-            {
-              Item0: "3",
-              apply: apply,
-              Item1: "Genetec",
-              Item2: "FulStack Intern",
-              Item3: "20-02-2023",
-              Item4: "Remote",
-            },
-          ]}
+          data={postings}
+          displayedData={displayedData}
         />
       </div>
     </Container>
