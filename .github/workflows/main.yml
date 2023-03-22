@@ -1,0 +1,30 @@
+# The name of the workflow.
+name: Build and Deploy
+
+# Run the workflow when code is pushed to the main branch
+on:
+  push:
+    branches:
+      - main
+
+# This is the workflow that is being run.
+jobs:
+  build-and-deploy:
+    # This is telling GitHub to run the workflow on the latest version of Ubuntu.
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code from the GitHub repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Install dependencies for the client application
+      - name: Install CLient
+        working-directory: ./client
+        run: |
+          npm install
+      
+      # Install dependencies for the server application
+      - name: Install Server
+        working-directory: ./
+        run: |
+          npm install
