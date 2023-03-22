@@ -90,7 +90,7 @@ const ManagePosting = (props) => {
       }
     }
   };
-  const editPosting = async () => {
+  const updatePosting = async () => {
     const url = `http://localhost:3001/postings/${id}`;
     const req = {
       method: "PUT",
@@ -98,8 +98,8 @@ const ManagePosting = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        employerID: userInfo.id,
-        organizationName: userInfo.organizationName,
+        // employerID: userInfo.id,
+        // organizationName: userInfo.organizationName,
         description: description,
         title: position,
         expirationDate: expirationDate,
@@ -109,6 +109,7 @@ const ManagePosting = (props) => {
     try {
       const response = await fetch(url, req);
       const result = await response.json();
+      console.log(result);
       if (!result.err) {
         // history.push("/job-postings");
       }
@@ -134,7 +135,7 @@ const ManagePosting = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={editPosting}>
+        <Form onSubmit={updatePosting}>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Position*</Form.Label>
             <Form.Control
