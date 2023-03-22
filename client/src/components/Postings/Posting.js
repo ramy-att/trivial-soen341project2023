@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Container, Table } from "react-bootstrap";
 import ManagePosting from "./ManagePosting";
 import { UserContext } from "../../App";
@@ -14,6 +14,7 @@ const Posting = () => {
   const [postingApps, setPostingApps] = useState([]);
   const [displayedData, setDisplayedData] = useState([]);
   const userInfo = useContext(UserContext);
+  const history = useHistory();
 
   const getPostings = async () => {
     const url = `http://localhost:3001/postings/${id}`;
@@ -152,6 +153,29 @@ const Posting = () => {
       );
     }
   };
+  const deletePosting = async () => {
+    const url = `http://localhost:3001/postings/${id}`;
+    const req = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        employerID: userInfo.id,
+      }),
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      if (!result.err) {
+        history.push("/job-postings");
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
   const actions = () => {
     {
       /* Button will only appear for student, will replace with "check applciation" if already applied" */
@@ -176,7 +200,11 @@ const Posting = () => {
         >
           Edit
         </Pencil>
-        <Trash className="delete-icon" size={30}>
+        <Trash
+          className="delete-icon"
+          size={30}
+          onClick={() => deletePosting()}
+        >
           Delete
         </Trash>
       </div>
