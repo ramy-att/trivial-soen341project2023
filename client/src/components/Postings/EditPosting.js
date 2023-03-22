@@ -6,11 +6,11 @@ import { useHistory, useParams } from "react-router-dom";
 
 const ManagePosting = (props) => {
   const { showModalHandler, data } = props;
-  const [location, setLocation] = useState("Remote");
+  const [location, setLocation] = useState();
   const [expirationDate, setExpirationDate] = useState("");
   const [description, setDescription] = useState("");
   const [posting, setPosting] = useState({});
-  const [position, setPosition] = useState("");
+  const [position, setPosition] = useState();
   const [edit, setEdit] = useState("");
   const userInfo = useContext(UserContext);
   const { id } = useParams();
@@ -77,7 +77,12 @@ const ManagePosting = (props) => {
       const result = await response.json();
       if (!result.err) {
         setPosting(result.posting);
-        console.log(posting);
+        setDescription(result.posting.description);
+        setLocation(result.posting.location);
+        setPosition(result.posting.title);
+        setExpirationDate(result.posting.expirationDate);
+        console.log("Hellooo");
+        console.log(result);
       }
     } catch (error) {
       if (error) {
@@ -141,11 +146,9 @@ const ManagePosting = (props) => {
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Description*</Form.Label>
             <Form.Control
-              value={posting.description}
+              value={description}
               placeholder="Bring cupcakes to the office."
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
+              onChange={handlDescriptionChange}
               as="textarea"
               rows={4}
             />
@@ -166,11 +169,8 @@ const ManagePosting = (props) => {
             <Form.Control
               as="select"
               required
-              value={posting.location}
-              onChange={(e) => {
-                console.log(e.target.value);
-                setLocation(e.target.value);
-              }}
+              value={location}
+              onChange={handlLocationChange}
             >
               {/* Whenever u change the value from 0,1,2,3 to the actual names it gives us errors */}
               <option value="Remote">Remote</option>
