@@ -1,18 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
+import { UserContext } from "../../App.js";
 
 const ManagePosting = (props) => {
   const { showModalHandler, data } = props;
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Remote");
   const [expirationDate, setExpirationDate] = useState("");
   const [description, setDescription] = useState("");
   const [position, setPosition] = useState("");
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
+  const userInfo = useContext(UserContext);
+
   const editing = data ? true : false;
+  // useEffect(() => {
+  //   console.log(location);
+  // }, [location]);
+
+  const addPosting = async (e) => {
+    e.preventDefault();
+
+    const url = `http://localhost:3001/postings`;
+    const req = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // do we need the employer id and organization name ?? check the lines for employerid adn organ name
+        employerID: userInfo.id,
+        organizationName: userInfo.organizationName,
+        description: description,
+        title: position,
+        expirationDate: expirationDate,
+        location: location,
+      }),
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      // if (!result.err) {
+      // getData([...result.postings]);
+      // setPostings([...result.postings]);
+      // }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <Modal
@@ -28,7 +64,7 @@ const ManagePosting = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={submitHandler}>
+        <Form onSubmit={addPosting}>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Position*</Form.Label>
             <Form.Control
@@ -69,15 +105,19 @@ const ManagePosting = (props) => {
               as="select"
               required
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setLocation(e.target.value);
+              }}
             >
-              <option value="0">Remote</option>
-              <option value="1">Hybrid</option>
-              <option value="2">In-Person</option>
-              <option value="3">Custom</option>
+              {/* Whenever u change the value from 0,1,2,3 to the actual names it gives us errors */}
+              <option value="Remote">Remote</option>
+              <option value="Hybrid">Hybrid</option>
+              <option value="In-Person">In-Person</option>
+              <option value="custom">Custom</option>
             </Form.Control>
           </Form.Group>
-          {location === "3" && (
+          {location === "custom" && (
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Location*</Form.Label>
               <Form.Control required placeholder="Montreal" />

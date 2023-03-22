@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Container, Table } from "react-bootstrap";
 import ManagePosting from "./ManagePosting";
 import { UserContext } from "../../App";
@@ -14,6 +14,7 @@ const Posting = () => {
   const [postingApps, setPostingApps] = useState([]);
   const [displayedData, setDisplayedData] = useState([]);
   const userInfo = useContext(UserContext);
+  const history = useHistory();
 
   const getPostings = async () => {
     const url = `http://localhost:3001/postings/${id}`;
@@ -152,6 +153,29 @@ const Posting = () => {
       );
     }
   };
+  const deletePosting = async () => {
+    const url = `http://localhost:3001/postings/${id}`;
+    const req = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        employerID: userInfo.id,
+      }),
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      if (!result.err) {
+        history.push("/job-postings");
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
   const actions = () => {
     {
       /* Button will only appear for student, will replace with "check applciation" if already applied" */
@@ -176,7 +200,11 @@ const Posting = () => {
         >
           Edit
         </Pencil>
-        <Trash className="delete-icon" size={30}>
+        <Trash
+          className="delete-icon"
+          size={30}
+          onClick={() => deletePosting()}
+        >
           Delete
         </Trash>
       </div>
@@ -192,46 +220,49 @@ const Posting = () => {
         <div className="job-description">
           <h3>Job Description: </h3>
           {posting.description}
-          <p>
-            Aliqua magna pariatur eu anim sunt dolore anim in laboris nulla aute
-            pariatur id ea. Qui incididunt reprehenderit voluptate qui sint
-            laborum esse et mollit laborum veniam. Et enim reprehenderit ad do
-            sint. Sit aliqua velit ipsum ex sit.Qui pariatur aute sit dolor
-            aute. Excepteur ut incididunt et ad nulla amet ad sunt irure. Qui
-            officia enim labore quis proident et Lorem irure consequat proident
-            sint enim mollit. Incididunt excepteur laboris sint consectetur
-            aliqua sunt labore enim aute mollit irure dolore. Consectetur
-            laboris officia proident anim enim Lorem est aute occaecat veniam
-            qui. Aute aute qui voluptate anim Lorem duis. Culpa ullamco enim
-            anim aute adipisicing aliqua qui do nisi do nisi reprehenderit do.
-            Anim ad adipisicing sunt aute tempor mollit aute consequat sit
-            laboris laboris pariatur. Cupidatat pariatur officia velit nostrud
-            eu consectetur. Sint anim ad aute eiusmod magna. Veniam aute magna
-            nulla in est exercitation fugiat incididunt do sit ipsum Lorem. Ea
-            qui commodo non occaecat et tempor magna exercitation id et. Anim
-            culpa est eu ut in velit est cillum elit laborum dolor. Excepteur ut
-            ex do ea reprehenderit elit id voluptate eu.
-          </p>
-          <p>
-            Aliqua magna pariatur eu anim sunt dolore anim in laboris nulla aute
-            pariatur id ea. Qui incididunt reprehenderit voluptate qui sint
-            laborum esse et mollit laborum veniam. Et enim reprehenderit ad do
-            sint. Sit aliqua velit ipsum ex sit.Qui pariatur aute sit dolor
-            aute. Excepteur ut incididunt et ad nulla amet ad sunt irure. Qui
-            officia enim labore quis proident et Lorem irure consequat proident
-            sint enim mollit. Incididunt excepteur laboris sint consectetur
-            aliqua sunt labore enim aute mollit irure dolore. Consectetur
-            laboris officia proident anim enim Lorem est aute occaecat veniam
-            qui. Aute aute qui voluptate anim Lorem duis. Culpa ullamco enim
-            anim aute adipisicing aliqua qui do nisi do nisi reprehenderit do.
-            Anim ad adipisicing sunt aute tempor mollit aute consequat sit
-            laboris laboris pariatur. Cupidatat pariatur officia velit nostrud
-            eu consectetur. Sint anim ad aute eiusmod magna. Veniam aute magna
-            nulla in est exercitation fugiat incididunt do sit ipsum Lorem. Ea
-            qui commodo non occaecat et tempor magna exercitation id et. Anim
-            culpa est eu ut in velit est cillum elit laborum dolor. Excepteur ut
-            ex do ea reprehenderit elit id voluptate eu.
-          </p>
+
+          {/* REMEBER TO DELETE THE COMMENETED OUT CODE AFTER IT'S NOT NEEDED */}
+
+          {/* <p> */}
+          {/* Aliqua magna pariatur eu anim sunt dolore anim in laboris nulla aute */}
+          {/* pariatur id ea. Qui incididunt reprehenderit voluptate qui sint */}
+          {/* laborum esse et mollit laborum veniam. Et enim reprehenderit ad do */}
+          {/* sint. Sit aliqua velit ipsum ex sit.Qui pariatur aute sit dolor */}
+          {/* aute. Excepteur ut incididunt et ad nulla amet ad sunt irure. Qui */}
+          {/* officia enim labore quis proident et Lorem irure consequat proident */}
+          {/* sint enim mollit. Incididunt excepteur laboris sint consectetur */}
+          {/* aliqua sunt labore enim aute mollit irure dolore. Consectetur */}
+          {/* laboris officia proident anim enim Lorem est aute occaecat veniam */}
+          {/* qui. Aute aute qui voluptate anim Lorem duis. Culpa ullamco enim */}
+          {/* anim aute adipisicing aliqua qui do nisi do nisi reprehenderit do. */}
+          {/* Anim ad adipisicing sunt aute tempor mollit aute consequat sit */}
+          {/* laboris laboris pariatur. Cupidatat pariatur officia velit nostrud */}
+          {/* eu consectetur. Sint anim ad aute eiusmod magna. Veniam aute magna */}
+          {/* nulla in est exercitation fugiat incididunt do sit ipsum Lorem. Ea */}
+          {/* qui commodo non occaecat et tempor magna exercitation id et. Anim */}
+          {/* culpa est eu ut in velit est cillum elit laborum dolor. Excepteur ut */}
+          {/* ex do ea reprehenderit elit id voluptate eu. */}
+          {/* </p> */}
+          {/* <p> */}
+          {/* Aliqua magna pariatur eu anim sunt dolore anim in laboris nulla aute */}
+          {/* pariatur id ea. Qui incididunt reprehenderit voluptate qui sint */}
+          {/* laborum esse et mollit laborum veniam. Et enim reprehenderit ad do */}
+          {/* sint. Sit aliqua velit ipsum ex sit.Qui pariatur aute sit dolor */}
+          {/* aute. Excepteur ut incididunt et ad nulla amet ad sunt irure. Qui */}
+          {/* officia enim labore quis proident et Lorem irure consequat proident */}
+          {/* sint enim mollit. Incididunt excepteur laboris sint consectetur */}
+          {/* aliqua sunt labore enim aute mollit irure dolore. Consectetur */}
+          {/* laboris officia proident anim enim Lorem est aute occaecat veniam */}
+          {/* qui. Aute aute qui voluptate anim Lorem duis. Culpa ullamco enim */}
+          {/* anim aute adipisicing aliqua qui do nisi do nisi reprehenderit do. */}
+          {/* Anim ad adipisicing sunt aute tempor mollit aute consequat sit */}
+          {/* laboris laboris pariatur. Cupidatat pariatur officia velit nostrud */}
+          {/* eu consectetur. Sint anim ad aute eiusmod magna. Veniam aute magna */}
+          {/* nulla in est exercitation fugiat incididunt do sit ipsum Lorem. Ea */}
+          {/* qui commodo non occaecat et tempor magna exercitation id et. Anim */}
+          {/* culpa est eu ut in velit est cillum elit laborum dolor. Excepteur ut */}
+          {/* ex do ea reprehenderit elit id voluptate eu. */}
+          {/* </p> */}
         </div>
       </div>
       <div>
