@@ -5,7 +5,7 @@ import { UserContext } from "../../App.js";
 
 const ManagePosting = (props) => {
   const { showModalHandler, data } = props;
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Remote");
   const [expirationDate, setExpirationDate] = useState("");
   const [description, setDescription] = useState("");
   const [position, setPosition] = useState("");
@@ -13,6 +13,9 @@ const ManagePosting = (props) => {
   const userInfo = useContext(UserContext);
 
   const editing = data ? true : false;
+  // useEffect(() => {
+  //   console.log(location);
+  // }, [location]);
 
   const addPosting = async (e) => {
     e.preventDefault();
@@ -46,9 +49,6 @@ const ManagePosting = (props) => {
       }
     }
   };
-  useEffect(() => {
-    addPosting();
-  }, []);
 
   return (
     <Modal
@@ -105,16 +105,19 @@ const ManagePosting = (props) => {
               as="select"
               required
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setLocation(e.target.value);
+              }}
             >
               {/* Whenever u change the value from 0,1,2,3 to the actual names it gives us errors */}
-              <option value="0">Remote</option>
-              <option value="1">Hybrid</option>
-              <option value="2">In-Person</option>
-              <option value="3">Custom</option>
+              <option value="Remote">Remote</option>
+              <option value="Hybrid">Hybrid</option>
+              <option value="In-Person">In-Person</option>
+              <option value="custom">Custom</option>
             </Form.Control>
           </Form.Group>
-          {location === "3" && (
+          {location === "custom" && (
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Location*</Form.Label>
               <Form.Control required placeholder="Montreal" />

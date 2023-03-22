@@ -20,7 +20,7 @@ const EmployerPostings = () => {
         ID: idx,
         manage: (
           <div className="manageCell">
-            <Trash size={20} className="delete-icon" />
+            <Trash size={20} className="delete-icon" onClick={deletePosting} />
             <Link
               to={`/job-postings/${posting._id}`}
               className="Manage-to-posts"
@@ -29,7 +29,6 @@ const EmployerPostings = () => {
             </Link>
           </div>
         ),
-        organizationName: posting.organizationName,
         title: posting.title,
         expirationDate: posting.expirationDate,
         location: posting.location,
@@ -38,6 +37,35 @@ const EmployerPostings = () => {
     });
     setDisplayedData([...data]);
   };
+
+  const deletePosting = async (e) => {
+    e.preventDefault();
+
+    const url = `http://localhost:3001/postings/${postings.id}`;
+    const req = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        employerID: userInfo.id,
+        postingID: postings.id,
+      }),
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      // if (!result.err) {
+      // getData([...result.postings]);
+      // setPostings([...result.postings]);
+      // }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const getPostings = async () => {
     const url = `http://localhost:3001/postings/employer/${userInfo.id}`;
     const req = {
