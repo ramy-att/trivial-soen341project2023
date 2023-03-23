@@ -120,7 +120,7 @@ const EmployerPostings = () => {
           />
         </div>
         {showModal && (
-          <ManagePosting showModalHandler={showModalHandler} show />
+          <ManagePosting showModalHandler={showModalHandler} show /> // create new posting form 
         )}
       </div>
     </Container>
