@@ -304,7 +304,7 @@ const Posting = () => {
         </Table>
       </div>
       {showModal && userInfo && userInfo.type === "employer" && (
-        <ManagePosting showModalHandler={showModalHandler} show />
+        <EditPosting showModalHandler={showModalHandler} show />
       )}
       {applications()}
     </Container>
