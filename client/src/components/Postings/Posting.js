@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Container, Table } from "react-bootstrap";
+import { Container, FormControl, SelectOption, Table } from "react-bootstrap";
 import EditPosting from "./EditPosting";
 import { UserContext } from "../../App";
 import { Trash, Pencil } from "react-bootstrap-icons";
-import CreateApplication from "./CreateApplication";
 import DataTable from "../DataTable/DataTable";
 
 const Posting = () => {
@@ -36,6 +35,51 @@ const Posting = () => {
       }
     }
   };
+  const ApplicationStatus = (props) => {
+    const { currentApplication, applications } = props;
+    const [value, setValue] = useState(
+      applications[currentApplication].applicationStatus
+    );
+
+    const changeAppStatus = async (evt) => {
+      const status = evt.target.value;
+      const id = applications[currentApplication]._id;
+      setValue(status);
+
+      const url = `http://localhost:3001/applications/${id}`;
+      const req = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          applicationStatus: status,
+        }),
+      };
+      try {
+        const response = await fetch(url, req);
+        const result = await response.json();
+      } catch (error) {
+        if (error) {
+          console.log(error);
+        }
+      }
+    };
+
+    return (
+      <FormControl
+        as="select"
+        onChange={(evt) => changeAppStatus(evt)}
+        value={value}
+      >
+        <option value="Pending">Pending</option>
+        <option value="In Review">In Review</option>
+        <option value="Selected For Interview">Selected For Interview</option>
+        <option value="Rejected">Rejected</option>
+        <option value="Accepted">Accepted</option>
+      </FormControl>
+    );
+  };
   const getDisplayedData = (applications) => {
     const data = applications.map((application, idx) => {
       const app = {
@@ -45,7 +89,12 @@ const Posting = () => {
         resume: <button>Resume</button>,
         coverLetter: <button>Resume</button>,
         transcript: <button>Transcript</button>,
-        status: application.applicationStatus,
+        status: (
+          <ApplicationStatus
+            applications={applications}
+            currentApplication={idx}
+          />
+        ),
       };
       return app;
     });
@@ -63,8 +112,8 @@ const Posting = () => {
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.err) {
-        getDisplayedData(result.applications);
-        setPostingApps(result.applications);
+        getDisplayedData([...result.applications]);
+        setPostingApps([...result.applications]);
       }
     } catch (error) {
       if (error) {
@@ -184,7 +233,7 @@ const Posting = () => {
       <button
         className="apply-posting-button"
         onClick={() => {
-          setShowModal(true);
+          alert("Assume you applied");
         }}
       >
         Apply
@@ -255,10 +304,7 @@ const Posting = () => {
         </Table>
       </div>
       {showModal && userInfo && userInfo.type === "employer" && (
-        <EditPosting showModalHandler={showModalHandler} show /> // since inside posting u only edit so pass editiing instead of manage posting
-      )}
-      {showModal && userInfo && userInfo.type === "student" && (
-        <CreateApplication showModalHandler={showModalHandler} show />
+        <ManagePosting showModalHandler={showModalHandler} show />
       )}
       {applications()}
     </Container>
