@@ -7,6 +7,7 @@ import { useHistory, useParams } from "react-router-dom";
 const EditPosting = (props) => {
   const { showModalHandler, data } = props;
   const [location, setLocation] = useState();
+  const [cusLocation, setCusLocation] = useState();
   const [expirationDate, setExpirationDate] = useState("");
   const [description, setDescription] = useState("");
   const [posting, setPosting] = useState({});
@@ -25,6 +26,10 @@ const EditPosting = (props) => {
   }
   function handlLocationChange(event) {
     setLocation(event.target.value);
+  }
+  function handlCusLocationChange(event) {
+    setCusLocation(event.target.value);
+    setLocation(cusLocation);
   }
 
   const getPostings = async () => {
@@ -146,7 +151,12 @@ const EditPosting = (props) => {
           {location === "custom" && (
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Location*</Form.Label>
-              <Form.Control required placeholder="Montreal" />
+              <Form.Control
+                required
+                placeholder="Montreal"
+                value={cusLocation}
+                onChange={handlCusLocationChange}
+              />
             </Form.Group>
           )}
           <div className="text-center">
