@@ -28,3 +28,5 @@ jobs:
         working-directory: ./
         run: |
           npm install
+          npm ci
+          npm test
