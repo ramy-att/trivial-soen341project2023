@@ -16,6 +16,29 @@ const Posting = () => {
   const userInfo = useContext(UserContext);
   const history = useHistory();
 
+
+
+  const getStatus = async () => {
+    const url = `http://localhost:3001/postings/${id}`;
+    const req = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      if (!result.err) {
+        setPosting(result.posting);
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const getPostings = async () => {
     const url = `http://localhost:3001/postings/${id}`;
     const req = {
@@ -50,7 +73,7 @@ const Posting = () => {
       }),
     };
     try {
-      console.log(userInfo);
+      console.log(posting);
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.error) {
