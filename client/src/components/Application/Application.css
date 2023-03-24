@@ -1,0 +1,92 @@
+.postings-page {
+    padding: 1rem !important;
+  }
+  .postingsPage {
+    min-height: 70vh !important;
+    padding: 1rem !important;
+  }
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .title-container button {
+    width: 6rem;
+  }
+  .title-container h1 {
+    color: #0a1640;
+  }
+  .table-cont {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .job-description {
+    padding: 0.5rem;
+    color: #0a1640;
+    border-radius: 1rem;
+  }
+  .submit-application {
+    background-color: #0a1640;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    width: 10rem;
+  }
+  .submit-application:hover {
+    background-color: green;
+  }
+  .apply-posting-button {
+    background-color: #0a1640;
+    color: white;
+    border-radius: 1rem;
+    border: none;
+  }
+  .apply-posting-button:hover {
+    background-color: green;
+  }
+  h3 {
+    color: #0a1640;
+  }
+  td,
+  th {
+    color: #0a1640;
+  }
+  .apply-to-posts {
+    text-decoration: none;
+    color: #0a1640;
+  }
+  .apply-to-posts:hover {
+    text-decoration: underline;
+  }
+  .add-more-container {
+    display: flex;
+    justify-content: right;
+    width: 90%;
+  }
+  .add-more-icon {
+    cursor: pointer;
+  }
+  .manageCell {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .manageCell svg {
+    fill: black;
+  }
+  .edit-icon:hover {
+    cursor: pointer;
+    fill: rgb(134, 134, 6);
+  }
+  .delete-icon:hover {
+    cursor: pointer;
+    fill: red;
+  }
+  .employer-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
