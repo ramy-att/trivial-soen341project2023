@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Container, FormControl, SelectOption, Table } from "react-bootstrap";
+import { Container, FormControl, Button, Table } from "react-bootstrap";
 import EditPosting from "./EditPosting";
 import { UserContext } from "../../App";
 import { Trash, Pencil } from "react-bootstrap-icons";
@@ -123,7 +123,8 @@ const Posting = () => {
         name: application.studentName,
         email: application.studentEmail,
         resume: (
-          <button
+          <Button
+            className="downloadButton"
             onClick={() =>
               fileDownloader(
                 application.studentID,
@@ -133,10 +134,11 @@ const Posting = () => {
             }
           >
             Download
-          </button>
+          </Button>
         ),
         coverLetter: (
-          <button
+          <Button
+            className="downloadButton"
             onClick={() =>
               fileDownloader(
                 application.studentID,
@@ -146,10 +148,11 @@ const Posting = () => {
             }
           >
             Download
-          </button>
+          </Button>
         ),
         transcript: (
-          <button
+          <Button
+            className="downloadButton"
             onClick={() =>
               fileDownloader(
                 application.studentID,
@@ -159,7 +162,7 @@ const Posting = () => {
             }
           >
             Download
-          </button>
+          </Button>
         ),
         status: (
           <ApplicationStatus
