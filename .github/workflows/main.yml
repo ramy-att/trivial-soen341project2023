@@ -22,9 +22,13 @@ jobs:
         working-directory: ./client
         run: |
           npm install
+          npm ci
+          npm test
 
       # Install dependencies for the server application
       - name: Install Server
         working-directory: ./
         run: |
           npm install
+          npm ci
+          npm test
