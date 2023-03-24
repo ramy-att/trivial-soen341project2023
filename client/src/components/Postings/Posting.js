@@ -35,6 +35,42 @@ const Posting = () => {
       }
     }
   };
+
+  // Download file
+  const fileDownloader = async (studentID, studentName, type) => {
+    const url = "http://localhost:3001/file";
+    const req = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        studentId: studentID, //STUDENT ID
+        type: type, //type of file plural
+      }),
+    };
+    try {
+      const response = await fetch(url, req);
+      if (response.status === 404) {
+        // File not found
+        alert("Student has not uploaded this information");
+        return;
+      }
+      const blob = await response.blob();
+      const urlObj = window.URL || window.webkitURL;
+      const objectUrl = urlObj.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = `${studentName}_${type}.pdf`; //STUDENT FILE
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      urlObj.revokeObjectURL(objectUrl);
+    } catch (error) {
+      console.log("DOWNLOAD FILE FAILED");
+      console.log(error);
+    }
+  };
   const ApplicationStatus = (props) => {
     const { currentApplication, applications } = props;
     const [value, setValue] = useState(
@@ -86,9 +122,45 @@ const Posting = () => {
         id: idx,
         name: application.studentName,
         email: application.studentEmail,
-        resume: <button>Resume</button>,
-        coverLetter: <button>Resume</button>,
-        transcript: <button>Transcript</button>,
+        resume: (
+          <button
+            onClick={() =>
+              fileDownloader(
+                application.studentID,
+                application.studentName,
+                "resumes"
+              )
+            }
+          >
+            Download
+          </button>
+        ),
+        coverLetter: (
+          <button
+            onClick={() =>
+              fileDownloader(
+                application.studentID,
+                application.studentName,
+                "coverLetters"
+              )
+            }
+          >
+            Download
+          </button>
+        ),
+        transcript: (
+          <button
+            onClick={() =>
+              fileDownloader(
+                application.studentID,
+                application.studentName,
+                "transcripts"
+              )
+            }
+          >
+            Download
+          </button>
+        ),
         status: (
           <ApplicationStatus
             applications={applications}
@@ -128,53 +200,6 @@ const Posting = () => {
     }
   }, [userInfo]);
 
-  const downloadFile = async (filename) => {
-    const url = `/api/download/${filename}`;
-    const response = await fetch(url);
-    const blob = await response.blob();
-    const urlObj = window.URL || window.webkitURL;
-    const objectUrl = urlObj.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = objectUrl;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    urlObj.revokeObjectURL(objectUrl);
-  };
-  //downloads file
-  const fileDownloader = async (event) => {
-    event.preventDefault();
-
-    const url = "http://localhost:3001/file";
-    const req = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        studentId: "640bed07ba4b4ab648528f29", //STUDENT ID
-        type: "coverLetters", //type of file plural
-      }),
-    };
-    try {
-      const response = await fetch(url, req);
-      const blob = await response.blob();
-      const urlObj = window.URL || window.webkitURL;
-      const objectUrl = urlObj.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = objectUrl;
-      link.download = "Mazen-Mohamed.pdf"; //STUDENT NAME
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      urlObj.revokeObjectURL(objectUrl);
-      //console.log(response);
-    } catch (error) {
-      console.log("DOWNLOAD FILE FAILED");
-      console.log(error);
-    }
-  };
   // ADD STATE: USER type
   const showModalHandler = () => {
     setShowModal((prev) => !prev);
