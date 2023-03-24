@@ -11,6 +11,7 @@ import Posting from "./components/Postings/Posting";
 import Editprofile from "./pages/EditProfile";
 import EditProfileEmp from "./pages/EditProfileEmp";
 import ErrorPage from "./pages/ErrorPage";
+import ApplicationsPage from "./pages/ApplicationsPage";
 import { useHistory, Switch } from "react-router-dom";
 /**
  * TODO:
@@ -69,10 +70,15 @@ const App = () => {
       }
     });
   };
-  useEffect(() => {
-    redirect();
-    console.log(window.location.pathname);
-  }, [/*window.location.pathname, userInfo*/]);
+  useEffect(
+    () => {
+      redirect();
+      console.log(window.location.pathname);
+    },
+    [
+      /*window.location.pathname, userInfo*/
+    ]
+  );
   return (
     <UserContext.Provider value={userInfo}>
       <div className="App">
@@ -91,6 +97,9 @@ const App = () => {
           </Route>
           <Route exact path="/job-postings">
             <PostingsPage userInfo={userInfo} />
+          </Route>
+          <Route exact path="/job-applications">
+            <ApplicationsPage userInfo={userInfo} />
           </Route>
           <Route exact path="/job-postings/:id">
             <Posting userInfo={userInfo} />
