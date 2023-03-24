@@ -32,7 +32,7 @@ const applicationSchema = new Schema({
   // Modifiable by the employer
   applicationStatus: {
     type: String,
-    required: true, // once submitted make it "submitted"
+    required: false,
   },
 });
 
