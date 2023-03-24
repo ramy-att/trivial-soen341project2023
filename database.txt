@@ -2,15 +2,6 @@ Database Design:
 
 https://mongoosejs.com/docs/api.html#model_Model-find
 
-Admin={
-	"AdminID": [mongoDB];
-	"name": string, required;
-	"email": email, unique, required;
-	"password": password, required;
-}
-controllers: createAdmin() "POST" ; getAdmin() "GET"; updateAdmin() "PUT"; 
-client pages: profile page, view all students, employers, postings and applications
-
 student={
 	"studentID": [mongoDB];
 	"studentName": string, required;
@@ -19,30 +10,34 @@ student={
 	"resume": file,
 	"Coverletter": file,
 	"transcript": file,
-	"applications":applicationID, applicationID as a comma seperated string
 }
-controllers: createStudent() "POST" ; getStudent() "GET"; updateStudent() "PUT"; getAllStudents() "GET"
+controllers: getAllStudents() "GET" ; addStudent() "POST"; updateStudent() "PATCH"*uploads the resume, coverletter, transcript*; deleteStudent() "delete"; getStudentById() "GET";
 client pages: profile page, applied to page (and indv), job postings page
 
 jobPosting={
 	"jobPostingID":[mongoID];
-	"description": string, required;
+	"employerID": string, required;
 	"title": string, required;
 	"expirationDate": date (year-mm-dd), required;
 	"location": |string, required;
-	"applications": comma seperated string
+	description: string, required
+	organizationName: String,
 }
-controllers: createPosting() "POST"; getPosting() "GET"; deletePosting() "DELTE"; getAllPostings() "GET"
+controllers: addPosting() "POST"; updatePosting()"PATCH"; getPosting() "GET"; deletePosting() "DELTE"; getAllPostings() "GET"; getPostingById()"GET";
 
 application={
 	"applicationID": [mongoDB];
 	"studentID": student mongodb id, required;
+	"studentName": string
 	"studentResume": file,
-	"studentCoverLetter": file;
-	"extraDetailsForEmployerByStudent": string;
+	"title": string
+	"organizationName": string
+	"studentEmail":string
+	"postingID": string
+	"extraDetails": string;
 	"applicationStatus": string
 }
-controllers: createApplication() "POST"; getApplication() "GET"; deleteApplication() "DELTE"; getAllApplications() "GET"
+controllers: addApplication() "POST"; getAllApplications() "GET"; updateApplication()"PATCH"; deleteApplication() "DELTE"; getApplicationById() "GET";  getPostingApplications()"GET"; getStudentApplications()"GET";
 
 employer={
 	"employerID": [mongoDB];
@@ -56,3 +51,17 @@ employer={
 }
 controllers: createEmployer() "POST"; getEmployer() "GET"; updateEmployer() "PUT"; getAllEmployers() "GET"
 client pages: profile page, postingPage(edit/add), job postings page- applications
+
+
+file: downloadFile()"POST";
+
+
+****** MAY IMPLEMENT ADMIN AS AN ADDTIONAL FEATURE******
+Admin={
+	"AdminID": [mongoDB];
+	"name": string, required;
+	"email": email, unique, required;
+	"password": password, required;
+}
+controllers: createAdmin() "POST" ; getAdmin() "GET"; updateAdmin() "PUT"; 
+client pages: profile page, view all students, employers, postings and applications
