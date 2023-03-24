@@ -161,7 +161,24 @@ const getStudentApplications = async (req, res, next) => {
   }
   return res.status(200).json({ applications });
 };
-
+const comeAndCheckIfAppplicationExists = async (req, res, next) => {
+  // /posting
+  const postingID = req.params.id;
+  const { studentID } = req.body; // we post in the body of the API
+  let applications;
+  try {
+    applications = await Application.find({
+      studentID: studentID,
+      postingID: postingID,
+    });
+  } catch (err) {
+    res.status(500).json({ err: "Could not fetch" });
+  }
+  if (applications.length === 0) {
+    return res.status(200).json({ exists: false });
+  }
+  return res.status(200).json({ exists: true });
+};
 exports.getAllApplications = getAllApplications;
 exports.addApplication = addApplication;
 exports.updateApplication = updateApplication;
@@ -169,3 +186,4 @@ exports.deleteApplication = deleteApplication;
 exports.getApplicationById = getApplicationById;
 exports.getPostingApplications = getPostingApplications;
 exports.getStudentApplications = getStudentApplications;
+exports.comeAndCheckIfAppplicationExists = comeAndCheckIfAppplicationExists;
