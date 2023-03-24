@@ -35,6 +35,7 @@ const Posting = () => {
       }
     }
   };
+
   const ApplicationStatus = (props) => {
     const { currentApplication, applications } = props;
     const [value, setValue] = useState(
