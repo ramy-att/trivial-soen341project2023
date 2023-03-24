@@ -24,9 +24,7 @@ const addApplication = async (req, res, next) => {
     !studentID ||
     studentID.trim() === "" ||
     !postingID ||
-    postingID.trim() === "" ||
-    !applicationStatus ||
-    applicationStatus.trim() === ""
+    postingID.trim() === ""
   ) {
     return res.status(422).json({ err: "Invaild data for application" });
   } // return error message if data is wrong or missing
@@ -45,7 +43,7 @@ const addApplication = async (req, res, next) => {
       title: postingInfo.title,
       postingID,
       extraDetails,
-      applicationStatus,
+      applicationStatus: "Pending",
     });
     application = await application.save(); // save function from mongo
   } catch (err) {

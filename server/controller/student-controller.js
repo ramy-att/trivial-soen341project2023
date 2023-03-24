@@ -63,7 +63,7 @@ const addStudent = async (req, res, next) => {
 
 const updateStudent = async (req, res, next) => {
   const id = req.params.id;
-  console.log(req);
+
   // coverLetters
   if (req.files.resume) {
     // if i submit
@@ -80,16 +80,11 @@ const updateStudent = async (req, res, next) => {
       }
     }
 
-    // console.log(req.files.resume)
     var resume = req.files.resume;
-    // var resumename= resume.name
-    // console.log(resumename)
 
     resume.mv(path, function (err) {
       if (err) {
         res.send(err);
-      } else {
-        res.send("resume Uploaded");
       }
     });
   }
@@ -109,16 +104,11 @@ const updateStudent = async (req, res, next) => {
       }
     }
 
-    // console.log(req.files.coverLetter)
     var coverLetter = req.files.coverLetter;
-    // var coverLettername= coverLetter.name
-    // console.log(coverLettername)
 
     coverLetter.mv(path, function (err) {
       if (err) {
         res.send(err);
-      } else {
-        res.send("coverLetter Uploaded");
       }
     });
   }
@@ -138,16 +128,11 @@ const updateStudent = async (req, res, next) => {
       }
     }
 
-    // console.log(req.files.transcript)
     var transcript = req.files.transcript;
-    // var transcriptname= transcript.name
-    // console.log(transcriptname)
 
     transcript.mv(path, function (err) {
       if (err) {
         res.send(err);
-      } else {
-        res.send("transcript Uploaded");
       }
     });
   }

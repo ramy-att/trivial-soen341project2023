@@ -20,7 +20,11 @@ const EmployerPostings = () => {
         ID: idx,
         manage: (
           <div className="manageCell">
-            <Trash size={20} className="delete-icon" />
+            <Trash
+              size={20}
+              className="delete-icon"
+              onClick={() => deletePosting([...postings], posting._id, idx)}
+            />
             <Link
               to={`/job-postings/${posting._id}`}
               className="Manage-to-posts"
@@ -29,7 +33,6 @@ const EmployerPostings = () => {
             </Link>
           </div>
         ),
-        organizationName: posting.organizationName,
         title: posting.title,
         expirationDate: posting.expirationDate,
         location: posting.location,
@@ -38,6 +41,38 @@ const EmployerPostings = () => {
     });
     setDisplayedData([...data]);
   };
+
+  const deletePosting = async (postings, postingsID, index) => {
+    // e.preventDefault();
+    // console.log(postings);
+    // const postingsID = postings[index]._id;
+    console.log(postingsID);
+
+    const url = `http://localhost:3001/postings/${postingsID}`;
+    const req = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        employerID: userInfo.id,
+      }),
+    };
+    try {
+      const response = await fetch(url, req);
+      const result = await response.json();
+      if (!result.err) {
+        postings.splice(index, 1);
+        setPostings([...postings]);
+        getData([...postings]);
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const getPostings = async () => {
     const url = `http://localhost:3001/postings/employer/${userInfo.id}`;
     const req = {
@@ -85,7 +120,7 @@ const EmployerPostings = () => {
           />
         </div>
         {showModal && (
-          <ManagePosting showModalHandler={showModalHandler} show />
+          <ManagePosting showModalHandler={showModalHandler} show /> // create new posting form 
         )}
       </div>
     </Container>
