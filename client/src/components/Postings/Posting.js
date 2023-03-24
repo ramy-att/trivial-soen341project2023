@@ -5,6 +5,7 @@ import EditPosting from "./EditPosting";
 import { UserContext } from "../../App";
 import { Trash, Pencil } from "react-bootstrap-icons";
 import DataTable from "../DataTable/DataTable";
+import { Alert } from "react-bootstrap";
 
 const Posting = () => {
   const { id } = useParams();
@@ -28,6 +29,35 @@ const Posting = () => {
       const result = await response.json();
       if (!result.err) {
         setPosting(result.posting);
+      }
+    } catch (error) {
+      if (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const applying = async () => {
+    const url = `http://localhost:3001/applications`;
+    const req = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        studentID: userInfo.id, //STUDENT ID
+        postingID: id,
+      }),
+    };
+    try {
+      console.log(userInfo);
+      const response = await fetch(url, req);
+      const result = await response.json();
+      if (!result.error) {
+        history.push("/job-postings");
+        alert(
+          "Congratulations! You will now be redirected to the posting page"
+        );
       }
     } catch (error) {
       if (error) {
@@ -255,12 +285,7 @@ const Posting = () => {
       /* Button will only appear for student, will replace with "check applciation" if already applied" */
     }
     return userInfo && userInfo.type === "student" ? (
-      <button
-        className="apply-posting-button"
-        onClick={() => {
-          alert("Assume you applied");
-        }}
-      >
+      <button className="apply-posting-button" onClick={applying}>
         Apply
       </button>
     ) : userInfo && userInfo.type === "employer" ? (
@@ -285,54 +310,61 @@ const Posting = () => {
     ) : null;
   };
   return (
-    <Container fluid className="postings-page">
-      <div className="title-container">
-        <h1>
-          {" "}
-          {posting.organizationName}: {posting.title}
-        </h1>
-        {actions()}
-      </div>
-      <div className="description-container">
-        <div className="job-description">
-          <h3>Job Description: </h3>
-          {posting.description}
+    <>
+      {/* {showAlert && (
+        <Alert variant="success">
+          You have uploaded your application successfully. Goodluck!
+        </Alert>
+      )} */}
+      <Container fluid className="postings-page">
+        <div className="title-container">
+          <h1>
+            {" "}
+            {posting.organizationName}: {posting.title}
+          </h1>
+          {actions()}
         </div>
-      </div>
-      <div>
-        <h3>Position Information</h3>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Data</th>
-              <th>#{id}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Organization</td>
-              <td>{posting.organizationName}</td>
-            </tr>
-            <tr>
-              <td>Position</td>
-              <td>{posting.title}</td>
-            </tr>
-            <tr>
-              <td>Location</td>
-              <td>{posting.location}</td>
-            </tr>
-            <tr>
-              <td>Deadline</td>
-              <td>{posting.expirationDate}</td>
-            </tr>
-          </tbody>
-        </Table>
-      </div>
-      {showModal && userInfo && userInfo.type === "employer" && (
-        <EditPosting showModalHandler={showModalHandler} show />
-      )}
-      {applications()}
-    </Container>
+        <div className="description-container">
+          <div className="job-description">
+            <h3>Job Description: </h3>
+            {posting.description}
+          </div>
+        </div>
+        <div>
+          <h3>Position Information</h3>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>#{id}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Organization</td>
+                <td>{posting.organizationName}</td>
+              </tr>
+              <tr>
+                <td>Position</td>
+                <td>{posting.title}</td>
+              </tr>
+              <tr>
+                <td>Location</td>
+                <td>{posting.location}</td>
+              </tr>
+              <tr>
+                <td>Deadline</td>
+                <td>{posting.expirationDate}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+        {showModal && userInfo && userInfo.type === "employer" && (
+          <EditPosting showModalHandler={showModalHandler} show />
+        )}
+        {applications()}
+      </Container>
+    </>
   );
 };
 export default Posting;
