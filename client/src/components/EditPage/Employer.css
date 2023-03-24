@@ -1,5 +1,6 @@
 .editPage {
-  height: 90vh;
+  min-height: 90vh;
+  height: 100%;
 }
 .editTitleContainer {
   margin-top: 1.5rem;

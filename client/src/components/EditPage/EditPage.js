@@ -5,38 +5,20 @@ import "./Employer.css";
 
 export default function EditPage(props) {
   const { type = "student" | "employer" } = props;
+
   // [FORM STATES]
   const [organization, setOrganiztation] = useState("");
-  const [file, setFile] = useState("");
+  const [files, setFiles] = useState({ resume: null });
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState("");
-  const [checks, setChecks] = useState({
-    capitalLetter: false,
-    lengthPassword: false,
-    numbers: false,
-  });
-
-  const [transcription, setTranscription] = useState("");
   const [id, setId] = useState("");
-
-  function Validation(event) {
-    const password = event.target.value;
-    const capitalLetterCheck = /[A-Z]/.test(password);
-    const numbersCheck = /[0-9]/.test(password);
-    const lengthCheck = password.length > 8;
-    setPassword(password);
-    setChecks({
-      capitalLetter: capitalLetterCheck,
-      lengthPassword: lengthCheck,
-      numbers: numbersCheck,
-    });
-  }
 
   useEffect(() => {
     verifyUser();
   }, []);
+
   const verifyUser = async () => {
     const url2 = "http://localhost:3001/signin";
     const verifyReq = {
@@ -48,7 +30,6 @@ export default function EditPage(props) {
     try {
       const response = await fetch(url2, verifyReq);
       const result = await response.json();
-      console.log(result);
       if (result.user.type == "student") {
         setUsername(result.user.name);
         setEmail(result.user.email);
@@ -75,23 +56,9 @@ export default function EditPage(props) {
   function handlEmailChange(event) {
     setEmail(event.target.value);
   }
-  function handlTranscritionChange(event) {
-    setTranscription(event.target.value);
-  }
-
-  // const handleSubmission = async (event) => {
-  //   event.preventDefault();
-  //   // Should get the return from backend
-  //   if (checks.capitalLetter && checks.numbers && checks.lengthPassword) {
-  //     setSubmitted("success");
-  //   } else {
-  //     setSubmitted("error");
-  //   }
-  //   // Clear the alert after 5 seconds
-  //   setTimeout(() => {
-  //     setSubmitted("");
-  //   }, 5000);
-  // }
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
 
   const reSignin = async () => {
     const url = "http://localhost:3001/signin";
@@ -109,7 +76,6 @@ export default function EditPage(props) {
     try {
       const response = await fetch(url, req);
       const result = await response.json();
-      console.log(result);
       if (result.token) {
         localStorage.setItem("token", result.token);
       } else {
@@ -122,23 +88,25 @@ export default function EditPage(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (type === "student") {
-      const fakeUrl = "http://localhost:3001/students/";
-      const url = fakeUrl + id;
+      const url = `http://localhost:3001/students/${id}`;
+
+      const formData = new FormData(); // create form-data object
+
+      // Student data
+      files.resume && formData.append("resume", files.resume);
+      files.coverLetter && formData.append("coverLetter", files.coverLetter);
+      files.transcript && formData.append("transcript", files.transcript);
+      password && formData.append("studentPassword", password);
+      email && formData.append("studentEmail", email);
+      username && formData.append("studentName", username);
+
       const req = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          studentName: username,
-          studentEmail: email,
-          studentPassword: password,
-        }),
+        method: "PATCH",
+        body: formData,
       };
       try {
         const response = await fetch(url, req);
         const result = await response.json();
-        console.log(result);
         localStorage.removeItem("token");
 
         if (result.err) {
@@ -152,12 +120,12 @@ export default function EditPage(props) {
           setSubmitted("");
         }, 5000);
       } catch (error) {
+        console.log("here");
         console.log(error);
       }
     }
     if (type === "employer") {
-      const fakeUrl = "http://localhost:3001/employers/";
-      const url = fakeUrl + id;
+      const url = `http://localhost:3001/employers/${id}`;
       const req = {
         method: "PUT",
         headers: {
@@ -173,7 +141,6 @@ export default function EditPage(props) {
       try {
         const response = await fetch(url, req);
         const result = await response.json();
-        console.log(result);
         localStorage.removeItem("token");
 
         if (result.err) {
@@ -192,10 +159,18 @@ export default function EditPage(props) {
     }
   };
 
-  function handlFileChange(event) {
-    setFile(event.target.value);
-  }
-
+  const handleResumeUpload = async (event) => {
+    const resumeFile = event.target.files[0];
+    setFiles({ ...files, resume: resumeFile });
+  };
+  const handleTranscriptUpload = async (event) => {
+    const transcriptFile = event.target.files[0];
+    setFiles({ ...files, transcript: transcriptFile });
+  };
+  const handleClUpload = async (event) => {
+    const coverFile = event.target.files[0];
+    setFiles({ ...files, coverLetter: coverFile });
+  };
   return (
     <div className="editPage">
       <div className="alertContainer">
@@ -259,7 +234,7 @@ export default function EditPage(props) {
                 required
                 placeholder="Password"
                 value={password}
-                onChange={Validation}
+                onChange={handlePasswordChange}
               />
             </Form.Group>
             <div className="text-center">
@@ -287,22 +262,21 @@ export default function EditPage(props) {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Resume</Form.Label>
-              <Form.Control
-                type="file"
-                value={file}
-                onChange={handlFileChange}
-              />
+              <Form.Control type="file" onChange={handleResumeUpload} />
             </Form.Group>
             <Form.Group
               className="transcription"
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Transcipt</Form.Label>
-              <Form.Control
-                type="file"
-                value={file}
-                onChange={handlTranscritionChange}
-              />
+              <Form.Control type="file" onChange={handleTranscriptUpload} />
+            </Form.Group>
+            <Form.Group
+              className="transcription"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Cover Letter</Form.Label>
+              <Form.Control type="file" onChange={handleClUpload} />
             </Form.Group>
             <Form.Group className="email">
               <Form.Label>Email address</Form.Label>
@@ -322,7 +296,7 @@ export default function EditPage(props) {
                 type="password"
                 required
                 value={password}
-                onChange={Validation}
+                onChange={handlePasswordChange}
               />
             </Form.Group>
             <div className="text-center">
