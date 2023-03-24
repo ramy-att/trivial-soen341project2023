@@ -56,7 +56,7 @@ client pages: profile page, postingPage(edit/add), job postings page- applicatio
 file: downloadFile()"POST";
 
 
-****** MAY IMPLEMENT ADMIN AS AN ADDTIONAL FEATURE******
+******** MAY IMPLEMENT ADMIN AS AN ADDTIONAL FEATURE******
 Admin={
 	"AdminID": [mongoDB];
 	"name": string, required;
