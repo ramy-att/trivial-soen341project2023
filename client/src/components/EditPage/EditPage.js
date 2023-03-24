@@ -127,14 +127,14 @@ export default function EditPage(props) {
     if (type === "employer") {
       const url = `http://localhost:3001/employers/${id}`;
       const req = {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: username,
-          email: email,
-          password: password,
+          employerName: username,
+          employerEmail: email,
+          employerPassword: password,
           organizationName: organization,
         }),
       };
