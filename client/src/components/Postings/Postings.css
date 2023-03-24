@@ -89,3 +89,9 @@ th {
   display: flex;
   gap: 1rem;
 }
+.downloadButton {
+  background-color: #0a1640 !important;
+}
+.downloadButton:hover {
+  background-color: #2a408f !important;
+}
