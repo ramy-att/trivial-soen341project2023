@@ -177,7 +177,7 @@ const comeAndCheckIfAppplicationExists = async (req, res, next) => {
   if (applications.length === 0) {
     return res.status(200).json({ exists: false });
   }
-  return res.status(200).json({ exists: true });
+  return res.status(200).json({ applications });
 };
 exports.getAllApplications = getAllApplications;
 exports.addApplication = addApplication;

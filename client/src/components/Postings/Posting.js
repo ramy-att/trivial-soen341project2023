@@ -5,7 +5,6 @@ import EditPosting from "./EditPosting";
 import { UserContext } from "../../App";
 import { Trash, Pencil } from "react-bootstrap-icons";
 import DataTable from "../DataTable/DataTable";
-import { Alert } from "react-bootstrap";
 
 const Posting = () => {
   const { id } = useParams();
@@ -15,26 +14,31 @@ const Posting = () => {
   const [displayedData, setDisplayedData] = useState([]);
   const userInfo = useContext(UserContext);
   const history = useHistory();
-
-
+  const [application, setApplication] = useState({});
 
   const getStatus = async () => {
-    const url = `http://localhost:3001/postings/${id}`;
-    const req = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const response = await fetch(url, req);
-      const result = await response.json();
-      if (!result.err) {
-        setPosting(result.posting);
-      }
-    } catch (error) {
-      if (error) {
-        console.log(error);
+    if (userInfo) {
+      const url = `http://localhost:3001/applications/stuPosting/${id}`;
+      const req = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studentID: userInfo.id, //STUDENT ID
+        }),
+      };
+      try {
+        const response = await fetch(url, req);
+        const result = await response.json();
+        setApplication(result.applications);
+        if (!result.err) {
+          console.log(result);
+        }
+      } catch (error) {
+        if (error) {
+          console.log(error);
+        }
       }
     }
   };
@@ -253,7 +257,10 @@ const Posting = () => {
     getPostings();
     if (userInfo && userInfo.type == "employer") {
       getApplications();
+    } else {
+      getStatus();
     }
+    // console.log(application);
   }, [userInfo]);
 
   // ADD STATE: USER type
@@ -310,10 +317,25 @@ const Posting = () => {
     {
       /* Button will only appear for student, will replace with "check applciation" if already applied" */
     }
+    const stuActions = () => {
+      if (application.length === 0) {
+        return (
+          <button className="apply-posting-button" onClick={applying}>
+            Apply
+          </button>
+        );
+      } else if (application) {
+        return (
+          <span
+            className={`applicationStatus ${application[0]?.applicationStatus}`}
+          >
+            {application[0]?.applicationStatus}
+          </span>
+        );
+      }
+    };
     return userInfo && userInfo.type === "student" ? (
-      <button className="apply-posting-button" onClick={applying}>
-        Apply
-      </button>
+      stuActions()
     ) : userInfo && userInfo.type === "employer" ? (
       <div className="employer-actions">
         <Pencil

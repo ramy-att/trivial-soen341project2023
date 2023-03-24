@@ -20,6 +20,6 @@ applicationRouter.delete("/:id", deleteApplication); //only accessable to
 applicationRouter.get("/:id", getApplicationById);
 applicationRouter.get("/posting/:id", getPostingApplications);
 applicationRouter.get("/student/:id", getStudentApplications);
-applicationRouter.get("/stuPosting/:id", comeAndCheckIfAppplicationExists);
+applicationRouter.post("/stuPosting/:id", comeAndCheckIfAppplicationExists);
 
 module.exports = applicationRouter;
