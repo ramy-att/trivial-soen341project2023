@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./SignIn.css";
-import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Alert } from "react-bootstrap";
+import { UserContext } from "../../App";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +11,7 @@ const SignIn = () => {
   const [hoverPass, setHoverPass] = useState(false);
   const [errorF, setError] = useState("");
   const history = useHistory();
+  const userContext = useContext(UserContext);
 
   const verifyUser = async () => {
     const url2 = "http://localhost:3001/signin";
@@ -30,7 +31,7 @@ const SignIn = () => {
     verifyUser().then((result) => {
       const user = result.user;
       if (user) {
-        console.log("here!");
+        userContext.signIn(user);
         history.push("/job-postings");
       }
     });

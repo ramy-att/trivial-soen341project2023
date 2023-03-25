@@ -62,7 +62,7 @@ const App = () => {
           !employerRoutes.includes(window.location.pathname))
       ) {
         history.push("/job-postings");
-      } else if (window.location.pathnam === "SignIn" && user) {
+      } else if (window.location.pathname === "SignIn" && user) {
         history.push("/job-postings");
       } else {
         history.push("/SignIn");
@@ -73,9 +73,20 @@ const App = () => {
     redirect();
     console.log(window.location.pathname);
   }, []);
-
+  const signInHandler = (user) => {
+    setUserInfo(user);
+  };
+  const signOutHandler = () => {
+    setUserInfo("nonAuth");
+  };
   return (
-    <UserContext.Provider value={userInfo}>
+    <UserContext.Provider
+      value={{
+        userInfo: userInfo,
+        signIn: signInHandler,
+        signOut: signOutHandler,
+      }}
+    >
       <div className="App">
         <Switch>
           <Route exact path="/">

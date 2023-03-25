@@ -12,7 +12,7 @@ const EditPosting = (props) => {
   const [description, setDescription] = useState("");
   const [posting, setPosting] = useState({});
   const [position, setPosition] = useState();
-  const userInfo = useContext(UserContext);
+  const userInfo = useContext(UserContext).userInfo;
   const { id } = useParams();
 
   useEffect(() => {

@@ -8,7 +8,7 @@ import { useEffect, useContext } from "react";
 import { UserContext } from "../App";
 import { useHistory } from "react-router-dom";
 const SignUpPageStu = () => {
-  const userInfo = useContext(UserContext);
+  const userInfo = useContext(UserContext).userInfo;
   const history = useHistory();
 
   useEffect(() => {
@@ -18,13 +18,13 @@ const SignUpPageStu = () => {
   }, []);
   return (
     <>
-    <OurNav/>
-    <Container fluid >
-      <div className="signUp">
-        <SignUp typeSignUp="student" />
-      </div>
-    </Container>
-    <Footer/>
+      <OurNav />
+      <Container fluid>
+        <div className="signUp">
+          <SignUp typeSignUp="student" />
+        </div>
+      </Container>
+      <Footer />
     </>
   );
 };

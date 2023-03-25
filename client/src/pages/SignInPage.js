@@ -9,10 +9,11 @@ import { UserContext } from "../App";
 import { useHistory } from "react-router-dom";
 
 const SignInPage = () => {
-  const userInfo = useContext(UserContext);
+  const userInfo = useContext(UserContext).userInfo;
   const history = useHistory();
 
   useEffect(() => {
+    console.log(userInfo);
     if (userInfo !== "nonAuth") {
       history.push("/job-postings");
     }
@@ -27,7 +28,6 @@ const SignInPage = () => {
       </Container>
       <Footer />
     </>
-
   );
 };
 export default SignInPage;

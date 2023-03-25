@@ -10,7 +10,7 @@ const ManagePosting = (props) => {
   const [description, setDescription] = useState("");
   const [position, setPosition] = useState("");
 
-  const userInfo = useContext(UserContext);
+  const userInfo = useContext(UserContext).userInfo;
 
   const editing = data ? true : false;
   // useEffect(() => {

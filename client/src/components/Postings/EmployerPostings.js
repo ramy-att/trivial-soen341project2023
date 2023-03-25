@@ -12,7 +12,7 @@ const EmployerPostings = () => {
   const [postings, setPostings] = useState([]);
   const [displayedData, setDisplayedData] = useState([]);
 
-  const userInfo = useContext(UserContext);
+  const userInfo = useContext(UserContext).userInfo;
 
   const getData = (postings) => {
     const data = postings.map((posting, idx) => {
@@ -120,7 +120,7 @@ const EmployerPostings = () => {
           />
         </div>
         {showModal && (
-          <ManagePosting showModalHandler={showModalHandler} show /> // create new posting form 
+          <ManagePosting showModalHandler={showModalHandler} show /> // create new posting form
         )}
       </div>
     </Container>

@@ -6,11 +6,9 @@ import OurNav from "../components/NavBar/OurNav";
 import Footer from "../components/Footer/Footer";
 
 const ApplicationsPage = () => {
-  const userInfo = useContext(UserContext);
+  const userInfo = useContext(UserContext).userInfo;
   const application =
-    userInfo && userInfo.type === "student" ? (
-      <Application />
-    ) : null;
+    userInfo && userInfo.type === "student" ? <Application /> : null;
   return (
     <>
       <OurNav />
