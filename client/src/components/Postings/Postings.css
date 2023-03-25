@@ -1,5 +1,7 @@
 .postings-page {
   padding: 1rem !important;
+  min-height: 70vh;
+  height: 100%;
 }
 .postingsPage {
   min-height: 70vh !important;
@@ -96,56 +98,55 @@ th {
   background-color: #2a408f !important;
 }
 
-.applicationStatus.Pending{
-background-color: #989aa0 !important;
-display: inline-block;
+.applicationStatus.Pending {
+  background-color: #989aa0 !important;
+  display: inline-block;
   padding: 5px 10px;
   border: 2px solid #989aa0;
   border-radius: 20px;
   text-align: center;
-      line-height: 20px;
-        height: 40px;
+  line-height: 20px;
+  height: 40px;
 }
 .applicationStatus.Reviewing {
-background-color: #407be2 !important;
- display: inline-block;
-    padding: 5px 10px;
-    border: 2px solid #407be2;
-    border-radius: 20px;
-    text-align: center;
-      line-height: 20px;
-        height: 40px;
+  background-color: #407be2 !important;
+  display: inline-block;
+  padding: 5px 10px;
+  border: 2px solid #407be2;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 20px;
+  height: 40px;
 }
 .applicationStatus.Selected {
   background-color: #cfbc11 !important;
   display: inline-block;
-    padding: 5px 10px;
-    border: 2px solid #cfbc11;
-    border-radius: 20px;
+  padding: 5px 10px;
+  border: 2px solid #cfbc11;
+  border-radius: 20px;
   text-align: center;
-      line-height: 20px;
-        height: 40px;
+  line-height: 20px;
+  height: 40px;
 }
 
 .applicationStatus.Rejected {
   background-color: #d91f1f !important;
   display: inline-block;
-    padding: 5px 10px;
-    border: 2px solid #d91f1f;
-    border-radius: 20px;
-    text-align: center;
-      line-height: 20px;
-      height: 40px;
+  padding: 5px 10px;
+  border: 2px solid #d91f1f;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 20px;
+  height: 40px;
 }
 
 .applicationStatus.Accepted {
-
-  background-color: #4CAF50 !important;
+  background-color: #4caf50 !important;
   display: inline-block;
-    padding: 5px 10px;
-    border: 2px solid #4CAF50;
-    border-radius: 20px;
-    text-align: center;
-      line-height: 20px;
-        height: 40px;
+  padding: 5px 10px;
+  border: 2px solid #4caf50;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 20px;
+  height: 40px;
 }
