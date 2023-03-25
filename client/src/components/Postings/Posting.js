@@ -5,7 +5,6 @@ import EditPosting from "./EditPosting";
 import { UserContext } from "../../App";
 import { Trash, Pencil } from "react-bootstrap-icons";
 import DataTable from "../DataTable/DataTable";
-import { Alert } from "react-bootstrap";
 
 const Posting = () => {
   const { id } = useParams();
@@ -15,6 +14,33 @@ const Posting = () => {
   const [displayedData, setDisplayedData] = useState([]);
   const userInfo = useContext(UserContext).userInfo;
   const history = useHistory();
+  const [application, setApplication] = useState({});
+
+  const getStatus = async () => {
+    if (userInfo) {
+      const url = `http://localhost:3001/applications/stuPosting/${id}`;
+      const req = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          studentID: userInfo.id, //STUDENT ID
+        }),
+      };
+      try {
+        const response = await fetch(url, req);
+        const result = await response.json();
+        if (!result.err) {
+          setApplication(result);
+        }
+      } catch (error) {
+        if (error) {
+          console.log(error);
+        }
+      }
+    }
+  };
 
   const getPostings = async () => {
     const url = `http://localhost:3001/postings/${id}`;
@@ -50,7 +76,7 @@ const Posting = () => {
       }),
     };
     try {
-      console.log(userInfo);
+      console.log(posting);
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.error) {
@@ -139,8 +165,8 @@ const Posting = () => {
         value={value}
       >
         <option value="Pending">Pending</option>
-        <option value="In Review">In Review</option>
-        <option value="Selected For Interview">Selected For Interview</option>
+        <option value="Reviewing">In Review</option>
+        <option value="Selected">Selected For Interview</option>
         <option value="Rejected">Rejected</option>
         <option value="Accepted">Accepted</option>
       </FormControl>
@@ -230,7 +256,11 @@ const Posting = () => {
     getPostings();
     if (userInfo && userInfo.type == "employer") {
       getApplications();
+    } else {
+      console.log("here");
+      getStatus();
     }
+    // console.log(application);
   }, [userInfo]);
 
   // ADD STATE: USER type
@@ -287,10 +317,29 @@ const Posting = () => {
     {
       /* Button will only appear for student, will replace with "check applciation" if already applied" */
     }
+    const stuActions = () => {
+      if (
+        application &&
+        application.hasOwnProperty("exists") &&
+        application.exists === false
+      ) {
+        return (
+          <button className="apply-posting-button" onClick={applying}>
+            Apply
+          </button>
+        );
+      } else if (application && application.hasOwnProperty("applications")) {
+        return (
+          <span
+            className={`applicationStatus ${application.applications[0]?.applicationStatus}`}
+          >
+            {application.applications[0].applicationStatus}
+          </span>
+        );
+      }
+    };
     return userInfo && userInfo.type === "student" ? (
-      <button className="apply-posting-button" onClick={applying}>
-        Apply
-      </button>
+      stuActions()
     ) : userInfo && userInfo.type === "employer" ? (
       <div className="employer-actions">
         <Pencil
