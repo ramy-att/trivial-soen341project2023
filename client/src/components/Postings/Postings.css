@@ -102,6 +102,9 @@ display: inline-block;
   padding: 5px 10px;
   border: 2px solid #989aa0;
   border-radius: 20px;
+  text-align: center;
+      line-height: 20px;
+        height: 40px;
 }
 .applicationStatus.Reviewing {
 background-color: #407be2 !important;
@@ -109,6 +112,9 @@ background-color: #407be2 !important;
     padding: 5px 10px;
     border: 2px solid #407be2;
     border-radius: 20px;
+    text-align: center;
+      line-height: 20px;
+        height: 40px;
 }
 .applicationStatus.Selected {
   background-color: #cfbc11 !important;
@@ -116,7 +122,9 @@ background-color: #407be2 !important;
     padding: 5px 10px;
     border: 2px solid #cfbc11;
     border-radius: 20px;
-  
+  text-align: center;
+      line-height: 20px;
+        height: 40px;
 }
 
 .applicationStatus.Rejected {
@@ -125,6 +133,9 @@ background-color: #407be2 !important;
     padding: 5px 10px;
     border: 2px solid #d91f1f;
     border-radius: 20px;
+    text-align: center;
+      line-height: 20px;
+      height: 40px;
 }
 
 .applicationStatus.Accepted {
@@ -134,4 +145,7 @@ background-color: #407be2 !important;
     padding: 5px 10px;
     border: 2px solid #4CAF50;
     border-radius: 20px;
+    text-align: center;
+      line-height: 20px;
+        height: 40px;
 }
