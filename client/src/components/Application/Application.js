@@ -6,7 +6,7 @@ import DataTable from "../DataTable/DataTable";
 const Application = () => {
   const [application, setApplication] = useState({});
   const [displayedData, setDisplayedData] = useState([]);
-  const userInfo = useContext(UserContext);
+  const userInfo = useContext(UserContext).userInfo;
 
   const getStuApplications = async () => {
     const url = `http://localhost:3001/applications/student/${userInfo.id}`;

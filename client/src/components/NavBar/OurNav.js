@@ -9,20 +9,26 @@ import { useContext } from "react";
 import { UserContext } from "../../App";
 import { useHistory } from "react-router-dom";
 
-const OurNav = (props) => {
-  const userInfo = useContext(UserContext);
+const OurNav = () => {
+  const userContext = useContext(UserContext);
+  const userInfo = userContext.userInfo;
+  const userAuthenticated = !userInfo === "nonAuth";
   const history = useHistory();
 
   const signOut = () => {
-    // TODO: Implement Later
     localStorage.removeItem("token");
+    userContext.signOut();
     history.push("/");
   };
 
   return (
     <Navbar collapseOnSelect expand="md" className="ourNav">
       <Container fluid>
-        <NavLink className="logo" exact to="/">
+        <NavLink
+          className="logo"
+          exact
+          to={userAuthenticated ? "/job-postings" : "/"}
+        >
           Jobify
         </NavLink>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
