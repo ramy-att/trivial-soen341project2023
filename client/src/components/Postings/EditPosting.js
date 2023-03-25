@@ -1,23 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
-import { UserContext } from "../../App.js";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../../App";
 
 const EditPosting = (props) => {
-  const { showModalHandler, data } = props;
+  const { showmodalhandler, editposting } = props;
   const [location, setLocation] = useState();
   const [cusLocation, setCusLocation] = useState();
   const [expirationDate, setExpirationDate] = useState("");
   const [description, setDescription] = useState("");
-  const [posting, setPosting] = useState({});
   const [position, setPosition] = useState();
-  const userInfo = useContext(UserContext).userInfo;
+
   const { id } = useParams();
+  const userInfo = useContext(UserContext).userInfo;
 
   useEffect(() => {
     getPostings();
   }, []);
+
   function handlPositionChange(event) {
     setPosition(event.target.value);
   }
@@ -44,13 +45,10 @@ const EditPosting = (props) => {
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.err) {
-        setPosting(result.posting);
         setDescription(result.posting.description);
         setLocation(result.posting.location);
         setPosition(result.posting.title);
         setExpirationDate(result.posting.expirationDate);
-        console.log("Hellooo");
-        console.log(result);
       }
     } catch (error) {
       if (error) {
@@ -79,9 +77,18 @@ const EditPosting = (props) => {
     try {
       const response = await fetch(url, req);
       const result = await response.json();
-      console.log(result);
       if (!result.err) {
-        // history.push("/job-postings");
+        console.log(result);
+        showmodalhandler();
+        editposting({
+          organizationName: userInfo.organizationName,
+          employerID: userInfo.id,
+          _id: id,
+          description: description,
+          title: position,
+          expirationDate: expirationDate,
+          location: location,
+        });
       }
     } catch (error) {
       if (error) {
@@ -96,11 +103,11 @@ const EditPosting = (props) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      onHide={showModalHandler}
+      onHide={showmodalhandler}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {"Edit Posting"}
+          Edit Posting
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

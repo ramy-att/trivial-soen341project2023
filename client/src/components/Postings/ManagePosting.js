@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
 import { UserContext } from "../../App.js";
 
 const ManagePosting = (props) => {
-  const { showModalHandler, data } = props;
+  const { showmodalhandler, addNewPosting, data } = props;
   const [location, setLocation] = useState("Remote");
   const [expirationDate, setExpirationDate] = useState("");
   const [description, setDescription] = useState("");
@@ -13,9 +13,6 @@ const ManagePosting = (props) => {
   const userInfo = useContext(UserContext).userInfo;
 
   const editing = data ? true : false;
-  // useEffect(() => {
-  //   console.log(location);
-  // }, [location]);
 
   const addPosting = async (e) => {
     e.preventDefault();
@@ -27,7 +24,6 @@ const ManagePosting = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // do we need the employer id and organization name ?? check the lines for employerid adn organ name
         employerID: userInfo.id,
         organizationName: userInfo.organizationName,
         description: description,
@@ -39,10 +35,14 @@ const ManagePosting = (props) => {
     try {
       const response = await fetch(url, req);
       const result = await response.json();
-      // if (!result.err) {
-      // getData([...result.postings]);
-      // setPostings([...result.postings]);
-      // }
+      if (!result.err) {
+        addNewPosting(result.posting);
+        // Clear Form
+        setPosition("");
+        setDescription("");
+        setExpirationDate("");
+        setLocation("remote");
+      }
     } catch (error) {
       if (error) {
         console.log(error);
@@ -56,7 +56,7 @@ const ManagePosting = (props) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      onHide={showModalHandler}
+      onHide={showmodalhandler}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">

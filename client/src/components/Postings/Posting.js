@@ -12,9 +12,9 @@ const Posting = () => {
   const [posting, setPosting] = useState({});
   const [postingApps, setPostingApps] = useState([]);
   const [displayedData, setDisplayedData] = useState([]);
+  const [application, setApplication] = useState({});
   const userInfo = useContext(UserContext).userInfo;
   const history = useHistory();
-  const [application, setApplication] = useState({});
 
   const getStatus = async () => {
     if (userInfo) {
@@ -54,6 +54,7 @@ const Posting = () => {
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.err) {
+        console.log(result.posting);
         setPosting(result.posting);
       }
     } catch (error) {
@@ -264,29 +265,36 @@ const Posting = () => {
   }, [userInfo]);
 
   // ADD STATE: USER type
-  const showModalHandler = () => {
+  const showmodalhandler = () => {
     setShowModal((prev) => !prev);
   };
   const applications = () => {
     if (userInfo && userInfo.type === "employer") {
+      if (postingApps.length > 0) {
+        return (
+          <>
+            <h3>Applications</h3>
+            <DataTable
+              header={[
+                "#",
+                "Name",
+                "email",
+                "Resume",
+                "CV",
+                "Transcsript",
+                "Status",
+              ]}
+              pageWidth="100%"
+              displayedData={displayedData}
+              data={postingApps}
+            />
+          </>
+        );
+      }
       return (
-        <>
-          <h3>Applications</h3>
-          <DataTable
-            header={[
-              "#",
-              "Name",
-              "email",
-              "Resume",
-              "CV",
-              "Transcsript",
-              "Status",
-            ]}
-            pageWidth="100%"
-            displayedData={displayedData}
-            data={postingApps}
-          />
-        </>
+        <div className="no-apps">
+          <h2>No Applications Yet!</h2>
+        </div>
       );
     }
   };
@@ -361,13 +369,11 @@ const Posting = () => {
       </div>
     ) : null;
   };
+  const editPostingHandler = (posting) => {
+    setPosting(posting);
+  };
   return (
     <>
-      {/* {showAlert && (
-        <Alert variant="success">
-          You have uploaded your application successfully. Goodluck!
-        </Alert>
-      )} */}
       <Container fluid className="postings-page">
         <div className="title-container">
           <h1>
@@ -412,7 +418,11 @@ const Posting = () => {
           </Table>
         </div>
         {showModal && userInfo && userInfo.type === "employer" && (
-          <EditPosting showModalHandler={showModalHandler} show />
+          <EditPosting
+            showmodalhandler={showmodalhandler}
+            editposting={editPostingHandler}
+            show
+          />
         )}
         {applications()}
       </Container>

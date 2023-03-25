@@ -150,3 +150,10 @@ th {
   line-height: 20px;
   height: 40px;
 }
+.no-apps {
+  text-align: center;
+}
+.no-apps h2 {
+  text-transform: capitalize;
+  color: #0a1640;
+}
