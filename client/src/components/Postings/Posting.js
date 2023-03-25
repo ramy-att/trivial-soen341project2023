@@ -166,8 +166,8 @@ const Posting = () => {
         value={value}
       >
         <option value="Pending">Pending</option>
-        <option value="In Review">In Review</option>
-        <option value="Selected For Interview">Selected For Interview</option>
+        <option value="Reviewing">In Review</option>
+        <option value="Selected">Selected For Interview</option>
         <option value="Rejected">Rejected</option>
         <option value="Accepted">Accepted</option>
       </FormControl>

@@ -95,3 +95,21 @@ th {
 .downloadButton:hover {
   background-color: #2a408f !important;
 }
+
+.applicationStatus.Pending{
+background-color: #989aa0 !important;
+}
+.applicationStatus.Reviewing {
+background-color: #407be2 !important;
+}
+.applicationStatus.Selected {
+  background-color: #cfbc11 !important;
+}
+
+.applicationStatus.Rejected {
+  background-color: #b70000 !important;
+}
+
+.applicationStatus.Accepted {
+  background-color: #005b11 !important;
+}
