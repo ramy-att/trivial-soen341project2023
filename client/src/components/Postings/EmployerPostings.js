@@ -43,11 +43,6 @@ const EmployerPostings = () => {
   };
 
   const deletePosting = async (postings, postingsID, index) => {
-    // e.preventDefault();
-    // console.log(postings);
-    // const postingsID = postings[index]._id;
-    console.log(postingsID);
-
     const url = `http://localhost:3001/postings/${postingsID}`;
     const req = {
       method: "DELETE",
@@ -98,8 +93,13 @@ const EmployerPostings = () => {
     getPostings();
   }, []);
 
-  const showModalHandler = () => {
+  const showmodalhandler = () => {
     setShowModal(false);
+  };
+  const addNewPostingHandler = (posting) => {
+    const newPostings = [...postings, posting];
+    getData(newPostings);
+    setPostings(newPostings);
   };
   return (
     <Container fluid className="postingsPage">
@@ -120,7 +120,11 @@ const EmployerPostings = () => {
           />
         </div>
         {showModal && (
-          <ManagePosting showModalHandler={showModalHandler} show /> // create new posting form
+          <ManagePosting
+            showmodalhandler={showmodalhandler}
+            addNewPosting={addNewPostingHandler}
+            show
+          /> // create new posting form
         )}
       </div>
     </Container>
