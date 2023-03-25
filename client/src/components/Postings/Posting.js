@@ -31,9 +31,8 @@ const Posting = () => {
       try {
         const response = await fetch(url, req);
         const result = await response.json();
-        setApplication(result.applications);
         if (!result.err) {
-          console.log(result);
+          setApplication(result);
         }
       } catch (error) {
         if (error) {
@@ -258,6 +257,7 @@ const Posting = () => {
     if (userInfo && userInfo.type == "employer") {
       getApplications();
     } else {
+      console.log("here");
       getStatus();
     }
     // console.log(application);
@@ -318,18 +318,22 @@ const Posting = () => {
       /* Button will only appear for student, will replace with "check applciation" if already applied" */
     }
     const stuActions = () => {
-      if (application.length === 0) {
+      if (
+        application &&
+        application.hasOwnProperty("exists") &&
+        application.exists === false
+      ) {
         return (
           <button className="apply-posting-button" onClick={applying}>
             Apply
           </button>
         );
-      } else if (application) {
+      } else if (application && application.hasOwnProperty("applications")) {
         return (
           <span
-            className={`applicationStatus ${application[0]?.applicationStatus}`}
+            className={`applicationStatus ${application.applications[0]?.applicationStatus}`}
           >
-            {application[0]?.applicationStatus}
+            {application.applications[0].applicationStatus}
           </span>
         );
       }
