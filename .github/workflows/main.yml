@@ -21,10 +21,12 @@ jobs:
       - name: Install Client
         working-directory: ./client
         run: |
+          npm install
           npm ci
 
       # Install dependencies for the server application
       - name: Install Server
         working-directory: ./
         run: |
+          npm install
           npm ci
