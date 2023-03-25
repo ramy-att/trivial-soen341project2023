@@ -4,7 +4,20 @@ import { Container } from "react-bootstrap";
 import "./pages.css";
 import OurNav from "../components/NavBar/OurNav";
 import Footer from "../components/Footer/Footer";
+import { useEffect, useContext } from "react";
+import { UserContext } from "../App";
+import { useHistory } from "react-router-dom";
+
 const SignInPage = () => {
+  const userInfo = useContext(UserContext).userInfo;
+  const history = useHistory();
+
+  useEffect(() => {
+    console.log(userInfo);
+    if (userInfo !== "nonAuth") {
+      history.push("/job-postings");
+    }
+  }, []);
   return (
     <>
       <OurNav />
@@ -13,7 +26,7 @@ const SignInPage = () => {
           <SignIn />
         </div>
       </Container>
-      <Footer/>
+      <Footer />
     </>
   );
 };

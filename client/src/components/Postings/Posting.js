@@ -12,7 +12,7 @@ const Posting = () => {
   const [posting, setPosting] = useState({});
   const [postingApps, setPostingApps] = useState([]);
   const [displayedData, setDisplayedData] = useState([]);
-  const userInfo = useContext(UserContext);
+  const userInfo = useContext(UserContext).userInfo;
   const history = useHistory();
   const [application, setApplication] = useState({});
 

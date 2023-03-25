@@ -43,44 +43,50 @@ const App = () => {
     } catch (error) {}
   };
   const redirect = () => {
+    const studentRoutes = [
+      "/edit-profile-student",
+      "/signup-stu",
+      "/job-applications",
+    ];
+    const employerRoutes = ["/signup-emp", "/edit-profile-employer"];
+    const authRoutes = ["/SignIn"];
     verifyUser().then((result) => {
       const user = result.user;
       setUserInfo(user ? { ...user } : "nonAuth");
-      if (user && user.type === "student") {
-        if (
-          window.location.pathname === "/signup-emp" ||
-          window.location.pathname === "/edit-profile-employer"
-        ) {
-          history.push("/job-postings");
-        }
-      } else if (user && user.type === "employer") {
-        if (
-          window.location.pathname === "/signup-stu" ||
-          window.location.pathname === "/edit-profile-student"
-        ) {
-          history.push("/job-postings");
-        }
-      }
       if (
-        window.location.pathname === "/SignIn" ||
-        window.location.pathname === "/signup-emp" ||
-        (window.location.pathname === "/signup-student" && user)
+        (user &&
+          user.type === "student" &&
+          !studentRoutes.includes(window.location.pathname)) ||
+        (user &&
+          user.type === "employer" &&
+          !employerRoutes.includes(window.location.pathname))
       ) {
         history.push("/job-postings");
+      } else if (window.location.pathname === "SignIn" && user) {
+        history.push("/job-postings");
+      } else {
+        history.push("/SignIn");
       }
     });
   };
-  useEffect(
-    () => {
-      redirect();
-      console.log(window.location.pathname);
-    },
-    [
-      /*window.location.pathname, userInfo*/
-    ]
-  );
+  useEffect(() => {
+    redirect();
+    console.log(window.location.pathname);
+  }, []);
+  const signInHandler = (user) => {
+    setUserInfo(user);
+  };
+  const signOutHandler = () => {
+    setUserInfo("nonAuth");
+  };
   return (
-    <UserContext.Provider value={userInfo}>
+    <UserContext.Provider
+      value={{
+        userInfo: userInfo,
+        signIn: signInHandler,
+        signOut: signOutHandler,
+      }}
+    >
       <div className="App">
         <Switch>
           <Route exact path="/">
@@ -102,7 +108,9 @@ const App = () => {
             <ApplicationsPage userInfo={userInfo} />
           </Route>
           <Route exact path="/job-postings/:id">
+            <OurNav />
             <Posting userInfo={userInfo} />
+            <Footer />
           </Route>
           <Route exact path="/edit-profile-student">
             <Editprofile />
@@ -120,3 +128,26 @@ const App = () => {
 };
 
 export default App;
+
+// if (user && user.type === "student") {
+//   if (
+//     window.location.pathname === "/signup-emp" ||
+//     window.location.pathname === "/edit-profile-employer"
+//   ) {
+//     history.push("/job-postings");
+//   }
+// } else if (user && user.type === "employer") {
+//   if (
+//     window.location.pathname === "/signup-stu" ||
+//     window.location.pathname === "/edit-profile-student"
+//   ) {
+//     history.push("/job-postings");
+//   }
+// }
+// if (
+//   window.location.pathname === "/SignIn" ||
+//   window.location.pathname === "/signup-emp" ||
+//   (window.location.pathname === "/signup-student" && user)
+// ) {
+//   history.push("/job-postings");
+// }
