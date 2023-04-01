@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import "./DataTable.css";
+// import "./DataTable.css";
 import { ArrowRight, ArrowLeft } from "react-bootstrap-icons";
 
 const DataTable = (props) => {

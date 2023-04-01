@@ -30,3 +30,15 @@ jobs:
         run: |
           npm install
           npm ci
+
+      # Run Server Tests
+      - name: Run Server Tests
+        working-directory: ./
+        run: |
+          npm test
+
+      # Run Client Tests
+      - name: Run Client Tests
+        working-directory: ./client
+        run: |
+          npm test
