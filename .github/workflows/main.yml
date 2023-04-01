@@ -35,7 +35,7 @@ jobs:
       - name: Run Server Tests
         working-directory: ./
         run: |
-          npm start & nox npx wait-on http://localhost:3001
+          npm start & npx wait-on http://localhost:3001
           npm test
 
       # Run Client Tests
