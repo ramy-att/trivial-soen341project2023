@@ -16,9 +16,6 @@ This project is to create a simplified version of a Career service platform with
 - MongoDB as our database.
 - ExpressJs (Back end/Server Side).
 
-## Sprint 2 Demo
-https://youtu.be/tjCQIaSnsHM
-
 ## Editor and styles
 - Used text-editor is preferably VsCode to ensure consistency 
 - Prettier should be run across all files https://www.alphr.com/use-prettier-vs-code/
@@ -39,7 +36,16 @@ https://youtu.be/tjCQIaSnsHM
 2. cd client
 2. npm start (localhost:3000)- to start client-side
 
+## Testing
+1. Run 'npm test' in client directory
+2. Run 'npm test' in main directory
+These tests should always be run
+
 ## Design
 - https://www.canva.com/design/DAFXqjBPQqU/rpmra1k-tyOIhCj0dOA7sw/edit?utm_content=DAFXqjBPQqU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+## Sprint 2 Demo
+https://youtu.be/tjCQIaSnsHM
+
 ## Sprint 3 Demo
 https://www.youtube.com/watch?v=lMcfmNYJRcQ
