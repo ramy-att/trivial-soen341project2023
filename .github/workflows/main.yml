@@ -35,6 +35,7 @@ jobs:
       - name: Run Server Tests
         working-directory: ./
         run: |
+          npm start
           npm test
 
       # Run Client Tests
