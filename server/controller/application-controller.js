@@ -1,6 +1,7 @@
 const Application = require("../model/application");
 const Student = require("../model/student");
 const Posting = require("../model/posting");
+const sgMail = require("@sendgrid/mail");
 
 // [GET: GET ALL THE APPLICATION]
 
@@ -70,7 +71,9 @@ const updateApplication = async (req, res, next) => {
     applicationStatus,
   } = req.body; // we post in the body of the API
   let application;
+  let currentApp;
   try {
+    currentApp = await Application.findById(id);
     application = await Application.findByIdAndUpdate(id, {
       studentID,
       studentResume,
@@ -83,6 +86,31 @@ const updateApplication = async (req, res, next) => {
   }
   if (!application) {
     return res.status(500).json({ err: "Unable to save the application info" });
+  }
+  if (currentApp && application) {
+    if (currentApp.applicationStatus != applicationStatus) {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+      const organizationName = application.organizationName;
+      const studentName = application.studentName;
+      const studentEmail = application.studentEmail;
+      const postion = application.title;
+      const msg = {
+        to: studentEmail, // Change to your recipient
+        from: "trivial341@outlook.com", // Change to your verified sender
+        subject: "Update to application stauts!",
+        text: `Hi,${studentName}! ${organizationName} updated your application status for the position ${postion} to: ${applicationStatus}`,
+        html: `<p>Hi,${studentName}!<p>${organizationName} updated your application status for the position ${postion} to: ${applicationStatus}</p>`,
+      };
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }
   return res.status(200).json({ message: "Application updated successfully!" });
 };
