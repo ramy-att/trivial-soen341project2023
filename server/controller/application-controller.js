@@ -94,13 +94,25 @@ const updateApplication = async (req, res, next) => {
       const organizationName = application.organizationName;
       const studentName = application.studentName;
       const studentEmail = application.studentEmail;
-      const postion = application.title;
+      const position = application.title;
+
+      const text =
+        applicationStatus === "Pending"
+          ? `Your application for the position of ${position} at ${organizationName} is waiting to be reviewed!`
+          : applicationStatus === "Reviewing"
+          ? `Your application for the position of ${position} at ${organizationName} is under review!`
+          : applicationStatus === "Selected"
+          ? `Congrats! You have been selected for an interview for the position of ${position} at ${organizationName}!`
+          : applicationStatus === "Rejected"
+          ? `Unfortunately, you have been rejected for the position of ${position} at ${organizationName}.`
+          : `Congrats! You have been accepted for the position of ${position} at ${organizationName}!`;
+
       const msg = {
-        to: studentEmail, // Change to your recipient
-        from: "trivial341@outlook.com", // Change to your verified sender
+        to: studentEmail,
+        from: "trivial341@outlook.com",
         subject: "Update to application stauts!",
-        text: `Hi,${studentName}! ${organizationName} updated your application status for the position ${postion} to: ${applicationStatus}`,
-        html: `<p>Hi,${studentName}!<p>${organizationName} updated your application status for the position ${postion} to: ${applicationStatus}</p>`,
+        text: `Hi ${studentName}! ${text}`,
+        html: `<p>Hi ${studentName}!</p><p>${text}</p>`,
       };
       sgMail
         .send(msg)
