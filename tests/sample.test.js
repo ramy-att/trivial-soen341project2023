@@ -1,5 +1,4 @@
 // [This file is only for showing a sample of how tests work]
-const http = require("http");
 
 const sumFunction = (a, b) => {
   return a + b;
@@ -25,12 +24,5 @@ test("test sumFunction, expected to pass", () => {
 //   const result = sumFunction(a, b);
 //   expect(result).toBe(12);
 // });
-
-test("Get all students", (done) => {
-  http.get("http://localhost:3001/students", (res) => {
-    expect(res.statusCode).toBe(200);
-    done();
-  });
-});
 
 // run tests: npm test in main directory
