@@ -1,6 +1,7 @@
 const Application = require("../model/application");
 const Student = require("../model/student");
 const Posting = require("../model/posting");
+const sgMail = require("@sendgrid/mail");
 
 // [GET: GET ALL THE APPLICATION]
 
@@ -70,7 +71,9 @@ const updateApplication = async (req, res, next) => {
     applicationStatus,
   } = req.body; // we post in the body of the API
   let application;
+  let currentApp;
   try {
+    currentApp = await Application.findById(id);
     application = await Application.findByIdAndUpdate(id, {
       studentID,
       studentResume,
@@ -83,6 +86,43 @@ const updateApplication = async (req, res, next) => {
   }
   if (!application) {
     return res.status(500).json({ err: "Unable to save the application info" });
+  }
+  if (currentApp && application) {
+    if (currentApp.applicationStatus != applicationStatus) {
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+      const organizationName = application.organizationName;
+      const studentName = application.studentName;
+      const studentEmail = application.studentEmail;
+      const position = application.title;
+
+      const text =
+        applicationStatus === "Pending"
+          ? `Your application for the position of ${position} at ${organizationName} is waiting to be reviewed!`
+          : applicationStatus === "Reviewing"
+          ? `Your application for the position of ${position} at ${organizationName} is under review!`
+          : applicationStatus === "Selected"
+          ? `Congrats! You have been selected for an interview for the position of ${position} at ${organizationName}!`
+          : applicationStatus === "Rejected"
+          ? `Unfortunately, you have been rejected for the position of ${position} at ${organizationName}.`
+          : `Congrats! You have been accepted for the position of ${position} at ${organizationName}!`;
+
+      const msg = {
+        to: studentEmail,
+        from: "trivial341@outlook.com",
+        subject: "Update to application stauts!",
+        text: `Hi ${studentName}! ${text}`,
+        html: `<p>Hi ${studentName}!</p><p>${text}</p>`,
+      };
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }
   return res.status(200).json({ message: "Application updated successfully!" });
 };
