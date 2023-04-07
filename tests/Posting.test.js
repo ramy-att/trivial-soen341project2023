@@ -1,8 +1,9 @@
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongoose = require("mongoose");
 const request = require("supertest");
-const employer = require("../server/model/posting");
+const employer = require("../server/model/employer");
 const app = require("../server/index");
+const posting = require("../server/model/posting");
 let mongoServer;
 
 const employersData = [
@@ -101,14 +102,14 @@ describe("Posting tests", () => {
     let validEmployer = employersData[0];
     const employerResponse = await request(app).post("/employers").send(validEmployer);
     const { employer } = employerResponse.body; 
-    console.log(employer);
+    //console.log(employer);
     postingsData[0].employerID=employer._id;
 
     expect(employerResponse.status).toBe(201); //extra check for employer
 
     let validPosting = postingsData[0];
 
-    console.log(validPosting);
+    //console.log(validPosting);
 
     const response = await request(app).post("/postings").send(validPosting);
     const { posting } = response.body; // get the posting object from the response
@@ -122,17 +123,32 @@ describe("Posting tests", () => {
     expect(posting.location).toBe(validPosting.location);
   });
   
-//   it("Delete posting", async () => {
-//     let validEmployer = employersData[1];
+  it("Delete posting", async () => {
 
-//     const newEmployer = await employer(validEmployer);
-//     await newEmployer.save();
-//     const response = await request(app).delete(`/employers/${newEmployer._id}`);
-//     expect(response.status).toBe(200);
+    // Create employer to make a posting
+    let validEmployer = employersData[1];
+    const employerResponse = await request(app).post("/employers").send(validEmployer);
+    const { employer } = employerResponse.body; 
 
-//     const deletedEmployer = await employer.findById(newEmployer._id);
-//     expect(deletedEmployer).toBeNull();
-//   });
+    //Create a posting to test
+    postingsData[1].employerID=employer._id;
+
+    let employerID = employer._id;
+
+    let validPosting = postingsData[1];
+
+    const createResponse = await request(app).post("/postings").send(validPosting);
+    const { newPosting } = createResponse.body; 
+
+    console.log(newPosting);
+
+    //delete posting
+    const response = await request(app).delete(`/postings/${createResponse.body._id}`).send({employerID});
+    expect(response.status).toBe(200);
+
+    const deletedPosting = await posting.findById(newPosting._id);
+    expect(deletedPosting).toBeNull();
+  });
 //   it("Get all employers", async () => {
 //     const response = await request(app).get(`/employers`);
 //     const { employer } = response.body; // get the employer object from the response
