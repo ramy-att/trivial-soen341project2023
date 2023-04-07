@@ -1,36 +1,11 @@
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongoose = require("mongoose");
+const { employersData } = require("./sampledata");
 const request = require("supertest");
 const employer = require("../server/model/employer");
 const app = require("../server/index");
 let mongoServer;
 
-const employersData = [
-  {
-    employerName: "Employer 1",
-    employerPassword: "employerpass",
-    employerEmail: "emp1@emp1.com",
-    organizationName: "emp1 company",
-  },
-  {
-    employerName: "Employer 2",
-    employerPassword: "employerpass",
-    employerEmail: "emp2@emp2.com",
-    organizationName: "emp2 company",
-  },
-  {
-    employerName: "Employer 3",
-    employerPassword: "employerpassword",
-    employerEmail: "emp3@emp3.com",
-    organizationName: "emp3 company",
-  },
-  {
-    employerName: "Employer 4",
-    employerPassword: "employerpassword",
-    employerEmail: "emp4@emp4.com",
-    organizationName: "emp4 company",
-  },
-];
 beforeAll(async () => {
   mongoServer = new MongoMemoryServer();
   await mongoServer.start();
