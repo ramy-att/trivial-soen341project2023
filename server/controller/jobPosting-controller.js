@@ -127,7 +127,6 @@ const getEmployerPostings = async (req, res, next) => {
   try {
     postings = await Posting.find({ employerID: id });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ err: "Could not fetch all postings" });
   }
   if (!postings) {

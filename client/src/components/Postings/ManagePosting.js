@@ -43,11 +43,7 @@ const ManagePosting = (props) => {
         setExpirationDate("");
         setLocation("remote");
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
 
   return (
@@ -106,7 +102,6 @@ const ManagePosting = (props) => {
               required
               value={location}
               onChange={(e) => {
-                console.log(e.target.value);
                 setLocation(e.target.value);
               }}
             >

@@ -3,6 +3,7 @@ import "./SignIn.css";
 import { useHistory } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import { UserContext } from "../../App";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -63,7 +64,6 @@ const SignIn = () => {
       }, 5000);
       redirect();
     } catch (error) {
-      console.log("BYEEE");
       setError("Some Error has Occured! Please try again.");
     }
   };
@@ -111,13 +111,12 @@ const SignIn = () => {
             }}
             name="email"
           />
-        </div>{" "}
+        </div>
         <div className="input-container ic2">
           <div className="label-container">
             {hoverPass && (
               <label htmlFor="password" className="label">
-                {" "}
-                Password{" "}
+                Password
               </label>
             )}
           </div>
@@ -149,8 +148,7 @@ const SignIn = () => {
           </button>
         </div>
         <div className="sign-up-instead">
-          <a href="/">Don't have an account ? Go back to SignUp</a>
-          {/*Need to be changed and redirected to the landing page where they specify if epmloyer or student*/}
+          <Link to="/">Don't have an account ? Go back to SignUp</Link>
         </div>
       </form>
     </div>

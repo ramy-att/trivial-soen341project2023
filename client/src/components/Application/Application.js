@@ -21,14 +21,11 @@ const Application = () => {
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.err) {
-        console.log(result);
         setApplication(result.applications);
         getDisplayedData(result.applications);
-        console.log(result.applications);
       }
     } catch (error) {
       if (error) {
-        console.log(error);
       }
     }
   };
@@ -52,7 +49,6 @@ const Application = () => {
 
   useEffect(() => {
     getStuApplications();
-    console.log("HELLOOOOOOOO");
   }, [userInfo]);
 
   return (

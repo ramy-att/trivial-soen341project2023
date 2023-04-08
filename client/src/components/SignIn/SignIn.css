@@ -3,7 +3,7 @@
   height: 70%;
   padding: 20px;
   width: 60%;
-  height: 30rem;
+  min-height: 30rem;
 }
 .form-signUp {
   background-color: white;
@@ -134,6 +134,6 @@ input:active {
 .sign-in-instead a {
   text-decoration: none;
 }
-.label-container{
+.label-container {
   height: 1rem;
 }
