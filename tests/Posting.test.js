@@ -45,7 +45,6 @@ const postingsData = [
   {
     employerID: "Employer2",
     postingId: "Posting 2",
-    organizationName: "Employer2Company",
     description: "Posting1 Employer2",
     title: "EMP2 INTERN",
     expirationDate: "2021",
@@ -143,42 +142,82 @@ describe("Posting tests", () => {
     expect(deleteResponse.status).toBe(200);
     expect(deletedPosting).toBeNull();
   });
-  //   it("Get all employers", async () => {
-  //     const response = await request(app).get(`/employers`);
-  //     const { employer } = response.body; // get the employer object from the response
+    it("Get all postingss", async () => {
+      postingsData[1].employerID = postingsData[0].employerID; 
+      postingsData[2].employerID = postingsData[0].employerID; 
+      postingsData[3].employerID = postingsData[0].employerID; 
+      let validPosting = postingsData[1];
 
-  //     expect(response.status).toBe(200);
-  //     expect(employer[0].employerEmail).toBe("emp1@emp1.com");
-  //   });
-  //   it("Get employer", async () => {
-  //     let validEmployer = employersData[1];
+      console.log(validPosting);
 
-  //     const newEmployer = await employer(validEmployer);
-  //     await newEmployer.save();
+      response = await request(app).post("/postings").send(validPosting);
+      console.log(response.status);
 
-  //     const response = await request(app).get(`/employers/${newEmployer._id}`);
-  //     const { employer: employerObj } = response.body; // get the employer object from the response
+      response = await request(app).get(`/postings`);
+      const { posting } = response.body; // get the employer object from the response
 
-  //     expect(response.status).toBe(200);
-  //     expect(employerObj._id).toBeDefined();
-  //     expect(employerObj.employerName).toBe(validEmployer.employerName);
-  //     expect(employerObj.employerEmail).toBe(validEmployer.employerEmail);
-  //     expect(employerObj.organizationName).toBe(validEmployer.organizationName);
-  //   });
-  //   it("Update employer", async () => {
-  //     let validEmployer = employersData[2];
-  //     const newEmp = employersData[3];
+      expect(response.status).toBe(200);
+      console.log(response.body);
+      expect(posting[0].description).toBe("Posting1 Employer2");
+    });
+    it("Get Posting", async () => {
+      let validPosting = postingsData[2];
 
-  //     const newEmployer = await employer(validEmployer);
-  //     await newEmployer.save();
 
-  //     const response = await request(app)
-  //       .patch(`/employers/${newEmployer._id}`)
-  //       .send(newEmp);
+      var response = await request(app).post("/postings").send(validPosting);
+      const { posting:newPosting } = response.body;
 
-  //     const { message } = response.body;
+      response = await request(app).get(`/postings/${newPosting._id}`);
+      const { posting: postingObj } = response.body; // get the employer object from the response
 
-  //     expect(response.status).toBe(200);
-  //     expect(message).toBe("updated Successfully");
-  //   });
+      expect(response.status).toBe(200);
+      expect(postingObj._id).toBeDefined();
+      expect(postingObj.organizationName).toBeDefined();
+      expect(postingObj.employerID).toBe(validPosting.employerID);
+      expect(postingObj.description).toBe(validPosting.description);
+      expect(postingObj.title).toBe(validPosting.title);
+      expect(postingObj.location).toBe(validPosting.location);
+    });
+    it("Update posting", async () => {
+      let validPosting = postingsData[2];
+      const newPos = postingsData[3];
+
+      
+
+      const newPosting = await posting(validPosting);
+    
+      console.log(newPosting);
+
+      await newPosting.save();
+
+      const response = await request(app)
+        .patch(`/postings/${newPosting._id}`)
+        .send(newPos);
+
+      const { message } = response.body;
+
+      expect(response.status).toBe(200);
+      expect(message).toBe("Posting updated Successfully");
+    });
+    it("Update posting", async () => {
+      let validPosting = postingsData[2];
+      const newPos = postingsData[3];
+
+      
+
+      const newPosting = await posting(validPosting);
+    
+      console.log(newPosting);
+
+      await newPosting.save();
+
+      const response = await request(app)
+        .patch(`/postings/${newPosting._id}`)
+        .send(newPos);
+
+      const { message } = response.body;
+
+      expect(response.status).toBe(200);
+      expect(message).toBe("Posting updated Successfully");
+    });
 });
