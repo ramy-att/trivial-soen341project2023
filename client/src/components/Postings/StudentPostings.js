@@ -41,11 +41,7 @@ const StudentPostings = () => {
         getData([...result.posting].reverse());
         setPostings([...result.posting].reverse());
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     getPostings();

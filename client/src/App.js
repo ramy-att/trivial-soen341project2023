@@ -26,8 +26,6 @@ const App = () => {
   const history = useHistory();
   const [userInfo, setUserInfo] = useState();
 
-  // console.log("Dom Dom Rakka Dom Dom"); // Leave this please - Ramy
-
   const verifyUser = async () => {
     const url2 = "http://localhost:3001/signin";
     const verifyReq = {
@@ -71,7 +69,6 @@ const App = () => {
   };
   useEffect(() => {
     redirect();
-    console.log(window.location.pathname);
   }, []);
   const signInHandler = (user) => {
     setUserInfo(user);
@@ -128,26 +125,3 @@ const App = () => {
 };
 
 export default App;
-
-// if (user && user.type === "student") {
-//   if (
-//     window.location.pathname === "/signup-emp" ||
-//     window.location.pathname === "/edit-profile-employer"
-//   ) {
-//     history.push("/job-postings");
-//   }
-// } else if (user && user.type === "employer") {
-//   if (
-//     window.location.pathname === "/signup-stu" ||
-//     window.location.pathname === "/edit-profile-student"
-//   ) {
-//     history.push("/job-postings");
-//   }
-// }
-// if (
-//   window.location.pathname === "/SignIn" ||
-//   window.location.pathname === "/signup-emp" ||
-//   (window.location.pathname === "/signup-student" && user)
-// ) {
-//   history.push("/job-postings");
-// }
