@@ -116,12 +116,8 @@ const updateApplication = async (req, res, next) => {
       };
       sgMail
         .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     }
   }
   return res.status(200).json({ message: "Application updated successfully!" });
