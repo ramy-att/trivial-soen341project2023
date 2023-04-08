@@ -10,7 +10,6 @@ const PostingsPage = () => {
   const userInfo = useContext(UserContext).userInfo;
   const [posting, setPosting] = useState(null);
   useEffect(() => {
-    console.log(userInfo);
     setPosting(
       userInfo && userInfo.type === "employer" ? (
         <EmployerPostings />

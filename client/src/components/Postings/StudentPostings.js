@@ -42,11 +42,7 @@ const StudentPostings = () => {
         getData([...result.posting]);
         setPostings([...result.posting]);
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     getPostings();
