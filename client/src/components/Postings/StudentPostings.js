@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import DataTable from "../DataTable/DataTable.js";
 import "./Postings.css";
-import { useEffect, useState } from "react";
 
 const StudentPostings = () => {
   const [postings, setPostings] = useState([]);
@@ -39,8 +38,8 @@ const StudentPostings = () => {
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.err) {
-        getData([...result.posting]);
-        setPostings([...result.posting]);
+        getData([...result.posting].reverse());
+        setPostings([...result.posting].reverse());
       }
     } catch (error) {}
   };
