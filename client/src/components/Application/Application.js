@@ -22,9 +22,8 @@ const Application = () => {
       const result = await response.json();
       if (!result.err) {
         console.log(result);
-        setApplication(result.applications);
-        getDisplayedData(result.applications);
-        console.log(result.applications);
+        setApplication([...result.applications].reverse());
+        getDisplayedData([...result.applications].reverse());
       }
     } catch (error) {
       if (error) {
