@@ -13,7 +13,6 @@ const SignInPage = () => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(userInfo);
     if (userInfo !== "nonAuth") {
       history.push("/job-postings");
     }

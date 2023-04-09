@@ -61,11 +61,7 @@ const EmployerPostings = () => {
         setPostings([...postings]);
         getData([...postings]);
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
 
   const getPostings = async () => {
@@ -83,11 +79,7 @@ const EmployerPostings = () => {
         getData([...result.postings]);
         setPostings([...result.postings]);
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     getPostings();

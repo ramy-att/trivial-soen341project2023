@@ -116,12 +116,8 @@ const updateApplication = async (req, res, next) => {
       };
       sgMail
         .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     }
   }
   return res.status(200).json({ message: "Application updated successfully!" });
@@ -173,7 +169,6 @@ const getPostingApplications = async (req, res, next) => {
   try {
     applications = await Application.find({ postingID: id });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ err: "Could not fetch all applications" });
   }
   if (!applications) {
@@ -191,7 +186,6 @@ const getStudentApplications = async (req, res, next) => {
   try {
     applications = await Application.find({ studentID: id });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ err: "Could not fetch student applications" });
   }
   if (!applications) {

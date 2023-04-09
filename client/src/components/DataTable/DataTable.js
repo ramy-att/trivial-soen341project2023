@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-// import "./DataTable.css";
+import "./DataTable.css";
 import { ArrowRight, ArrowLeft } from "react-bootstrap-icons";
 
 const DataTable = (props) => {
-  /* data: [{},{},{}];
-    - number of rows = length of array
-    - number of columns = length of element object - we should make all elems
-    the same size
-    - can take custom components or HTML 
-
-    header: ["Title0","Title1",...]
-    length of header gives the number of columns
-
-    footer: ["Item0","Item1",...]
-
-    maxRows: number of rows to display @default is 15
-   */
   const {
     data,
     displayedData,
@@ -31,16 +18,37 @@ const DataTable = (props) => {
   const [numberPages, setNumberPages] = useState(
     data.length / maxRows > 1 ? Math.ceil(data.length / maxRows) : 1
   );
+  const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     const start = currentPage * maxRows;
     const end = currentPage * maxRows + maxRows;
-    setCurrentData(displayedData.slice(start, end) || displayedData);
-  }, [maxRows, currentPage, displayedData]);
+    const filteredData =
+      searchTerm === ""
+        ? displayedData
+        : displayedData.filter((row) =>
+            Object.values(row).some((val) =>
+              String(val).toLowerCase().includes(searchTerm.toLowerCase())
+            )
+          );
+    setNumberPages(
+      filteredData.length / maxRows > 1
+        ? Math.ceil(filteredData.length / maxRows)
+        : 1
+    );
+    setCurrentData(filteredData.slice(start, end) || filteredData);
+  }, [maxRows, currentPage, displayedData, searchTerm]);
 
-  // console.log(displayedData);
-  // console.log(data);
   return (
     <div className="DataTable" style={{ width: pageWidth || "90%" }}>
+      <div className="searchBar">
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <Table bordered hover responsive {...rest}>
         <thead>
           {/* Header */}
@@ -102,44 +110,3 @@ const DataTable = (props) => {
   );
 };
 export default DataTable;
-
-{
-  /* Sample Usage */
-}
-{
-  /* <DataTable
-header={["Header0", "Header1", "Header2", "Header3", "Header4"]}
-footer={["Footer0", "Footer1", "Footer2", "Footer3", "Footer4"]}
-data={[
-  {
-    Item0: "Item0",
-    Item1: "Item1",
-    Item2: "Item2",
-    Item3: "Item3",
-    Item4: "Item4",
-  },
-  {
-    Item0: "Item0",
-    Item1: "Item1",
-    Item2: "Item2",
-    Item3: "Item3",
-    Item4: "Item4",
-  },
-  {
-    Item0: "Item0",
-    Item1: "Item1",
-    Item2: "Item2",
-    Item3: "Item3",
-    Item4: "Item4",
-  },
-  {
-    Item0: "Item0",
-    Item1: "Item1",
-    Item2: "Item2",
-    Item3: "Item3",
-    Item4: "Item4",
-  },
-]}
-maxRows={2}
-/> */
-}
