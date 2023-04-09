@@ -4,31 +4,13 @@ const request = require("supertest");
 const app = require("../server/index");
 const student = require("../server/model/student");
 let mongoServer;
+const {
+  employersData,
+  studentsData,
+  applicationsData,
+  postingsData,
+} = require("./sampledata");
 
-const studentsData = [
-  {
-    studentName: "student 1",
-    studentPassword: "student1",
-    studentEmail: "student1@student1.com",
-  },
-  {
-    studentName: "student 2",
-    studentPassword: "student2",
-    studentEmail: "student2@student2.com",
-  },
-  {
-    studentName: "student 3",
-    studentPassword: "student3",
-    studentEmail: "student3@student3.com",
-    resume:null,
-  },
-  {
-    studentName: "student 4",
-    studentPassword: "student4",
-    studentEmail: "student4@student4.com",
-    resume:null,
-  },
-];
 beforeAll(async () => {
   mongoServer = new MongoMemoryServer();
   await mongoServer.start();
