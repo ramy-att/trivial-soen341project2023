@@ -77,7 +77,7 @@ describe("Posting tests", () => {
     postingsData[3].employerID = postingsData[0].employerID;
     let validPosting = postingsData[1];
 
-    response = await request(app).post("/postings").send(validPosting);
+    let response = await request(app).post("/postings").send(validPosting);
     response = await request(app).get(`/postings`);
     const { posting } = response.body; // get the employer object from the response
 
@@ -87,7 +87,7 @@ describe("Posting tests", () => {
   it("Get Posting", async () => {
     let validPosting = postingsData[2];
 
-    var response = await request(app).post("/postings").send(validPosting);
+    let response = await request(app).post("/postings").send(validPosting);
     const { posting: newPosting } = response.body;
     sampleID = newPosting.employerID;
     response = await request(app).get(`/postings/${newPosting._id}`);
