@@ -5,7 +5,7 @@ const employer = require("../server/model/employer");
 const app = require("../server/index");
 const posting = require("../server/model/posting");
 let mongoServer;
-
+let sampleID;
 const employersData = [
   {
     employerName: "Employer 1",
@@ -166,7 +166,7 @@ describe("Posting tests", () => {
 
       var response = await request(app).post("/postings").send(validPosting);
       const { posting:newPosting } = response.body;
-
+      sampleID=newPosting.employerID;
       response = await request(app).get(`/postings/${newPosting._id}`);
       const { posting: postingObj } = response.body; // get the employer object from the response
 
@@ -199,25 +199,16 @@ describe("Posting tests", () => {
       expect(response.status).toBe(200);
       expect(message).toBe("Posting updated Successfully");
     });
-    it("Update posting", async () => {
-      let validPosting = postingsData[2];
-      const newPos = postingsData[3];
-
-      
-
-      const newPosting = await posting(validPosting);
+    it("Get Employer's Postings", async () => {
     
-      console.log(newPosting);
-
-      await newPosting.save();
 
       const response = await request(app)
-        .patch(`/postings/${newPosting._id}`)
-        .send(newPos);
+        .get(`/postings/employer/${sampleID}`);
 
-      const { message } = response.body;
+      const { postings } = response.body;
 
       expect(response.status).toBe(200);
-      expect(message).toBe("Posting updated Successfully");
+      // Employer has 3 postings.
+      expect(postings.length).toBe(3);
     });
 });
