@@ -6,83 +6,12 @@ const app = require("../server/index");
 const posting = require("../server/model/posting");
 let mongoServer;
 let sampleID;
-const employersData = [
-  {
-    employerName: "Employer 1",
-    employerPassword: "employerpass",
-    employerEmail: "emp1@emp1.com",
-    organizationName: "emp1 company",
-  },
-  {
-    employerName: "Employer 2",
-    employerPassword: "employerpass",
-    employerEmail: "emp2@emp2.com",
-    organizationName: "emp2 company",
-  },
-  {
-    employerName: "Employer 3",
-    employerPassword: "employerpassword",
-    employerEmail: "emp3@emp3.com",
-    organizationName: "emp3 company",
-  },
-  {
-    employerName: "Employer 4",
-    employerPassword: "employerpassword",
-    employerEmail: "emp4@emp4.com",
-    organizationName: "emp4 company",
-  },
-];
-
-const postingsData = [
-  {
-    employerID: "Employer1",
-    postingId: "Posting 1",
-    description: "Posting1Employer1",
-    title: "EMP1INTERN",
-    expirationDate: "2020",
-    location: "Remote",
-  },
-  {
-    employerID: "Employer2",
-    postingId: "Posting 2",
-    description: "Posting1 Employer2",
-    title: "EMP2 INTERN",
-    expirationDate: "2021",
-    location: "HYBRID",
-  },
-  {
-    employerID: "Employer1",
-    postingId: "Posting 3",
-    description: "Posting2 Employer1",
-    title: "EMP1 INTERN2",
-    expirationDate: "2022",
-    location: "Remote2",
-  },
-  {
-    employerID: "Employer2",
-    postingId: "Posting 4",
-    description: "Posting2 Employer2",
-    title: "EMP2 INTERN2",
-    expirationDate: "2023",
-    location: "HYBRID",
-  },
-  {
-    employerID: "Employer1",
-    postingId: "Posting 5",
-    description: "Posting3 Employer1",
-    title: "EMP1 INTERN3",
-    expirationDate: "2024",
-    location: "Remote3",
-  },
-  {
-    employerID: "Employer3",
-    postingId: "Posting 6",
-    description: "Posting1 Employer3",
-    title: "EMP3 INTERN",
-    expirationDate: "2025",
-    location: "ONSITEEE",
-  },
-];
+const {
+  employersData,
+  studentsData,
+  applicationsData,
+  postingsData,
+} = require("./sampledata");
 beforeAll(async () => {
   mongoServer = new MongoMemoryServer();
   await mongoServer.start();
