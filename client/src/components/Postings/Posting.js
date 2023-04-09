@@ -34,11 +34,7 @@ const Posting = () => {
         if (!result.err) {
           setApplication(result);
         }
-      } catch (error) {
-        if (error) {
-          console.log(error);
-        }
-      }
+      } catch (error) {}
     }
   };
 
@@ -54,14 +50,9 @@ const Posting = () => {
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.err) {
-        console.log(result.posting);
         setPosting(result.posting);
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
 
   const applying = async () => {
@@ -77,7 +68,6 @@ const Posting = () => {
       }),
     };
     try {
-      console.log(posting);
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.error) {
@@ -86,11 +76,7 @@ const Posting = () => {
           "Congratulations! You will now be redirected to the posting page"
         );
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
 
   // Download file
@@ -123,10 +109,7 @@ const Posting = () => {
       link.click();
       document.body.removeChild(link);
       urlObj.revokeObjectURL(objectUrl);
-    } catch (error) {
-      console.log("DOWNLOAD FILE FAILED");
-      console.log(error);
-    }
+    } catch (error) {}
   };
   const ApplicationStatus = (props) => {
     const { currentApplication, applications } = props;
@@ -152,11 +135,7 @@ const Posting = () => {
       try {
         const response = await fetch(url, req);
         const result = await response.json();
-      } catch (error) {
-        if (error) {
-          console.log(error);
-        }
-      }
+      } catch (error) {}
     };
 
     return (
@@ -247,21 +226,15 @@ const Posting = () => {
         getDisplayedData([...result.applications]);
         setPostingApps([...result.applications]);
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     getPostings();
     if (userInfo && userInfo.type == "employer") {
       getApplications();
     } else {
-      console.log("here");
       getStatus();
     }
-    // console.log(application);
   }, [userInfo]);
 
   // ADD STATE: USER type
@@ -315,11 +288,7 @@ const Posting = () => {
       if (!result.err) {
         history.push("/job-postings");
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
   const actions = () => {
     {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../SignIn/SignIn.css";
 import { Alert } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 export const SignUp = (props) => {
   const { typeSignUp } = props;
@@ -13,6 +14,7 @@ export const SignUp = (props) => {
   const [hoverPass, setHoverPass] = useState(false);
   const [hoverName, setHoverName] = useState(false);
   const [hoverCompany, setHoverCompany] = useState(false);
+  const history = useHistory();
 
   /* So here the one above we need to recive if the user clicked on student or employer when they are signning up
   by onClick take it and save it in the signUpClient. Then we will use this to detrmine which one we display*/
@@ -41,16 +43,19 @@ export const SignUp = (props) => {
       try {
         const response = await fetch(url, req);
         const result = await response.json();
-        console.log(result);
         if (result.err) {
           setSignUpError(result.err);
         }
         setTimeout(() => {
           setSignUpError("");
         }, 5000);
-      } catch (error) {
-        console.log(error);
-      }
+        if (!result.error) {
+          history.push("/SignIn");
+          alert(
+            "Thank you for signing up! Please sign in to access your account."
+          );
+        }
+      } catch (error) {}
     }
     if (typeSignUp === "employer") {
       const url = "http://localhost:3001/employers";
@@ -77,16 +82,19 @@ export const SignUp = (props) => {
       try {
         const response = await fetch(url, req);
         const result = await response.json();
-        console.log(result);
         if (result.err) {
           setSignUpError(result.err);
         }
         setTimeout(() => {
           setSignUpError("");
         }, 5000);
-      } catch (error) {
-        console.log(error);
-      }
+        if (!result.error) {
+          history.push("/SignIn");
+          alert(
+            "Thank you for signing up! Please sign in to access your account."
+          );
+        }
+      } catch (error) {}
     }
   };
 

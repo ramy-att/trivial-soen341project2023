@@ -42,7 +42,6 @@ export default function EditPage(props) {
         setOrganiztation(result.user.organizationName);
       }
       setOrganiztation(result.user.organizationName);
-      console.log(result.user.id);
       return result;
     } catch (error) {}
   };
@@ -79,11 +78,8 @@ export default function EditPage(props) {
       if (result.token) {
         localStorage.setItem("token", result.token);
       } else {
-        console.log("Incorrect Credentials!");
       }
-    } catch (error) {
-      console.log("Some Error has Occured! Please try again.");
-    }
+    } catch (error) {}
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -119,10 +115,7 @@ export default function EditPage(props) {
         setTimeout(() => {
           setSubmitted("");
         }, 5000);
-      } catch (error) {
-        console.log("here");
-        console.log(error);
-      }
+      } catch (error) {}
     }
     if (type === "employer") {
       const url = `http://localhost:3001/employers/${id}`;
@@ -153,9 +146,7 @@ export default function EditPage(props) {
         setTimeout(() => {
           setSubmitted("");
         }, 5000);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
   };
 
