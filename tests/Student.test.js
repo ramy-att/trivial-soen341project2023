@@ -20,11 +20,13 @@ const studentsData = [
     studentName: "student 3",
     studentPassword: "student3",
     studentEmail: "student3@student3.com",
+    resume:null,
   },
   {
     studentName: "student 4",
     studentPassword: "student4",
     studentEmail: "student4@student4.com",
+    resume:null,
   },
 ];
 beforeAll(async () => {
@@ -66,10 +68,10 @@ describe("Student tests", () => {
   });
   it("Get all students", async () => {
     const response = await request(app).get(`/students`);
-    const { student } = response.body; // get the employer object from the response
+    const { students } = response.body; // get the employer object from the response
 
     expect(response.status).toBe(200);
-    expect(student[0].studentEmail).toBe("student1@student1.com");
+    expect(students[0].studentEmail).toBe("student1@student1.com");
   });
   it("Get student", async () => {
     let validStudent = studentsData[1];
@@ -78,8 +80,8 @@ describe("Student tests", () => {
     await newStudent.save();
 
     const response = await request(app).get(`/students/${newStudent._id}`);
-    const { student: studentObj } = response.body; // get the employer object from the response
-
+    const { stu: studentObj } = response.body; // get the employer object from the response
+    //console.log(response.body);
     expect(response.status).toBe(200);
     expect(studentObj._id).toBeDefined();
     expect(studentObj.studentName).toBe(validStudent.studentName);
@@ -93,7 +95,7 @@ describe("Student tests", () => {
     await newStudent.save();
 
     const response = await request(app)
-      .patch(`/student/${newStudent._id}`)
+      .patch(`/students/${newStudent._id}`)
       .send(newStu);
 
     const { message } = response.body;

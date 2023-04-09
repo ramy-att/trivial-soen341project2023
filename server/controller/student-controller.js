@@ -64,6 +64,7 @@ const addStudent = async (req, res, next) => {
 const updateStudent = async (req, res, next) => {
   const id = req.params.id;
 
+  if(req.files){
   // coverLetters
   if (req.files.resume) {
     // if i submit
@@ -88,6 +89,7 @@ const updateStudent = async (req, res, next) => {
       }
     });
   }
+ 
 
   if (req.files.coverLetter) {
     // if i submit
@@ -136,6 +138,7 @@ const updateStudent = async (req, res, next) => {
       }
     });
   }
+}
 
   const { studentName, studentEmail, studentPassword } = req.body;
   if (
