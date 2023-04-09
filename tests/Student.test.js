@@ -3,13 +3,8 @@ const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../server/index");
 const student = require("../server/model/student");
+const { studentsData } = require("./sampledata");
 let mongoServer;
-const {
-  employersData,
-  studentsData,
-  applicationsData,
-  postingsData,
-} = require("./sampledata");
 
 beforeAll(async () => {
   mongoServer = new MongoMemoryServer();
@@ -63,7 +58,6 @@ describe("Student tests", () => {
 
     const response = await request(app).get(`/students/${newStudent._id}`);
     const { stu: studentObj } = response.body; // get the employer object from the response
-    //console.log(response.body);
     expect(response.status).toBe(200);
     expect(studentObj._id).toBeDefined();
     expect(studentObj.studentName).toBe(validStudent.studentName);
@@ -86,4 +80,3 @@ describe("Student tests", () => {
     expect(message).toBe("updated Successfully");
   });
 });
-//jest.setTimeout(30000)
