@@ -128,3 +128,4 @@ describe("Employer tests", () => {
     expect(response.status).toBe(200);
   });
 });
+//jest.setTimeout(30000)

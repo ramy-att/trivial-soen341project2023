@@ -86,3 +86,4 @@ describe("Student tests", () => {
     expect(message).toBe("updated Successfully");
   });
 });
+//jest.setTimeout(30000)
