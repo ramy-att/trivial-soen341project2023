@@ -71,73 +71,60 @@ describe("Posting tests", () => {
     expect(deleteResponse.status).toBe(200);
     expect(deletedPosting).toBeNull();
   });
-    it("Get all postingss", async () => {
-      postingsData[1].employerID = postingsData[0].employerID; 
-      postingsData[2].employerID = postingsData[0].employerID; 
-      postingsData[3].employerID = postingsData[0].employerID; 
-      let validPosting = postingsData[1];
+  it("Get all postingss", async () => {
+    postingsData[1].employerID = postingsData[0].employerID;
+    postingsData[2].employerID = postingsData[0].employerID;
+    postingsData[3].employerID = postingsData[0].employerID;
+    let validPosting = postingsData[1];
 
-      console.log(validPosting);
+    response = await request(app).post("/postings").send(validPosting);
+    response = await request(app).get(`/postings`);
+    const { posting } = response.body; // get the employer object from the response
 
-      response = await request(app).post("/postings").send(validPosting);
-      console.log(response.status);
+    expect(response.status).toBe(200);
+    expect(posting[0].description).toBe("Posting1 Employer2");
+  });
+  it("Get Posting", async () => {
+    let validPosting = postingsData[2];
 
-      response = await request(app).get(`/postings`);
-      const { posting } = response.body; // get the employer object from the response
+    var response = await request(app).post("/postings").send(validPosting);
+    const { posting: newPosting } = response.body;
+    sampleID = newPosting.employerID;
+    response = await request(app).get(`/postings/${newPosting._id}`);
+    const { posting: postingObj } = response.body; // get the employer object from the response
 
-      expect(response.status).toBe(200);
-      console.log(response.body);
-      expect(posting[0].description).toBe("Posting1 Employer2");
-    });
-    it("Get Posting", async () => {
-      let validPosting = postingsData[2];
+    expect(response.status).toBe(200);
+    expect(postingObj._id).toBeDefined();
+    expect(postingObj.organizationName).toBeDefined();
+    expect(postingObj.employerID).toBe(validPosting.employerID);
+    expect(postingObj.description).toBe(validPosting.description);
+    expect(postingObj.title).toBe(validPosting.title);
+    expect(postingObj.location).toBe(validPosting.location);
+  });
+  it("Update posting", async () => {
+    let validPosting = postingsData[2];
+    const newPos = postingsData[3];
 
+    const newPosting = await posting(validPosting);
 
-      var response = await request(app).post("/postings").send(validPosting);
-      const { posting:newPosting } = response.body;
-      sampleID=newPosting.employerID;
-      response = await request(app).get(`/postings/${newPosting._id}`);
-      const { posting: postingObj } = response.body; // get the employer object from the response
+    await newPosting.save();
 
-      expect(response.status).toBe(200);
-      expect(postingObj._id).toBeDefined();
-      expect(postingObj.organizationName).toBeDefined();
-      expect(postingObj.employerID).toBe(validPosting.employerID);
-      expect(postingObj.description).toBe(validPosting.description);
-      expect(postingObj.title).toBe(validPosting.title);
-      expect(postingObj.location).toBe(validPosting.location);
-    });
-    it("Update posting", async () => {
-      let validPosting = postingsData[2];
-      const newPos = postingsData[3];
+    const response = await request(app)
+      .patch(`/postings/${newPosting._id}`)
+      .send(newPos);
 
-      
+    const { message } = response.body;
 
-      const newPosting = await posting(validPosting);
-    
-      console.log(newPosting);
+    expect(response.status).toBe(200);
+    expect(message).toBe("Posting updated Successfully");
+  });
+  it("Get Employer's Postings", async () => {
+    const response = await request(app).get(`/postings/employer/${sampleID}`);
 
-      await newPosting.save();
+    const { postings } = response.body;
 
-      const response = await request(app)
-        .patch(`/postings/${newPosting._id}`)
-        .send(newPos);
-
-      const { message } = response.body;
-
-      expect(response.status).toBe(200);
-      expect(message).toBe("Posting updated Successfully");
-    });
-    it("Get Employer's Postings", async () => {
-    
-
-      const response = await request(app)
-        .get(`/postings/employer/${sampleID}`);
-
-      const { postings } = response.body;
-
-      expect(response.status).toBe(200);
-      // Employer has 3 postings.
-      expect(postings.length).toBe(3);
-    });
+    expect(response.status).toBe(200);
+    // Employer has 3 postings.
+    expect(postings.length).toBe(3);
+  });
 });
