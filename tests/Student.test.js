@@ -4,29 +4,13 @@ const request = require("supertest");
 const app = require("../server/index");
 const student = require("../server/model/student");
 let mongoServer;
+const {
+  employersData,
+  studentsData,
+  applicationsData,
+  postingsData,
+} = require("./sampledata");
 
-const studentsData = [
-  {
-    studentName: "student 1",
-    studentPassword: "student1",
-    studentEmail: "student1@student1.com",
-  },
-  {
-    studentName: "student 2",
-    studentPassword: "student2",
-    studentEmail: "student2@student2.com",
-  },
-  {
-    studentName: "student 3",
-    studentPassword: "student3",
-    studentEmail: "student3@student3.com",
-  },
-  {
-    studentName: "student 4",
-    studentPassword: "student4",
-    studentEmail: "student4@student4.com",
-  },
-];
 beforeAll(async () => {
   mongoServer = new MongoMemoryServer();
   await mongoServer.start();
@@ -66,10 +50,10 @@ describe("Student tests", () => {
   });
   it("Get all students", async () => {
     const response = await request(app).get(`/students`);
-    const { student } = response.body; // get the employer object from the response
+    const { students } = response.body; // get the employer object from the response
 
     expect(response.status).toBe(200);
-    expect(student[0].studentEmail).toBe("student1@student1.com");
+    expect(students[0].studentEmail).toBe("student1@student1.com");
   });
   it("Get student", async () => {
     let validStudent = studentsData[1];
@@ -78,8 +62,8 @@ describe("Student tests", () => {
     await newStudent.save();
 
     const response = await request(app).get(`/students/${newStudent._id}`);
-    const { student: studentObj } = response.body; // get the employer object from the response
-
+    const { stu: studentObj } = response.body; // get the employer object from the response
+    //console.log(response.body);
     expect(response.status).toBe(200);
     expect(studentObj._id).toBeDefined();
     expect(studentObj.studentName).toBe(validStudent.studentName);
@@ -93,7 +77,7 @@ describe("Student tests", () => {
     await newStudent.save();
 
     const response = await request(app)
-      .patch(`/student/${newStudent._id}`)
+      .patch(`/students/${newStudent._id}`)
       .send(newStu);
 
     const { message } = response.body;
