@@ -43,7 +43,6 @@ export const SignUp = (props) => {
       try {
         const response = await fetch(url, req);
         const result = await response.json();
-        console.log(result);
         if (result.err) {
           setSignUpError(result.err);
         }
@@ -56,9 +55,7 @@ export const SignUp = (props) => {
             "Thank you for signing up! Please sign in to access your account."
           );
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
     if (typeSignUp === "employer") {
       const url = "http://localhost:3001/employers";
@@ -85,7 +82,6 @@ export const SignUp = (props) => {
       try {
         const response = await fetch(url, req);
         const result = await response.json();
-        console.log(result);
         if (result.err) {
           setSignUpError(result.err);
         }
@@ -98,9 +94,7 @@ export const SignUp = (props) => {
             "Thank you for signing up! Please sign in to access your account."
           );
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
   };
 
