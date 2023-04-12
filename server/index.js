@@ -28,20 +28,16 @@ app.use("/file", fileRouter);
 
 // [USED FOR TESTING IN upload.html]
 app.get("/download", (req, res) => {
-  console.log("DOWNLOAD BUTTON PRESSED");
   const file = `${__dirname}/uploads/640bed07ba4b4ab648528f29.pdf`;
   res.download(file); // Set disposition and send it.
 });
 app.get("/", (req, res) => {
-  console.log("Test");
   res.sendFile(__dirname + "/upload.html");
 });
 app.post("/", (req, res) => {
   if (req.files) {
-    console.log(req.files);
     var file = req.files.file;
     var filename = file.name;
-    console.log(filename);
 
     file.mv("./server/uploads/" + filename, function (err) {
       if (err) {

@@ -1,5 +1,7 @@
 const Posting = require("../model/posting");
 const Employer = require("../model/employer");
+const Application = require("../model/application");
+
 // [GET: GET AL POSTINGS]
 
 const getAllPostings = async (req, res, next) => {
@@ -93,6 +95,8 @@ const deletePosting = async (req, res, next) => {
     posting = await Posting.findById(id);
     if (posting.employerID === employer) {
       posting = await Posting.findByIdAndRemove(id);
+      // Delete all applications releated to this posting
+      await Application.findOneAndRemove({ postingID: id });
     } else {
       return res.status(500).json({ err: "Permission Error" });
     }
@@ -104,6 +108,7 @@ const deletePosting = async (req, res, next) => {
   }
   return res.status(200).json({ message: "Posting deleted successfully" });
 };
+
 // [GET: GET BY ID]
 const getPostingById = async (req, res, next) => {
   let id = req.params.id;
@@ -127,7 +132,6 @@ const getEmployerPostings = async (req, res, next) => {
   try {
     postings = await Posting.find({ employerID: id });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ err: "Could not fetch all postings" });
   }
   if (!postings) {

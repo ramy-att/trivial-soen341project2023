@@ -169,7 +169,6 @@ const getPostingApplications = async (req, res, next) => {
   try {
     applications = await Application.find({ postingID: id });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ err: "Could not fetch all applications" });
   }
   if (!applications) {
@@ -187,7 +186,6 @@ const getStudentApplications = async (req, res, next) => {
   try {
     applications = await Application.find({ studentID: id });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ err: "Could not fetch student applications" });
   }
   if (!applications) {

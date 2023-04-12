@@ -50,11 +50,7 @@ const EditPosting = (props) => {
         setPosition(result.posting.title);
         setExpirationDate(result.posting.expirationDate);
       }
-    } catch (error) {
-      if (error) {
-        console.log(error);
-      }
-    }
+    } catch (error) {}
   };
   const updatePosting = async (e) => {
     e.preventDefault();
@@ -78,7 +74,6 @@ const EditPosting = (props) => {
       const response = await fetch(url, req);
       const result = await response.json();
       if (!result.err) {
-        console.log(result);
         showmodalhandler();
         editposting({
           organizationName: userInfo.organizationName,
@@ -92,7 +87,6 @@ const EditPosting = (props) => {
       }
     } catch (error) {
       if (error) {
-        console.log(error);
       }
     }
   };

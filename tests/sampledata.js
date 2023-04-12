@@ -30,24 +30,24 @@ const employersData = [
 ];
 const studentsData = [
   {
-    studentName: "Student1",
-    studentEmail: "stu@conco.com",
-    studentPassword: "studentPassword",
+    studentName: "student 1",
+    studentPassword: "student1",
+    studentEmail: "student1@student1.com",
   },
   {
-    studentName: "Student2",
-    studentEmail: "stu2@conco.com",
-    studentPassword: "student2Password",
+    studentName: "student 2",
+    studentPassword: "student2",
+    studentEmail: "student2@student2.com",
   },
   {
-    studentName: "Student3",
-    studentEmail: "stu3@conco.com",
-    studentPassword: "student3Password",
+    studentName: "student 3",
+    studentPassword: "student3",
+    studentEmail: "student3@student3.com",
   },
   {
-    studentName: "Student4",
-    studentEmail: "stu4@conco.com",
-    studentPassword: "student4Password",
+    studentName: "student 4",
+    studentPassword: "student4",
+    studentEmail: "student4@student4.com",
   },
 ];
 const postingsData = [
