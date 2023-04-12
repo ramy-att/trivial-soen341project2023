@@ -182,7 +182,7 @@ const getPostingApplications = async (req, res, next) => {
 
 const getStudentApplications = async (req, res, next) => {
   // /student/:id
-  let id = req.params.id;
+  let id = req.params.id
   let applications;
   try {
     applications = await Application.find({ studentID: id });
